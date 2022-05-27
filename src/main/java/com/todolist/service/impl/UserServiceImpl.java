@@ -3,19 +3,13 @@ package com.todolist.service.impl;
 import java.util.List;
 
 import com.todolist.repository.ConfirmationTokenRepository;
-import com.todolist.utils.MethodUtils;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.todolist.model.Role;
@@ -24,7 +18,7 @@ import com.todolist.repository.RoleRepository;
 import com.todolist.repository.UserRepository;
 import com.todolist.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
-import sun.reflect.misc.MethodUtil;
+
 
 @Service
 public class UserServiceImpl implements UserService {
