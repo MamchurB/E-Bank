@@ -9,110 +9,93 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>E-BANK - Sign In</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-	<link rel="stylesheet" href="${path}/css/main.css">
+	<title>E-Bank - Login</title>
+	<link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
-<body>
-<div class="title">
-	E-BANK
+<body class="body_login">
+<div class="wrapper">
+	<header class="header">
+		<div class="container">
+			<div class="header__body">
+				<a href="" class="header__logo">E-bank</a>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<main class="page">
+		<div class="pattern-1">
+			<img src="${path}/images/pattern1.png" alt="pattern1">
+		</div>
+		<div class="pattern-2">
+			<img src="${path}/images/pattern2.png" alt="pattern2">
+		</div>
+		<div class="pattern-3">
+			<img src="${path}/images/pattern3.png" alt="pattern3">
+		</div>
+		<div class="container container_login">
+			<div class="login">
+				<div class="login__image">
+					<img src="${path}/images/login.png" alt="login">
+				</div>
+				<div class="login-block">
+					<div class="login-block__inner">
+						<div class="login-block__title form-title">
+							User Login
+						</div>
+						<form method="POST" action="${path}/user/login" class="login-block__form form-page">
+							<c:if test="${error != null}">
+								<div>
+									<strong style="width:90%; margin: 0 auto;color: #623e5a;font-weight: 500;font-size: 18px; margin-bottom: 10px;  display:block"
+									>${error}</strong>
+								</div>
+							</c:if>
+							<c:if test="${message != null}">
+								<div >
+									<strong style="width:90%; margin: 0 auto;color: #623e5a;font-weight: 500;font-size: 18px; margin-bottom: 10px; display:block"
+									>${message}</strong>
+								</div>
+							</c:if>
+							<div class="login-block__inputs">
+								<div class="login-block__username form-input">
+									<input type="text" placeholder="Enter username">
+									<span></span>
+								</div>
+								<div class="login-block__password form-input">
+									<input type="password" placeholder="Enter PASSWORD">
+									<span></span>
+								</div>
+								<a href="register.html" class="login-block__register form-link">No registered yet? SING UP</a>
+							</div>
+							<button class="login-block__button form-button">LOGIN</button>
+						</form>
+						<div class="login-block__label form-label">
+							Banking you want to use
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="footer">
+		<div class="container container_footer">
+			<div class="footer__inner">
+				<ul class="footer__social">
+					<li>
+						<a href="#"><img src="${path}/images/facebook.svg" alt="facebook"></a>
+					</li>
+					<li><a href="#"><img src="${path}/images/inst.svg" alt="inst"></a></li>
+					<li><a href="#"><img src="${path}/images/youtube.svg" alt="youtube"></a></li>
+					<li><a href="#"><img src="${path}/images/viber.svg" alt="viber"></a></li>
+					<li><a href="#"><img src="${path}/images/telega.svg" alt="telega"></a></li>
+				</ul>
+				<div class="footer__rights">
+					"E-Bank", 2023. All rights reserved. CrEATEd by Bohdan Mamchur
+				</div>
+			</div>
+		</div>
+	</footer>
 </div>
-<header id="conteuner-1">
-
-	<div class="img_main">
-		<img src="${path}/images/Main Photo.png" alt="" class="img_main">
-		<img src="${path}/images/Group-1.png" alt="" class="img_group">
-		<img src="${path}/images/Group.png" alt="" class="img_group1">
-		<img src="${path}/images/Vector.png" alt="" class="img_vector">
-	</div>
-
-	<div class="text_login">
-		USER LOGIN
-	</div>
-	<div class="wrapper">
-		<div class="formBlock">
-			<form method="POST" action="${path}/user/login" >
-				<c:if test="${error != null}">
-					<div>
-						<strong style="width:90%; margin: 0 auto;color: #623e5a;font-weight: 500;font-size: 18px; margin-bottom: 10px;  display:block"
-						>${error}</strong>
-					</div>
-				</c:if>
-				<c:if test="${message != null}">
-					<div >
-						<strong style="width:90%; margin: 0 auto;color: #623e5a;font-weight: 500;font-size: 18px; margin-bottom: 10px; display:block"
-						>${message}</strong>
-					</div>
-				</c:if>
-				<h1 class="h1">USER LOGIN</h1>
-				<div class="inputt">
-					<input class="input" name="username" type="text"
-						   placeholder="Enter username">
-				</div>
-
-				<div class="inputt">
-					<input class="input" type="password" name="password" required placeholder="Enter PASSWORD"
-						   required>
-				</div>
-				<div class="inputt">
-					<div class="input_text">
-
-						No registered yet? SING UP
-					</div>
-
-				</div>
-				<div class="inputr">
-					<input class="div" type="submit" value="LOGIN">
-				</div>
-				<div class="inputt">
-					<div class="input_text1">
-						BANKING YOU WANT TO USE
-					</div>
-
-				</div>
-
-			</form>
-
-		</div>
-
-		<div class="clearfix">
-
-		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-
-</header>
-<footer>
-	<div class="img_footen">
-		<a href="#">
-			<img src="./img/facebook.svg" alt="" class="img_facebook">
-		</a>
-		<a href="#">
-			<img src="./img/inst.svg" alt="" class="img_inst">
-		</a>
-		<a href="#">
-			<img src="./img/youtube.svg" alt="" class="img_youtube">
-		</a>
-		<a href="#">
-			<img src="./img/viber.svg" alt="" class="img_viber">
-		</a>
-		<a href="#">
-			<img src="./img/telega.svg" alt="" class="img_telega">
-		</a>
-
-	</div>
-	<div class="text_footer">
-		"E-Bank", 2023. All rights reserved. CrEATEd by Bohdan Mamchur
-	</div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
 </body>
 
 </html>
