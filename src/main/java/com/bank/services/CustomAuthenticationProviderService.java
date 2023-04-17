@@ -47,6 +47,8 @@ public class CustomAuthenticationProviderService implements AuthenticationProvid
 		if(user != null) {
 			System.out.println(user.getUsername());
 			System.out.println(user.getPassword());
+			System.out.println(username.equals(user.getUsername()));
+			System.out.println(BCrypt.checkpw(password, user.getPassword()));
 			if(username.equals(user.getUsername()) && BCrypt.checkpw(password, user.getPassword())) {
 				Collection<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
 				authenticationToken = new UsernamePasswordAuthenticationToken(

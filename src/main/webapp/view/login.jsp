@@ -58,11 +58,11 @@
 							</c:if>
 							<div class="login-block__inputs">
 								<div class="login-block__username form-input">
-									<input type="text" placeholder="Enter username">
+									<input name="username" type="text" placeholder="Enter username">
 									<span></span>
 								</div>
 								<div class="login-block__password form-input">
-									<input type="password" placeholder="Enter PASSWORD">
+									<input name="password" type="password" placeholder="Enter PASSWORD">
 									<span></span>
 								</div>
 								<a href="register.html" class="login-block__register form-link">No registered yet? SING UP</a>
