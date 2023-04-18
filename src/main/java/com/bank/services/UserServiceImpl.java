@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         User mapped = userMapper.userInToUser(userIn);
         mapped.setLocked(false);
         mapped.setCredentials(false);
-        mapped.setEnabled(false);
+        mapped.setEnabled(true);
 
         String identifier = generateIdentifier();
         mapped.setIdentifier(identifier);
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
         );
         mapped.setPassword(passwordEncoder.encode(userIn.getPassword()));
 
-        emailService.sendRegisterMail(mapped.getEmail(), identifier);
+        //emailService.sendRegisterMail(mapped.getEmail(), identifier);
 
         return userMapper.userToUserOut(userRepository.save(mapped));
     }
@@ -156,6 +156,11 @@ public class UserServiceImpl implements UserService {
         }
 
         return userMapper.userToUserOut(userRepository.save(user));
+    }
+
+    @Override
+    public UserOut findByEmail(String email) {
+        return userMapper.userToUserOut(userRepository.findByEmailIgnoreCase(email));
     }
 
     @Override

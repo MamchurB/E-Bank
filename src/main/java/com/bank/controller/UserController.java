@@ -4,13 +4,17 @@ import com.bank.dto.edit.PasswordEdit;
 import com.bank.dto.edit.UserEdit;
 import com.bank.dto.in.UserIn;
 import com.bank.dto.out.UserOut;
+import com.bank.models.user.User;
 import com.bank.models.user.UserRole;
 import com.bank.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,6 +46,44 @@ public class UserController {
             System.out.println("You have been logged out successfully.");
             model.addAttribute("message", "You have been logged out successfully.");
         }
+
+        return "login";
+    }
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+
+        return "register";
+    }
+    @PostMapping("/registration")
+    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        UserOut user = userService.findByEmail(userForm.getEmail());
+
+        if( user != null){
+            model.addAttribute("userError", "This name already exists");
+            return "register";
+        }
+        if (userForm.getUsername().length() < 5 || userForm.getUsername().length() > 30){
+            model.addAttribute("userFullNameError", "Please enter between 5-30 characters and no digits");
+            return "register";
+        }
+        if (userForm.getEmail().length() < 10 || userForm.getEmail().length() > 100){
+            model.addAttribute("userEmailError", "Please enter between 10-100 characters and valid input");
+            return "register";
+        }
+        if ( userForm.getAddress().getPhoneNumber().length() != 10){
+            model.addAttribute("userMobileError", "Please enter atleast 10 digits");
+            return "register";
+        }
+        if (userForm.getPassword().length() == 0){
+            model.addAttribute("passwordError", "Password not equals");
+            return "register";
+        }
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        model.addAttribute("email", userForm.getEmail());
 
         return "login";
     }

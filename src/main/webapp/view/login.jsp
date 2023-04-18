@@ -65,7 +65,7 @@
 									<input name="password" type="password" placeholder="Enter PASSWORD">
 									<span></span>
 								</div>
-								<a href="register.html" class="login-block__register form-link">No registered yet? SING UP</a>
+								<a href="${path}/user/registration" class="login-block__register form-link">No registered yet? SING UP</a>
 							</div>
 							<button class="login-block__button form-button">LOGIN</button>
 						</form>
