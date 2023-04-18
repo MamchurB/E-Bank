@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +18,9 @@ public class UserIn {
     @Length(min = 8, max = 100)
     @NotNull
     private String password;
+
+    @Transient
+    private String passwordConfirm;
 
     private String confirmPassword;
 

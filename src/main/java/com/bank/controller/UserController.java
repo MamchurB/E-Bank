@@ -56,33 +56,34 @@ public class UserController {
         return "register";
     }
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("userForm") UserIn userForm, BindingResult bindingResult, Model model) {
         UserOut user = userService.findByEmail(userForm.getEmail());
 
         if( user != null){
             model.addAttribute("userError", "This name already exists");
-            return "register";
-        }
-        if (userForm.getUsername().length() < 5 || userForm.getUsername().length() > 30){
-            model.addAttribute("userFullNameError", "Please enter between 5-30 characters and no digits");
+            System.out.println("This name already exists");
             return "register";
         }
         if (userForm.getEmail().length() < 10 || userForm.getEmail().length() > 100){
             model.addAttribute("userEmailError", "Please enter between 10-100 characters and valid input");
+            System.out.println("Please enter between 10-100 characters and valid input");
             return "register";
         }
-        if ( userForm.getAddress().getPhoneNumber().length() != 10){
+        if ( userForm.getAddress().getPhoneNumber().length() != 12){
             model.addAttribute("userMobileError", "Please enter atleast 10 digits");
+            System.out.println("Please enter atleast 10 digits");
             return "register";
         }
         if (userForm.getPassword().length() == 0){
             model.addAttribute("passwordError", "Password not equals");
+            System.out.println("Password not equals");
             return "register";
         }
         if (bindingResult.hasErrors()) {
+            System.out.println("Has Error");
             return "register";
         }
-
+        userService.createEmployee(userForm);
         model.addAttribute("email", userForm.getEmail());
 
         return "login";

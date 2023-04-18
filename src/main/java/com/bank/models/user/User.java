@@ -41,6 +41,9 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
 
+    @Transient
+    private String passwordConfirm;
+
     @Email
     @NotBlank
     @NotNull
@@ -132,5 +135,7 @@ public class User implements UserDetails {
     }
 
 
-
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 }
