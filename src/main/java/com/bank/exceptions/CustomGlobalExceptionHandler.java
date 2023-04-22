@@ -47,7 +47,8 @@ public class CustomGlobalExceptionHandler {
         if (exception instanceof AccessDeniedException) {
             errMessage = messageSource.getMessage(AUTHENTICATION_ERROR, null, locale);
             return new ResponseEntity<>(new ApiResponse(errMessage), HttpStatus.FORBIDDEN);
-        }        errMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
+        }
+        errMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
 
         System.out.println(exception.getMessage());
         return new ResponseEntity<>(new ApiResponse(errMessage), HttpStatus.INTERNAL_SERVER_ERROR);

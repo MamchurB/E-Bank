@@ -64,6 +64,9 @@ public class TransactionServiceImpl implements TransactionService {
         transactionIn.setDestinedAccountNumber(transactionIn.getDestinedAccountNumber()
                 .replace(" ", ""));
 
+        System.out.println(transactionIn.getSourceAccountNumber());
+        System.out.println(transactionIn.getSourceCurrency());
+
         CurrencyType sourceCurrency = currencyTypeRepository
                 .findByName(transactionIn.getSourceCurrency())
                 .orElseThrow(() -> new ApiException("Exception.sourceCurrencyNotFound", null));

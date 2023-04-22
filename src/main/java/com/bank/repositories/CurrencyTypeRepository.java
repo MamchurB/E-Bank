@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface CurrencyTypeRepository extends JpaRepository<CurrencyType, Long>
 {
-        Optional<CurrencyType> findByName ( String name );
+        Optional<CurrencyType> findByName (String name);
 
 }
