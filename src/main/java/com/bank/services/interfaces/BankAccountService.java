@@ -5,6 +5,7 @@ import com.bank.dto.edit.SaldoEdit;
 import com.bank.dto.in.BankAccountIn;
 import com.bank.dto.out.BankAccountOut;
 import com.bank.dto.out.SaldoOut;
+import com.bank.dto.out.UserOut;
 
 import java.util.List;
 
@@ -24,5 +25,4 @@ public interface BankAccountService {
     BankAccountOut update(Long id, BankAccountEdit bankAccountEdit);
 
     SaldoOut updateSaldo(Long id, SaldoEdit saldoEdit);
-
 }

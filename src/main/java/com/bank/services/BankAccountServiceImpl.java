@@ -5,9 +5,11 @@ import com.bank.dto.edit.SaldoEdit;
 import com.bank.dto.in.BankAccountIn;
 import com.bank.dto.out.BankAccountOut;
 import com.bank.dto.out.SaldoOut;
+import com.bank.dto.out.UserOut;
 import com.bank.exceptions.ApiException;
 import com.bank.mappers.BankAccountMapper;
 import com.bank.mappers.SaldoMapper;
+import com.bank.mappers.UserMapper;
 import com.bank.models.BankAccount;
 import com.bank.models.Saldo;
 import com.bank.models.enums.BankAccountType;
@@ -46,6 +48,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     private final UserRepository userRepository;
 
     private final SaldoMapper saldoMapper;
+    private final UserMapper userMapper;
 
     @Autowired
     public BankAccountServiceImpl(BankAccountMapper bankAccountMapper,
@@ -55,7 +58,8 @@ public class BankAccountServiceImpl implements BankAccountService {
                                   CurrencyTypeRepository currencyTypeRepository,
                                   BankAccountTypeRepository bankAccountTypeRepository,
                                   UserRepository userRepository,
-                                  SaldoMapper saldoMapper) {
+                                  SaldoMapper saldoMapper,
+                                  UserMapper userMapper) {
         this.bankAccountMapper = bankAccountMapper;
         this.bankAccountRepository = bankAccountRepository;
         this.constants = constants;
@@ -64,6 +68,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         this.bankAccountTypeRepository = bankAccountTypeRepository;
         this.userRepository = userRepository;
         this.saldoMapper = saldoMapper;
+        this.userMapper = userMapper;
     }
 
     @Override

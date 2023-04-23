@@ -29,7 +29,7 @@ public class TransactionController {
 
     @GetMapping
     @Secured("ROLE_USER")
-    public String registration(Model model) {
+    public String transaction(Model model) {
         model.addAttribute("transferForm", new TransactionIn());
         System.out.println("transfer");
         model.addAttribute("allCurrencyType", currencyTypeService.findAll());

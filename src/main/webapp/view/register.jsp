@@ -48,44 +48,43 @@
                      <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
                      <form:form method="POST" modelAttribute="userForm">
                      <form method="POST" action="${path}/user/registration" class="login-block__form form-page">
-                        <div class="loginn-blockk__inputss">
-                           <div class="login1-block1__inputs1">
-                              <div class="register1-block1__username1 form3-input3">
-                                 <form:input path="address.name" type="text" placeholder="First name"></form:input>
-                                 <span></span>
-                              </div>
-                              <div class="register2-block2__username2 form3-input3">
-                                 <form:input path="address.surname" type="text" placeholder="Surname "></form:input>
-                                 <span></span>
-                              </div>
-                           </div>
-                           <div class="login1-block1__inputs1">
-                              <div class="register-block__email form1-input1">
-                                 <form:input path="email" type="email" placeholder="Email"></form:input>
-                                 <span></span>
-                              </div>
-                           </div>
-                           <div class="login1-block1__inputs1">
-                              <div class="register-block__city form3-input3">
-                                 <form:input path="address.city" type="text" placeholder="City"></form:input>
-                                 <span></span>
-                              </div>
-                              <div class="register-block__username form3-input3">
-                                 <form:input path="address.phoneNumber" type="tel" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></form:input>
-                                 <span></span>
-                              </div>
-                           </div>
-                           <div class="login1-block1__inputs1">
-                              <div class="login1-block1__password1 form3-input3">
-                                 <form:input path="password" type="password" placeholder="Enter PASSWORD"></form:input>
-                                 <span></span>
-                              </div>
-                              <div class="login-block__password form3-input3">
-                                 <form:input path="passwordConfirm" type="password" placeholder="Repeat PASSWORD"></form:input>
-                                 <span></span>
-                              </div>
+                        <div class="login-block__inputs register-block__inputs">
 
+                           <div class="register-row">
+                              <div class="register-block__name form-input form-input_register">
+                                 <form:input path = "address.name" type="text" placeholder="Enter name"></form:input>
+                                 <span></span>
+                              </div>
+                              <div class="register-block__surname form-input form-input_register">
+                                 <form:input path = "address.surname" type="text" placeholder="Enter surname"></form:input>
+                                 <span></span>
+                              </div>
                            </div>
+                           <div class="register-block__email form-input form-input_register">
+                              <form:input path = "email" type="email" placeholder="Enter Email"></form:input>
+                              <span></span>
+                           </div>
+                           <div class="register-row">
+                              <div class="register-block__city form-input form-input_register">
+                                 <form:input path = "address.city" type="text" placeholder="Enter city"></form:input>
+                                 <span></span>
+                              </div>
+                              <div class="register-block__phone form-input form-input_register">
+                                 <form:input path = "address.phoneNumber" type="tel" placeholder="Enter phone"></form:input>
+                                 <span></span>
+                              </div>
+                           </div>
+                           <div class="register-row">
+                              <div class="login-block__password form-input form-input_register">
+                                 <form:input path = "password" type="password" placeholder="Enter PASSWORD"></form:input>
+                                 <span></span>
+                              </div>
+                              <div class="login-block__password form-input form-input_register">
+                                 <form:input path = "passwordConfirm" type="password" placeholder="Repeat PASSWORD"></form:input>
+                                 <span></span>
+                              </div>
+                           </div>
+
                            <a href="${path}/user/login" class="login-block__register form-link">Already registered? SING IN</a>
                         </div>
                         <button class="login-block__button form-button">REGISTER</button>
