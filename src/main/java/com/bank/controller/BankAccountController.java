@@ -7,8 +7,10 @@ import com.bank.dto.out.BankAccountOut;
 import com.bank.dto.out.SaldoOut;
 import com.bank.dto.out.UserOut;
 import com.bank.models.user.User;
+import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.UserServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
+import com.bank.services.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -20,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -28,20 +31,20 @@ import java.util.Set;
 public class BankAccountController {
     private final BankAccountService bankAccountService;
     private final UserServiceImpl userService;
+    private final TransactionService transactionService;
+
+    private final CurrencyTypeServiceImpl currencyTypeService;
 
     @Autowired
     public BankAccountController(BankAccountService bankAccountService,
-                                 UserServiceImpl userService) {
+                                 UserServiceImpl userService,
+                                 TransactionService transactionService,
+                                 CurrencyTypeServiceImpl currencyTypeService) {
         this.bankAccountService = bankAccountService;
         this.userService = userService;
+        this.transactionService = transactionService;
+        this.currencyTypeService = currencyTypeService;
     }
-
-    @GetMapping
-    @Secured("ROLE_EMPLOYEE")
-    public List<BankAccountOut> findAll() {
-        return bankAccountService.findAll();
-    }
-
     @GetMapping("/main")
     @Secured("ROLE_USER")
     public String account(Model model) {
@@ -51,6 +54,29 @@ public class BankAccountController {
         model.addAttribute("allBankAccount", bankAccountService.findByUser());
         return "index";
     }
+    @GetMapping("/card-details/{id}")
+    @Secured("ROLE_USER")
+    public String cardDetails(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("bankAccount", bankAccountService.findById(id));
+        model.addAttribute("transactionsById", transactionService.findAllByBankAccountId(id));
+        model.addAttribute("bankAccountId", id);
+        HashMap<String, Object> map = new HashMap<>();
+        return "card-details";
+    }
+
+    @GetMapping("/close-account/{id}")
+    @Secured("ROLE_USER")
+    public String cardClose(Model model, @PathVariable("id") Long id) {
+        bankAccountService.deleteById(id);
+        return "redirect:/bankaccount/main";
+    }
+    @GetMapping
+    @Secured("ROLE_EMPLOYEE")
+    public List<BankAccountOut> findAll() {
+        return bankAccountService.findAll();
+    }
+
+
 
     @PostMapping
     @Secured("ROLE_USER")

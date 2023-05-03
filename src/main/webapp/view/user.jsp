@@ -115,7 +115,7 @@
               Ідентифікатор
             </th>
             <td>
-              33333333
+              ${userAccount.identifier}
             </td>
           </tr>
           <tr>
@@ -123,7 +123,7 @@
               Ім’я
             </th>
             <td>
-              Мамчур
+              ${userAccount.address.name}
             </td>
           </tr>
           <tr>
@@ -131,7 +131,7 @@
               Прізвище
             </th>
             <td>
-              Богдан
+              ${userAccount.address.surname}
             </td>
           </tr>
           <tr>
@@ -139,7 +139,7 @@
               Місто
             </th>
             <td>
-              Львів
+              ${userAccount.address.city}
             </td>
           </tr>
           <tr>
@@ -147,7 +147,7 @@
               Пошта
             </th>
             <td>
-              bohdan@gmail.com
+              ${userAccount.email}
             </td>
           </tr>
           <tr>
@@ -155,7 +155,7 @@
               Телефон
             </th>
             <td>
-              099 99 999 99
+              ${userAccount.address.phoneNumber}
             </td>
           </tr>
         </table>
@@ -163,20 +163,24 @@
       <div class="user__label">
         Редагувати пароль
       </div>
+      <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+      <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+      <form:form method="POST" modelAttribute="passwordForm">
       <form class="user__form">
         <div class="register-row">
           <div class="login-block__password form-input form-input_register">
-            <input type="password" placeholder="Enter PASSWORD">
+            <form:input path = "password" type="password" placeholder="Enter PASSWORD"></form:input>
             <span></span>
           </div>
           <div class="login-block__password form-input form-input_register">
-            <input type="password" placeholder="Repeat PASSWORD">
+            <form:input path = "confirmPassword" type="password" placeholder="Repeat PASSWORD"></form:input>
             <span></span>
           </div>
         </div>
         <button class="login-block__button form-button">Змінити</button>
 
       </form>
+      </form:form>
     </div>
   </main>
   <footer class="footer">

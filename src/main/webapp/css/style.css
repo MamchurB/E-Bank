@@ -77,9 +77,9 @@ h6 {
 /* Webfont: Lato-Bold */
 @font-face {
   font-family: "Lato";
-  src: url("../fonts/lato/Lato-Bold.eot");
+  src: url("/fonts/lato/Lato-Bold.eot");
   /* IE9 Compat Modes */
-  src: url("../fonts/lato/Lato-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/lato/Lato-Bold.woff2") format("woff2"), url("../fonts/lato/Lato-Bold.woff") format("woff"), url("../fonts/lato/Lato-Bold.ttf") format("truetype");
+  src: url("/fonts/lato/Lato-Bold.eot?#iefix") format("embedded-opentype"), url("/fonts/lato/Lato-Bold.woff2") format("woff2"), url("/fonts/lato/Lato-Bold.woff") format("woff"), url("/fonts/lato/Lato-Bold.ttf") format("truetype");
   font-style: normal;
   font-weight: 700;
   text-rendering: optimizeLegibility; }
@@ -87,9 +87,9 @@ h6 {
 /* Webfont: Lato-BoldItalic */
 @font-face {
   font-family: "Lato";
-  src: url("../fonts/lato/Lato-BoldItalic.eot");
+  src: url("/fonts/lato/Lato-BoldItalic.eot");
   /* IE9 Compat Modes */
-  src: url("../fonts/lato/Lato-BoldItalic.eot?#iefix") format("embedded-opentype"), url("../fonts/lato/Lato-BoldItalic.woff2") format("woff2"), url("../fonts/lato/Lato-BoldItalic.woff") format("woff"), url("../fonts/lato/Lato-BoldItalic.ttf") format("truetype");
+  src: url("/fonts/lato/Lato-BoldItalic.eot?#iefix") format("embedded-opentype"), url("/fonts/lato/Lato-BoldItalic.woff2") format("woff2"), url("/fonts/lato/Lato-BoldItalic.woff") format("woff"), url("/fonts/lato/Lato-BoldItalic.ttf") format("truetype");
   font-style: italic;
   font-weight: 700;
   text-rendering: optimizeLegibility; }
@@ -731,13 +731,13 @@ body {
 .register-block__email {
   margin-bottom: 15px; }
   .register-block__email::before {
-    background-image: url("../images/user.svg"); }
+    background-image: url("../images/email.svg"); }
 
 .register-block__city::before {
-  background-image: url("../images/user.svg"); }
+  background-image: url("../images/city.svg"); }
 
 .register-block__phone::before {
-  background-image: url("../images/user.svg"); }
+  background-image: url("../images/phone.svg"); }
 
 .register-row {
   display: -webkit-box;

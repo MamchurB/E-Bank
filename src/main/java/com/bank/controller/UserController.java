@@ -11,12 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -88,6 +93,29 @@ public class UserController {
 
         return "login";
     }
+    @GetMapping("/profile")
+    public String user(Model model) {
+        String user =  SecurityContextHolder.getContext().getAuthentication().getName();
+        UserOut userOut = userService.findByIdentifier(user);
+        model.addAttribute("userAccount", userOut);
+        model.addAttribute("passwordForm", new PasswordEdit());
+        return "user";
+    }
+    @PostMapping("/profile")
+    public String passwordEdit(Model model, PasswordEdit passwordEdit,
+                               HttpServletRequest request, HttpServletResponse response) {
+        String user =  SecurityContextHolder.getContext().getAuthentication().getName();
+        UserOut userOut = userService.findByIdentifier(user);
+        model.addAttribute("userAccount", userOut);
+        userService.updatePassword(passwordEdit);
+        model.addAttribute("passwordForm", new PasswordEdit());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/user/login";
+    }
     @PostMapping("/create/employee")
     @Secured("ROLE_ADMIN")
     public UserOut createEmployee(@RequestBody @Valid UserIn userIn) {
@@ -139,6 +167,7 @@ public class UserController {
     public UserOut findCurrentUser(){
         return userService.findCurrentUser();
     }
+
 
     @PatchMapping("/password/edit")
     public UserOut updatePassword(@Valid @RequestBody PasswordEdit passwordEdit){

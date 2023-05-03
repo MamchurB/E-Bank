@@ -32,7 +32,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/user/confirm-account").permitAll()
-                .antMatchers("/fonts/*").permitAll()
+                .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/user/registration").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/images/**").permitAll()
