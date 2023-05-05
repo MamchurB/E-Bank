@@ -4,7 +4,9 @@ import com.bank.dto.in.CreditIn;
 import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.CreditStatusOut;
 import com.bank.models.enums.CreditStatus;
+import com.bank.repositories.BankAccountRepository;
 import com.bank.repositories.SaldoRepository;
+import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -20,11 +22,15 @@ public class CreditController {
     private final CreditService creditService;
 
     private final SaldoRepository saldoRepository;
+
+    private final BankAccountService bankAccountService;
     @Autowired
     public CreditController(CreditService creditService,
-                            SaldoRepository saldoRepository) {
+                            SaldoRepository saldoRepository,
+                            BankAccountService bankAccountService) {
         this.creditService = creditService;
         this.saldoRepository = saldoRepository;
+        this.bankAccountService = bankAccountService;
     }
 
     @GetMapping
@@ -32,6 +38,7 @@ public class CreditController {
     public String credits(Model model) {
         model.addAttribute("creditsForm", new CreditIn());
         model.addAttribute("allSaldo", saldoRepository.findAll());
+        model.addAttribute("allAccount", bankAccountService.findByUser());
         System.out.println("credit");
 
         return "credit";

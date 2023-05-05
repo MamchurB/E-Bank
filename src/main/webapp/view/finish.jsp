@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Bank - Home</title>
+    <title>E-Bank - Transfer</title>
     <link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
@@ -96,71 +96,40 @@
                 </div>
             </div>
             <div class="dashboard__notification">
-                <img src="./images/notification.svg" alt="notification">
+                <img src="${path}/images/notification.svg" alt="notification">
                 <span>Notifications</span>
             </div>
             <div class="dashboard__profile">
-                <img src="./images/profile.svg" alt="profile">
+                <img src="${path}/images/profile.svg" alt="profile">
                 <span>Profile</span>
             </div>
         </div>
         <div class="data">
             <div class="data__title">
-                Новий кредит
+                Валютний переказ
             </div>
-            <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-            <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="creditsForm">
-            <div class="data__form">
-                <div class="data__bank-account">
-                    <div class="data__label">Виберіть банківський рахунок
+            <ul class="data__progress progress-data progressbar">
+                <li class="progress-data__element active">
+                    <div class="progress-data__text">
+                        Форма
                     </div>
-                    <select>
-                        <c:forEach items="${allAccount}" var="item">
-                            <option value="${item.number}">${item.number}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="data__balance">
-                    <div class="data__label">Цільовий Баланс
+                </li>
+                <div class="progress-data__line active"></div>
+                <li class="progress-data__element active">
+                    <div class="progress-data__text">
+                        Резюме
                     </div>
-                    <form:select path ="destinedSaldoId">
-                        <c:forEach items="${allSaldo}" var="item">
-                            <form:option value="${item.id}">${item.currencyType.name}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
-                <div class="data__sum-range sum-range">
-                    <div class="data__label">Сума
+                </li>
+                <div class="progress-data__line active"></div>
+                <li class="progress-data__element active">
+                    <div class="progress-data__text">
+                        Завершення
                     </div>
-                    <div class="sum-range__info">
-                        <div class="sum-range__current">
-                            100
-                        </div>
-                        <div class="sum-range__max">
-                            100000
-                        </div>
-                    </div>
-                    <form:input path = "totalBalance" type="range" class="sum-range__input" min="1000" max="500000" value="5000"></form:input>
-                </div>
-                <div class="data__pay-range sum-range">
-                    <div class="data__label">Кількість платежів
-                    </div>
-                    <div class="sum-range__info">
-                        <div class="pay-range__current">
-                            5
-                        </div>
-                        <div class="pay-range__max">
-                            10000
-                        </div>
-                    </div>
-                    <form:input path = "totalInstallmentCount" type="range" class="pay-range__input" min="5" max="96" value="12"></form:input>
-                </div>
-                <button class="data__button form-button">
-                    Оформити
-                </button>
-            </div>
-            </form:form>
+                </li>
+            </ul>
+            <a href="" class="data__complete">
+                <img src="${path}/images/complete.png" alt="complete">
+            </a>
         </div>
     </main>
     <footer class="footer">
@@ -184,9 +153,13 @@
 </div>
 
 
-<script src="./js/burger.js"></script>
-<script src="./js/input-range.js"></script>
+<script src="${path}/js/burger.js"></script>
 
+<!-- СЛАЙДЕР
+<script src="./js/script.js"></script>
+<script src="./js/slick.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+-->
 </body>
 
 </html>

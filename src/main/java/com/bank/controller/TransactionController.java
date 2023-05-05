@@ -2,6 +2,7 @@ package com.bank.controller;
 
 import com.bank.dto.in.TransactionIn;
 import com.bank.dto.out.TransactionOut;
+import com.bank.models.Transaction;
 import com.bank.models.user.User;
 import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.interfaces.TransactionService;
@@ -38,12 +39,39 @@ public class TransactionController {
 
     @PostMapping
     @Secured("ROLE_USER")
-    public String create(@Valid TransactionIn transactionIn) {
+    public String create(@Valid TransactionIn transactionIn, Model model) {
         System.out.println("create transaction");
-        transactionService.create(transactionIn);
+        model.addAttribute("transferConfirmation", transactionIn);
+        //TransactionOut transaction = transactionService.create(transactionIn);
         System.out.println("finish transaction");
-        return "login";
+        return "transfer-confirmation";
     }
+
+    @PostMapping("/confirmation")
+    @Secured("ROLE_USER")
+    public String confirmation(@Valid TransactionIn transactionIn, Model model) {
+       // model.addAttribute("transferConfirmation", transactionService.findById(id));
+        transactionService.create(transactionIn);
+        System.out.println("confirmation");
+        return "finish";
+    }
+    @GetMapping("/cancel")
+    @Secured("ROLE_USER")
+    public String transaction() {
+        return "redirect:/transaction";
+    }
+//    @GetMapping("/finish")
+//    @Secured("ROLE_USER")
+//    public String finish() {
+//        return "finish";
+//    }
+
+//    @GetMapping("/delete/{id}")
+//    @Secured("ROLE_USER")
+//    public String cancel(@PathVariable("id") Long id) {
+//        transactionService.deleteById(id);
+//        return "redirect:/transaction";
+//    }
 //    @GetMapping
 //    public List<TransactionOut> findAll() {
 //        return transactionService.findAll();

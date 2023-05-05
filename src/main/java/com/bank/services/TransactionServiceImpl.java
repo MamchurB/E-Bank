@@ -147,6 +147,18 @@ public class TransactionServiceImpl implements TransactionService {
                 .map(transactionMapper::entityToDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public Transaction findById(Long id) {
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+    }
+    @Override
+    public void deleteById(Long id) {
+        Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
+        transaction.getBalance();
+        transactionRepository.deleteById(id);
+    }
 
     @Override
     public List<TransactionOut> findAllByBankAccountId(Long bankAccountId) {
