@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html;"
          pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import="java.time.Instant" %>
+<%@ page import="com.bank.dto.out.MessageOut" %>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 
@@ -9,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Bank - Home</title>
+    <title>E-Bank - Message</title>
     <link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
@@ -96,62 +100,85 @@
                 </div>
             </div>
             <div class="dashboard__notification">
-                <img src="./images/notification.svg" alt="notification">
+                <img src="${path}/images/notification.svg" alt="notification">
                 <span>Notifications</span>
             </div>
             <div class="dashboard__profile">
-                <img src="./images/profile.svg" alt="profile">
+                <img src="${path}/images/profile.svg" alt="profile">
                 <span>Profile</span>
             </div>
         </div>
-        <div class="data">
-            <div class="data__title">
-                Новий кредит
+        <div class="data message">
+            <div class="form-title message__title">
+                Мої повідомлення
             </div>
+            <div class="message__details">
+                <div>Тема:</div>
+                <div>${conversation.topic}</div>
+                <div>Автор:</div>
+                <div>${conversation.user.address.name}&nbsp;${conversation.user.address.surname.toString()}</div>
+                <div>Дата:</div>
+                <div>${conversation.creationDate}</div>
+            </div>
+            <div class="message__message-container message-container">
+                <c:forEach items="${listMessages}" var="message">
+                <div class="message-container__item">
+                    <div class="message-container__sender">
+                        ${message.user.address.name}&nbsp;${message.user.address.surname}
+                    </div>
+                    <div class="message-container__text">
+                        ${message.message}
+                    </div>
+                    <div class="message-container__time">
+                        <%
+                            MessageOut date = (MessageOut) pageContext.getAttribute("message");
+                            long myDate = Date.from(date.getDate()).getTime();
+                            long millisecond = new Date().getTime();
+                            long second = (millisecond - myDate)/1000;
+                            out.print( "<span>" +( second < 60? " now " : second < 3600 ? (second/60) + " minute ago" :  second < 86400 ? second/3600 + " hour ago" : second / 86400 + " day ago")+"</span>");
+                        %>
+                    </div>
+                </div>
+                </c:forEach>
+            </div>
+
+            <c:forEach var="i" begin="1" end="${totalPages}">
+                <c:choose>
+                    <c:when test="${currentPage != i}">
+                        <a href="/messages/conversation/${conversation.id}/${i}">[${i}]</a>
+                    </c:when>
+                    <c:otherwise>
+                        <span>[${i}]</span>
+                    </c:otherwise>
+                </c:choose>
+                &nbsp;
+            </c:forEach>
+
+            <c:if test="${currentPage < totalPages}">
+                <a href="/messages/conversation/${conversation.id}/${currentPage + 1}">Next</a>
+            </c:if>
+            <c:if test="${currentPage >= totalPages}">
+                <span>Next</span>
+            </c:if>
+
+            <c:if test="${currentPage < totalPages}">
+                <a href="/messages/conversation/${conversation.id}/${totalPages}">Last</a>
+            </c:if>
+            <c:if test="${currentPage >= totalPages}">
+                <span>Last</span>
+            </c:if>
+
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="creditsForm">
-            <div class="data__form">
-                <div class="data__bank-account">
-                    <div class="data__label">Виберіть банківський рахунок
-                    </div>
-                    <select>
-                        <c:forEach items="${allAccount}" var="item">
-                            <option value="${item.number}">${item.number}</option>
-                        </c:forEach>
-                    </select>
+            <form:form method="POST" modelAttribute="messageForm">
+            <div class="data__receiver">
+                <div class="data__label">Відповідь
                 </div>
-                <div class="data__balance">
-                    <div class="data__label">Цільовий Баланс
-                    </div>
-                    <form:select path ="destinedSaldoId">
-                        <c:forEach items="${allSaldo}" var="item">
-                            <form:option value="${item.id}">${item.currencyType.name}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
-                <div class="data__sum data__credit-sum">
-                    <div class="data__label">Сума
-                    </div>
-                    <form:input path = "totalBalance" type="number" min="0" max="100000" placeholder="Сума"></form:input>
-                </div>
-                <div class="data__pay-range sum-range">
-                    <div class="data__label">Кількість платежів
-                    </div>
-                    <div class="sum-range__info">
-                        <div class="pay-range__current">
-                            5
-                        </div>
-                        <div class="pay-range__max">
-                            10000
-                        </div>
-                    </div>
-                    <form:input path = "totalInstallmentCount" type="range" class="pay-range__input" min="5" max="96" value="12"></form:input>
-                </div>
-                <button class="data__button form-button">
-                    Оформити
-                </button>
+                <form:input path = "message" type="text" placeholder="Відповідь"></form:input>
             </div>
+            <button class="message-container__button form-button">
+                Надіслати
+            </button>
             </form:form>
         </div>
     </main>
@@ -176,9 +203,13 @@
 </div>
 
 
-<script src="./js/burger.js"></script>
-<script src="./js/input-range.js"></script>
+<script src="${path}/js/burger.js"></script>
 
+<!-- СЛАЙДЕР
+<script src="./js/script.js"></script>
+<script src="./js/slick.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+-->
 </body>
 
 </html>

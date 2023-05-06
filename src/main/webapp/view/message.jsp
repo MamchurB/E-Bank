@@ -130,6 +130,36 @@
                </button>
             </form>
             </form:form>
+
+            <div class="card-details__transactions transactions-card-details">
+               <div class="transactions-card-details__title">
+                  Надіслані повідомлення
+               </div>
+               <div class="transactions-card-details__table_wrapper">
+                  <table class="transactions-card-details__table message__table">
+                     <tr>
+                        <th>Тема</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th>Перегляд</th>
+                     </tr>
+                     <c:forEach items="${allConversation}" var="message">
+                        <tr>
+                           <td>${message.topic}</td>
+                           <td>${message.creationDate}</td>
+                           <td>${message.conversationStatus}</td>
+                           <td>
+                              <a href="${path}/messages/conversation/${message.id}/1">
+                              <button class="form-button message__history-btn">
+                                 Переглянути
+                              </button>
+                              </a>
+                           </td>
+                        </tr>
+                     </c:forEach>
+                  </table>
+               </div>
+            </div>
          </div>
       </main>
       <footer class="footer">

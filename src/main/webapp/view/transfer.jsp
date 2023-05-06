@@ -134,10 +134,10 @@
                <div class="data__bank-account">
                   <div class="data__label">Виберіть банківський рахунок
                   </div>
-                  <form:select path="sourceAccountNumber">
-                     <form:option value="56785678567856785678567867">Account 1</form:option>
-                     <form:option value="56785678567856785678567867">Account 2</form:option>
-                     <form:option value="56785678567856785678567867">Account 3</form:option>
+                  <form:select path = "sourceAccountNumber">
+                     <c:forEach items="${allAccount}" var="item">
+                        <option value="${item.number}">${item.number}</option>
+                     </c:forEach>
                   </form:select>
                </div>
                <div class="data__row">
@@ -164,6 +164,16 @@
                   <div class="data__label">Одержувач
                   </div>
                   <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
+               </div>
+
+               <div class="data__bank-account">
+                  <div class="data__label">Виберіть тип транзакції
+                  </div>
+                  <form:select path="transactionDirectionId">
+                     <c:forEach items="${allTypeTransaction}" var="item">
+                        <form:option value="${item.transactionType.value}">${item.transactionType.name()}</form:option>
+                     </c:forEach>
+                  </form:select>
                </div>
                <div class="data__row">
                   <div class="data__sum">

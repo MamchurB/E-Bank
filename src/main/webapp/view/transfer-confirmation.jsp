@@ -173,6 +173,7 @@
                   <form:form method="POST" action="/transaction/confirmation"  modelAttribute="transferConfirmation">
                   <form>
                      <form:input type="hidden" path="destinedAccountNumber" value="${transferConfirmation.destinedAccountNumber}" />
+                     <form:input type="hidden" path="transactionDirectionId" value="${transferConfirmation.transactionDirectionId}" />
                      <form:input type="hidden" path="sourceAccountNumber" value="${transferConfirmation.sourceAccountNumber}" />
                      <form:input type="hidden" path="balance" value="${transferConfirmation.balance}" />
                      <form:input type="hidden" path="destinedCurrency" value="${transferConfirmation.destinedCurrency}" />

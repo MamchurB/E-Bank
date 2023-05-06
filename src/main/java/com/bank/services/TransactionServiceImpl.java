@@ -8,10 +8,8 @@ import com.bank.models.BankAccount;
 import com.bank.models.CurrencyType;
 import com.bank.models.Saldo;
 import com.bank.models.Transaction;
-import com.bank.repositories.BankAccountRepository;
-import com.bank.repositories.CurrencyTypeRepository;
-import com.bank.repositories.SaldoRepository;
-import com.bank.repositories.TransactionRepository;
+import com.bank.models.enums.TransactionDirection;
+import com.bank.repositories.*;
 import com.bank.services.interfaces.TransactionService;
 import com.bank.utils.Constants;
 import com.bank.utils.CurrencyConverter;
@@ -41,13 +39,17 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final CurrencyConverter currencyConverter;
 
+    private final TransactionTypeRepository transactionTypeRepository;
+
     @Autowired
     public TransactionServiceImpl(CurrencyTypeRepository currencyTypeRepository,
                                   BankAccountRepository bankAccountRepository,
                                   SaldoRepository saldoRepository,
                                   Constants constants,
                                   TransactionRepository transactionRepository,
-                                  TransactionMapper transactionMapper, CurrencyConverter currencyConverter) {
+                                  TransactionMapper transactionMapper,
+                                  CurrencyConverter currencyConverter,
+                                  TransactionTypeRepository transactionTypeRepository) {
         this.currencyTypeRepository = currencyTypeRepository;
         this.bankAccountRepository = bankAccountRepository;
         this.saldoRepository = saldoRepository;
@@ -55,6 +57,7 @@ public class TransactionServiceImpl implements TransactionService {
         this.transactionRepository = transactionRepository;
         this.transactionMapper = transactionMapper;
         this.currencyConverter = currencyConverter;
+        this.transactionTypeRepository = transactionTypeRepository;
     }
 
     @Override
@@ -106,8 +109,9 @@ public class TransactionServiceImpl implements TransactionService {
         sourceSaldo.setBalance(sourceSaldo.getBalance()
                 .subtract(BigDecimal.valueOf(transactionIn.getBalance())));
         destSaldo.setBalance(destSaldo.getBalance().add(balanceWithCommission));
-
-        return transactionMapper.entityToDTO(transactionRepository.save(
+        System.out.println(transactionIn.getTransactionDirectionId());
+        System.out.println(transactionTypeRepository.findById(Long.valueOf(transactionIn.getTransactionDirectionId())));
+       return transactionMapper.entityToDTO(transactionRepository.save(
                 Transaction.builder()
                         .balance(BigDecimal.valueOf(transactionIn.getBalance()))
                         .balanceWithCommission(balanceWithCommission)
@@ -117,6 +121,7 @@ public class TransactionServiceImpl implements TransactionService {
                         .title(transactionIn.getTitle())
                         .sourceCurrencyType(sourceCurrency)
                         .destinedCurrencyType(destSaldo.getCurrencyType())
+                        .transactionDirection(transactionTypeRepository.findById(Long.valueOf(transactionIn.getTransactionDirectionId())).orElseThrow(()-> new RuntimeException("Type not found")))
                         .build()
         ));
     }

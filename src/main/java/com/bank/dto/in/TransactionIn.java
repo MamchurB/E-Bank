@@ -1,5 +1,6 @@
 package com.bank.dto.in;
 
+import com.bank.models.enums.TransactionDirection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class TransactionIn {
     private String sourceAccountNumber;
-
+    private String transactionDirectionId;
     @NotBlank
     private String sourceCurrency;
 
@@ -32,4 +33,6 @@ public class TransactionIn {
     @Length(min = 1, max = 100)
     @NotBlank
     private String title;
+
+
 }

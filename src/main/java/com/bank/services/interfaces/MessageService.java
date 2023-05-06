@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface MessageService {
     MessageOut create(MessageIn messageIn);
 
-    Page<MessageOut> findAllByConversationId(Pageable pageable, Long conversationId);
+    Page<MessageOut> findAllByConversationId(int pageNum, Long conversationId);
 }

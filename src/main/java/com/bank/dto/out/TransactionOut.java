@@ -1,5 +1,6 @@
 package com.bank.dto.out;
 
+import com.bank.models.enums.TransactionDirection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,4 +30,6 @@ public class TransactionOut
         private CurrencyTypeOut sourceCurrencyType;
 
         private CurrencyTypeOut destinedCurrencyType;
+
+        private TransactionDirection transactionDirection;
 }

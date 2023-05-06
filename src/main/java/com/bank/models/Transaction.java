@@ -1,5 +1,6 @@
 package com.bank.models;
 
+import com.bank.models.enums.TransactionDirection;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,10 @@ public class Transaction
 
         @Column (name = "balance_with_commission")
         private BigDecimal balanceWithCommission;
+
+        @ManyToOne
+        @JoinColumn (name = "transaction_direction_id", nullable = false)
+        private TransactionDirection transactionDirection;
 
         @ManyToOne
         @JoinColumn (name = "source_bank_account_id", nullable = false)
