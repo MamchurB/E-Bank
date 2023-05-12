@@ -82,19 +82,12 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private boolean enabled;
 
-
-
-    @Column(name = "role_id")
-    private Long role;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<UserRole> userRoles;
-    public Long getRole() {
-        return role;
-    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return userRoles.stream()

@@ -4,6 +4,7 @@ import com.bank.models.enums.TransactionDirection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface TransactionTypeRepository extends JpaRepository<TransactionDirection, Long> {

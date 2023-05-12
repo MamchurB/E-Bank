@@ -60,13 +60,14 @@ public class BankAccountController {
         model.addAttribute("bankAccount", bankAccountService.findById(id));
         model.addAttribute("transactionsById", transactionService.findAllByBankAccountId(id));
         model.addAttribute("bankAccountId", id);
-        HashMap<String, Object> map = new HashMap<>();
+        model.addAttribute("chartData", transactionService.groupTransactionByTransactionType(id));
+        System.out.println(transactionService.groupTransactionByTransactionType(id).toString());
         return "card-details";
     }
 
     @GetMapping("/close-account/{id}")
     @Secured("ROLE_USER")
-    public String cardClose(Model model, @PathVariable("id") Long id) {
+    public String cardClose(@PathVariable("id") Long id) {
         bankAccountService.deleteById(id);
         return "redirect:/bankaccount/main";
     }

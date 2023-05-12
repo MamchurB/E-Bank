@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -171,6 +173,25 @@ public class TransactionServiceImpl implements TransactionService {
                 .stream()
                 .map(transactionMapper::entityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, String> groupTransactionByTransactionType(Long bankAccountId) {
+        Map<TransactionDirection, BigDecimal> map = transactionRepository.findTransactionsByBankAccountId(bankAccountId)
+                .stream()
+                .map(transactionMapper::entityToDTO)
+                .collect(
+                        Collectors.groupingBy(TransactionOut::getTransactionDirection,
+                        Collectors.mapping(TransactionOut::getBalance,
+                        Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
+        BigDecimal sum = map.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+        Map<String, BigDecimal> nameAndPercent = map.entrySet().stream().collect(Collectors.toMap(
+                entry -> entry.getKey().getTransactionType().name(),
+                entry -> (entry.getValue().multiply(BigDecimal.valueOf(100L))).divide(sum,2, RoundingMode.HALF_UP)));
+        Map<String, String> groupByNameAndValue = new HashMap<>();
+        groupByNameAndValue.put("label", nameAndPercent.keySet().toString());
+        groupByNameAndValue.put("value", nameAndPercent.values().toString());
+        return groupByNameAndValue;
     }
 
 }

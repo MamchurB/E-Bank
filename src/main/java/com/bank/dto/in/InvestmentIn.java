@@ -15,7 +15,17 @@ public class InvestmentIn {
 
     private Long destinedSaldoId;
 
+
+
     @NotNull
     @Min(0)
     private BigDecimal startBalance;
+
+    public Long getDestinedSaldoId() {
+        return destinedSaldoId;
+    }
+
+    public BigDecimal getStartBalance() {
+        return startBalance;
+    }
 }

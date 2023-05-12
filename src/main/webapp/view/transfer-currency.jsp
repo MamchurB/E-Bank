@@ -140,13 +140,32 @@
                      </c:forEach>
                   </form:select>
                </div>
+               <div class="data__row">
+                  <div class="data__out-currency">
+                     <div class="data__label">Вихідна валюта
+                     </div>
+                     <form:select path="sourceCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+                  <div class="data__currency">
+                     <div class="data__label">Цільова Валюта
+                     </div>
+                     <form:select path="destinedCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+               </div>
                <div class="data__receiver">
                   <div class="data__label">Одержувач
                   </div>
                   <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
                </div>
-               <form:input path="destinedCurrency" value = "PLN" type="hidden" />
-               <form:input path="sourceCurrency" value = "PLN" type="hidden"/>
+
                <div class="data__bank-account">
                   <div class="data__label">Виберіть тип транзакції
                   </div>
