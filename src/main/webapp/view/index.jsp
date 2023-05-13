@@ -26,7 +26,7 @@
           <ul class="header__list">
             <li><a href="" class="header__link">HOME</a></li>
             <li><a href="" class="header__link">ABOUT US</a></li>
-            <li><a href="" class="header__link">CONTACTS</a></li>
+            <li><a href="${path}/user/logout" class="header__link">Вихід</a></li>
           </ul>
         </nav>
       </div>

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/bankaccount")
+@RequestMapping
 public class BankAccountController {
     private final BankAccountService bankAccountService;
     private final UserServiceImpl userService;
@@ -45,7 +45,7 @@ public class BankAccountController {
         this.transactionService = transactionService;
         this.currencyTypeService = currencyTypeService;
     }
-    @GetMapping("/main")
+    @GetMapping
     @Secured("ROLE_USER")
     public String account(Model model) {
         String user =  SecurityContextHolder.getContext().getAuthentication().getName();
@@ -69,22 +69,22 @@ public class BankAccountController {
     @Secured("ROLE_USER")
     public String cardClose(@PathVariable("id") Long id) {
         bankAccountService.deleteById(id);
-        return "redirect:/bankaccount/main";
+        return "redirect:/";
     }
-    @GetMapping
-    @Secured("ROLE_EMPLOYEE")
-    public List<BankAccountOut> findAll() {
-        return bankAccountService.findAll();
-    }
-
-
-
-    @PostMapping
-    @Secured("ROLE_USER")
-    public BankAccountOut create(@RequestBody BankAccountIn bankAccountIn,
-                                 @AuthenticationPrincipal String username) {
-        return bankAccountService.create(bankAccountIn, username);
-    }
+//    @GetMapping
+//    @Secured("ROLE_EMPLOYEE")
+//    public List<BankAccountOut> findAll() {
+//        return bankAccountService.findAll();
+//    }
+//
+//
+//
+//    @PostMapping
+//    @Secured("ROLE_USER")
+//    public BankAccountOut create(@RequestBody BankAccountIn bankAccountIn,
+//                                 @AuthenticationPrincipal String username) {
+//        return bankAccountService.create(bankAccountIn, username);
+//    }
 
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
