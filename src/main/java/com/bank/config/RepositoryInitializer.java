@@ -7,18 +7,25 @@ import com.bank.models.user.User;
 import com.bank.models.user.UserRole;
 import com.bank.repositories.*;
 import com.bank.utils.Constants;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.*;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -77,7 +84,6 @@ public class RepositoryInitializer {
         this.creditStatusRepository = creditStatusRepository;
         this.encoder = bCryptPasswordEncoder;
     }
-
     @Bean
     public InitializingBean intializeRepo() {
         return () -> {
@@ -90,23 +96,23 @@ public class RepositoryInitializer {
 
             if (userRepository.findAll().isEmpty()) {
                 Address address = Address.builder()
-                    .city("Warszawa")
+                    .city("Lviv")
                     .houseNumber("10")
-                    .name("Jan")
-                    .surname("Kowalski")
+                    .name("Artem")
+                    .surname("Koval")
                     .phoneNumber("662003004")
                     .postCode("03-100")
                     .dateOfBirth(Instant.now())
-                    .street("Warszawska")
+                    .street("Zen")
                     .build();
 
                 User user = User.builder()
                     .credentials(false)
-                    .email("jan@kowalski.pl")
+                    .email("koval@gmail.com")
                     .enabled(true)
                     .expired(false)
                     .locked(false)
-                    .password(encoder.encode("kowalski"))
+                    .password(encoder.encode("bohdan123"))
                     .userRoles(Collections.singleton(userRoleRepository.findByUserType(UserRole.UserType.ROLE_ADMIN)))
                     .transactionTemplates(new HashSet<>())
                     .identifier("11111111")
@@ -117,24 +123,24 @@ public class RepositoryInitializer {
                 userRepository.save(user);
 
                 Address address2 = Address.builder()
-                    .city("Poznań")
+                    .city("Lviv")
                     .houseNumber("32")
-                    .name("Kamil")
-                    .surname("Kamilski")
+                    .name("Bohdan")
+                    .surname("Mamchur")
                     .phoneNumber("521033104")
                     .postCode("60-201")
                     .dateOfBirth(Instant.now())
-                    .street("Poznańska")
+                    .street("Shevchenko")
                     .build();
 
 
                 User user2 = User.builder()
                     .credentials(false)
-                    .email("kamil@kamilski.pl")
+                    .email("mamchur@gmail.com")
                     .enabled(true)
                     .expired(false)
                     .locked(false)
-                    .password(encoder.encode("kamilski"))
+                    .password(encoder.encode("bohdan123"))
                     .userRoles(Collections.singleton(userRoleRepository.findByUserType(UserRole.UserType.ROLE_USER)))
                     .transactionTemplates(new HashSet<>())
                     .identifier("22222222")
@@ -145,23 +151,23 @@ public class RepositoryInitializer {
                 userRepository.save(user2);
 
                 Address address3 = Address.builder()
-                    .city("Gdynia")
+                    .city("Kharkiv")
                     .houseNumber("92")
-                    .name("Jakub")
-                    .surname("Jakubski")
+                    .name("Yuriy")
+                    .surname("Buchkovsky")
                     .dateOfBirth(Instant.now())
                     .phoneNumber("692193823")
                     .postCode("50-221")
-                    .street("Gdyńska")
+                    .street("Pokrivtsi")
                     .build();
 
                 User user3 = User.builder()
                     .credentials(false)
-                    .email("jakub@jakubski.pl")
+                    .email("buchkovsky@gmail.com")
                     .enabled(true)
                     .expired(false)
                     .locked(false)
-                    .password(encoder.encode("jakubski"))
+                    .password(encoder.encode("bohdan123"))
                     .userRoles(Collections.singleton(userRoleRepository.findByUserType(UserRole.UserType.ROLE_EMPLOYEE)))
                     .transactionTemplates(new HashSet<>())
                     .identifier("33333333")
@@ -173,35 +179,78 @@ public class RepositoryInitializer {
             }
 
             if (currencyTypeRepository.findAll().isEmpty()) {
-                CurrencyType pln = CurrencyType.builder()
-                    .name("PLN")
+                Date date = new Date();
+                LocalDate localdate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                String data = null;
+                StringBuilder responseData = new StringBuilder();
+                JsonArray jsonObject = null;
+                URL url = null;
+                url = new URL("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=" + localdate.getYear() + "0" + localdate.getMonthValue() + localdate.getDayOfMonth() + "&json");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", "Mozilla/5.0");
+                int responseCode = con.getResponseCode();
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                // System.out.println("Response Code : " + responseCode);
+                try (BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()))) {
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        responseData.append(line);
+                    }
+                    jsonObject = new Gson().fromJson(responseData.toString(), JsonArray.class);
+
+                    data = jsonObject.get(0).toString();
+                }
+                float rateUSD = 0f;
+                float rateEUR = 0f;
+                float ratePLN = 0f;
+                float rateGBP = 0f;
+                for (int i = 0; i < jsonObject.size(); i++) {
+                    JsonObject jsonObject1 = jsonObject.get(i).getAsJsonObject();
+                    if(jsonObject1.get("cc").getAsString().equals("USD")){
+                        rateUSD = jsonObject1.get("rate").getAsFloat();
+                    }
+                    if(jsonObject1.get("cc").getAsString().equals("EUR")){
+                        rateEUR = jsonObject1.get("rate").getAsFloat();
+                    }
+                    if(jsonObject1.get("cc").getAsString().equals("PLN")){
+                        ratePLN = jsonObject1.get("rate").getAsFloat();
+                    }
+                    if(jsonObject1.get("cc").getAsString().equals("GBP")){
+                        rateGBP = jsonObject1.get("rate").getAsFloat();
+                    }
+
+                }
+                CurrencyType uah = CurrencyType.builder()
+                    .name("UAH")
                     .exchangeRate(1f)
                     .build();
 
                 CurrencyType usd = CurrencyType.builder()
                     .name("USD")
-                    .exchangeRate(3.88f)
+                    .exchangeRate(rateUSD)
                     .build();
 
                 CurrencyType eur = CurrencyType.builder()
                     .name("EUR")
-                    .exchangeRate(4.23f)
+                    .exchangeRate(rateEUR)
                     .build();
 
-                CurrencyType chf = CurrencyType.builder()
-                    .name("CHF")
-                    .exchangeRate(2.31f)
+                CurrencyType pln = CurrencyType.builder()
+                    .name("PLN")
+                    .exchangeRate(ratePLN)
                     .build();
 
                 CurrencyType gbp = CurrencyType.builder()
                     .name("GBP")
-                    .exchangeRate(5.60f)
+                    .exchangeRate(rateGBP)
                     .build();
 
                 currencyTypeRepository.save(pln);
                 currencyTypeRepository.save(usd);
                 currencyTypeRepository.save(eur);
-                currencyTypeRepository.save(chf);
+                currencyTypeRepository.save(uah);
                 currencyTypeRepository.save(gbp);
             }
 
@@ -333,5 +382,6 @@ public class RepositoryInitializer {
                 investmentRepository.save(Investment.builder().creationDate(now).updateTimespan(now).currency("PLN").currentBalance(BigDecimal.valueOf(150L)).startBalance(BigDecimal.valueOf(100L)).investmentType(investmentTypeRepository.findByInvestmentStatus(InvestmentType.InvestmentStatus.CLOSED)).destinedSaldo(saldoRepository.findAll().get(0)).build());
             }
         };
+
     }
 }

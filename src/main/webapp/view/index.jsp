@@ -111,7 +111,7 @@
 
       <div class="home__cards">
         <c:forEach items="${allBankAccount}" var="item">
-          <a href="${path}/bankaccount/card-details/${item.id}" class="home__card card-home">
+          <a href="${path}/card-details/${item.id}" class="home__card card-home">
             <div class="card-home__owner">
               ${name}
             </div>
