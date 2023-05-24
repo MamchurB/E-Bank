@@ -2,48 +2,24 @@ package com.bank.controller;
 
 import com.bank.dto.edit.BankAccountEdit;
 import com.bank.dto.edit.SaldoEdit;
-import com.bank.dto.in.BankAccountIn;
 import com.bank.dto.out.BankAccountOut;
 import com.bank.dto.out.SaldoOut;
 import com.bank.dto.out.UserOut;
-import com.bank.models.user.User;
 import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.UserServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.TransactionService;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+
 
 @Controller
 @RequestMapping
@@ -75,7 +51,7 @@ public class BankAccountController {
     }
     @GetMapping("/card-details/{id}")
     @Secured("ROLE_USER")
-    public String cardDetails(Model model, @PathVariable("id") Long id) throws IOException, JSONException {
+    public String cardDetails(Model model, @PathVariable("id") Long id){
         model.addAttribute("bankAccount", bankAccountService.findById(id));
         model.addAttribute("transactionsById", transactionService.findAllByBankAccountId(id));
         model.addAttribute("bankAccountId", id);
