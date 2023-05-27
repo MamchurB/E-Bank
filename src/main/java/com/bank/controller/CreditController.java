@@ -54,19 +54,21 @@ public class CreditController {
     @Secured("ROLE_USER")
     public String userCredits(Model model) {
         model.addAttribute("allUserCredits", creditService.findByUser());
+        model.addAttribute("creditDetail",creditService.findByUser().get(0));
         return "user-credits";
     }
 
-    @GetMapping("/byType")
-    @Secured("ROLE_EMPLOYEE")
-    public List<CreditOut> findAllByCreditType(@RequestParam("creditType") CreditStatus.CreditType creditType) {
-        return creditService.findByCreditType(creditType);
+    @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CreditOut practicePagePost(@PathVariable("id") Long id,
+                                   Model model){
+        return creditService.findById(id);
     }
 
     @GetMapping("/byId/{id}")
     @Secured({"ROLE_EMPLOYEE", "ROLE_USER"})
-    public CreditOut findById(@PathVariable("id") Long id) {
-        return creditService.findById(id);
+    public void findById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("creditDetail",creditService.findById(id));
     }
 
     @PatchMapping("/{id}/status")

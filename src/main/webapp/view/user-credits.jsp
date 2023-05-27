@@ -11,6 +11,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>E-Bank - My Credits</title>
    <link rel="stylesheet" href="${path}/css/style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+   <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
+           th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" type="text/javascript"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 
 <body>
@@ -39,27 +43,27 @@
                   <table class="transactions-card-details__table statistic__table">
                      <tr>
                         <th>ID</th>
-                        <td>5</td>
+                        <td id = 'id'> </td>
                      </tr>
                      <tr>
                         <th>Сплачено</th>
-                        <td>0.00</td>
+                        <td id = 'balancePaid' >${creditDetail.balancePaid}</td>
                      </tr>
                      <tr>
                         <th>Сума Внеску</th>
-                        <td>166.67</td>
+                        <td id = 'installmentAmount'>${creditDetail.installmentAmount}</td>
                      </tr>
                      <tr>
                         <th>РОзмір позики</th>
-                        <td>1000</td>
+                        <td id = 'totalBalance'> ${creditDetail.totalBalance}</td>
                      </tr>
                      <tr>
                         <th>Валюта</th>
-                        <td>Грн</td>
+                        <td id = 'currency'> ${creditDetail.currency}</td>
                      </tr>
                      <tr>
                         <th>Статус</th>
-                        <td>В очікуванні</td>
+                        <td id = 'creditStatus'> ${creditDetail.creditStatus.creditType.toString()}</td>
                      </tr>
                   </table>
                </div>
@@ -160,9 +164,9 @@
                         <td>${credit.totalBalance}</td>
                         <td>${credit.totalInstallmentCount}</td>
                         <td>${credit.currency.toString()}</td>
-                        <td>${credit.creditStatus}</td>
+                        <td>${credit.creditStatus.creditType.toString()}</td>
                         <td>
-                           <button class="form-button message__history-btn message__title">
+                           <button value="${credit.id}" class="form-button message__history-btn message__title">
                               Детально
                            </button>
                         </td>
@@ -196,6 +200,7 @@
 
    <script src="${path}/js/burger.js"></script>
    <script src="${path}/js/popup-deposits.js"></script>
+   <script src="${path}/js/jquery.boot.js"></script>
 </body>
 
 </html>
