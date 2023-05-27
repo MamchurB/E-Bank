@@ -6,7 +6,7 @@ import com.bank.dto.out.TransactionTemplateOut;
 import java.util.List;
 
 public interface TransactionTemplateService {
-    TransactionTemplateOut create(TransactionTemplateIn transactionTemplateIn);
+    void create(TransactionTemplateIn transactionTemplateIn);
 
     List<TransactionTemplateOut> findAll();
 

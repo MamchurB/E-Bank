@@ -10,5 +10,5 @@ public interface TransactionTemplateMapper
 {
         TransactionTemplateOut entityToDTO ( TransactionTemplate transactionTemplate );
 
-        TransactionTemplate DTOtoEntity ( TransactionTemplateIn transactionTemplateIn );
+        TransactionTemplate DTOtoEntity ( TransactionTemplateIn transactionTemplateIn);
 }

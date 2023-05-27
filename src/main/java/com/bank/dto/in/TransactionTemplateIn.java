@@ -17,7 +17,7 @@ public class TransactionTemplateIn {
     @NotBlank
     @Length(min = 26, max = 26)
     private String sourceAccountNumber;
-
+    private String transactionDirectionId;
     @NotBlank
     private String sourceCurrency;
 
@@ -35,9 +35,9 @@ public class TransactionTemplateIn {
     @NotBlank
     @Length(min = 1, max = 100)
     private String title;
-    private Boolean multiCurrency;
+    //private Boolean multiCurrency;
 
-    @NotBlank
-    @Length(min = 1, max = 100)
-    private String templateName;
+//    @NotBlank
+//    @Length(min = 1, max = 100)
+//    private String templateName;
 }

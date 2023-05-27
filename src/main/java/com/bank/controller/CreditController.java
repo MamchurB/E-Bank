@@ -46,13 +46,16 @@ public class CreditController {
     @PostMapping
     @Secured("ROLE_USER")
     public String create(CreditIn creditIn) {
-        System.out.println("create credit");
         creditService.create(creditIn);
-        System.out.println("finish credit");
-        return "login";
+        return "redirect:/credits/user-credits";
     }
 
-
+    @GetMapping("user-credits")
+    @Secured("ROLE_USER")
+    public String userCredits(Model model) {
+        model.addAttribute("allUserCredits", creditService.findByUser());
+        return "user-credits";
+    }
 
     @GetMapping("/byType")
     @Secured("ROLE_EMPLOYEE")

@@ -9,7 +9,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>E-Bank - Transfer</title>
+   <title>E-Bank - Exchange</title>
    <link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
@@ -100,79 +100,65 @@
                <span>Notifications</span>
             </div>
             <div class="dashboard__profile">
-               <img src="./images/profile.svg" alt="profile">
+               <img src="${path}/images/profile.svg" alt="profile">
                <span>Profile</span>
             </div>
          </div>
          <div class="data">
             <div class="data__title">
-               Валютний переказ
+               Currency exchange
             </div>
-            <ul class="data__progress progress-data progressbar">
-               <li class="progress-data__element active">
-                  <div class="progress-data__text">
-                     Форма
-                  </div>
-               </li>
-               <div class="progress-data__line active"></div>
-               <li class="progress-data__element">
-                  <div class="progress-data__text">
-                     Резюме
-                  </div>
-               </li>
-               <div class="progress-data__line"></div>
-               <li class="progress-data__element">
-                  <div class="progress-data__text">
-                     Завершення
-                  </div>
-               </li>
-            </ul>
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="transferForm">
+            <form:form method="POST" modelAttribute="exchangeForm">
             <div class="data__form">
                <div class="data__bank-account">
-                  <div class="data__label">Виберіть банківський рахунок
+                  <div class="data__label">Select a bank account
                   </div>
-                  <form:select path = "sourceAccountNumber">
+                  <form:select path = "sourceBankAccNumber">
                      <c:forEach items="${allAccount}" var="item">
                         <option value="${item.number}">${item.number}</option>
                      </c:forEach>
                   </form:select>
-               </div>
-               <div class="data__receiver">
-                  <div class="data__label">Одержувач
-                  </div>
-                  <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
-               </div>
-               <form:input path="destinedCurrency" value = "PLN" type="hidden" />
-               <form:input path="sourceCurrency" value = "PLN" type="hidden"/>
-               <div class="data__bank-account">
-                  <div class="data__label">Виберіть тип транзакції
-                  </div>
-                  <form:select path="transactionDirectionId">
-                     <c:forEach items="${allTypeTransaction}" var="item">
-                        <form:option value="${item.transactionType.value}">${item.transactionType.name()}</form:option>
-                     </c:forEach>
-                  </form:select>
-               </div>
+               </div> 
                <div class="data__row">
-                  <div class="data__sum">
-                     <div class="data__label">Сума
+                  <div class="data__out-currency">
+                     <div class="data__label">Output currency
                      </div>
-                     <form:input path = "balance" type="number" placeholder="Сума"></form:input>
+                     <form:select path="sourceCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
                   </div>
-                  <div class="data__name">
-                     <div class="data__label">Назва
+                  <div class="data__currency">
+                     <div class="data__label">Target Currency
                      </div>
-                     <form:input path = "title" type="text" placeholder="Назва"></form:input>
+                     <form:select path="destCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
                   </div>
                </div>
-               <button class="data__button form-button">
-                  Далі
-               </button>
+               <div class="data__sum exchange__sum">
+                  <div class="data__label">Sum
+                  </div>
+                  <form:input path = "balance" type="number" placeholder="Сума"></form:input>
+               </div>
+               <div class="exchange__buttons">
+                  <button class="data__button form-button exchange__button">
+                     Convert
+                  </button>
+                  <button class="data__button form-button exchange__button">
+                     Calculate
+                  </button>
+                  <button class="data__button form-button exchange__button">
+                     Table of currencies
+                  </button>
+               </div>
+               </form:form>
             </div>
-            </form:form>
          </div>
       </main>
       <footer class="footer">

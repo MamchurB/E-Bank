@@ -254,6 +254,8 @@ body {
     width: 32px;
     height: 32px;
     background-image: url("../images/user.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
     top: 50%;
     left: 0;
     -webkit-transform: translateY(-50%);
@@ -731,13 +733,13 @@ body {
 .register-block__email {
   margin-bottom: 15px; }
   .register-block__email::before {
-    background-image: url("../images/user.svg"); }
+    background-image: url("../images/email.svg"); }
 
 .register-block__city::before {
-  background-image: url("../images/user.svg"); }
+  background-image: url("../images/city.svg"); }
 
 .register-block__phone::before {
-  background-image: url("../images/user.svg"); }
+  background-image: url("../images/phone.svg"); }
 
 .register-row {
   display: -webkit-box;
@@ -899,7 +901,8 @@ body {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 35px 70px; }
+  padding: 35px 70px;
+  min-width: 0; }
   @media (max-width: 1024px) {
     .data {
       padding: 35px 20px; } }
@@ -1685,3 +1688,399 @@ body {
 
 .message__button {
   margin-bottom: 30px; }
+
+/*-------------------------------EXCHANGE--------------------------------------*/
+.exchange__sum {
+  margin-bottom: 30px; }
+
+.exchange__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  margin-left: auto; }
+  @media (max-width: 1460px) {
+    .exchange__buttons {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+      margin-left: 0; } }
+
+@media (max-width: 1460px) {
+  .exchange__button {
+    -ms-flex-item-align: inherit;
+    -ms-grid-row-align: inherit;
+    align-self: inherit; } }
+
+/*-------------------------------STATISTIC--------------------------------------*/
+.statistic__table {
+  background: transparent; }
+  .statistic__table th {
+    font-size: 18px;
+    text-align: left; }
+  .statistic__table td {
+    font-size: 18px;
+    text-align: left; }
+  .statistic__table tr:not(:last-child) {
+    border-bottom: none; }
+
+.transactions-card-details__table_wrapper {
+  overflow-x: auto; }
+
+/*-------------------------------DEPOSIT--------------------------------------*/
+.deposit__out-currency {
+  margin-bottom: 45px; }
+  @media (max-width: 768px) {
+    .deposit__out-currency {
+      margin-bottom: 25px; } }
+
+.deposit__button {
+  margin-bottom: 20px; }
+
+/*-------------------------------EMPLOYEES--------------------------------------*/
+.employees__form input {
+  background-color: white; }
+
+/*-------------------------------POPUPS--------------------------------------*/
+.popup {
+  display: block;
+  max-width: 900px;
+  max-height: 100%;
+  height: auto;
+  overflow: auto;
+  width: 100%;
+  background: #e6a03b;
+  position: relative;
+  padding: 80px 30px 30px 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px; }
+  .popup::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #ffc60b; }
+
+.popup__wrapper {
+  overflow: hidden;
+  padding: 20px;
+  position: absolute;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(111, 111, 111, 0.7);
+  display: none;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.popup__credit-sum {
+  margin-bottom: 45px; }
+  @media (max-width: 768px) {
+    .popup__credit-sum {
+      margin-bottom: 25px; } }
+
+.popup__complete {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .popup__complete img {
+    max-width: 706px;
+    width: 100%; }
+
+.popup__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px; }
+  @media (max-width: 768px) {
+    .popup__nav {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column; } }
+
+.popup__reject {
+  color: #ffffff;
+  padding: 10px 28px; }
+
+.popup__title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #e6a03b;
+  margin-bottom: 20px;
+  text-align: center; }
+
+.popup__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.popup__bank-account {
+  margin-bottom: 20px; }
+  .popup__bank-account select {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #e6a03b;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+
+.popup__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+  gap: 30px; }
+  @media (max-width: 768px) {
+    .popup__row {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column; } }
+
+.popup__out-currency {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%; }
+  .popup__out-currency select {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #e6a03b;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+
+.popup__currency {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%; }
+  .popup__currency select {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #e6a03b;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+
+.popup__receiver {
+  margin-bottom: 20px; }
+  .popup__receiver input {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    color: #ffffff;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+    .popup__receiver input::-webkit-input-placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+    .popup__receiver input:-ms-input-placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+    .popup__receiver input::-ms-input-placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+    .popup__receiver input::placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+
+.popup__sum {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%; }
+  .popup__sum input {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    color: #ffffff;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+    .popup__sum input::-webkit-input-placeholder {
+      text-transform: uppercase;
+      color: #ffffff; }
+    .popup__sum input:-ms-input-placeholder {
+      text-transform: uppercase;
+      color: #ffffff; }
+    .popup__sum input::-ms-input-placeholder {
+      text-transform: uppercase;
+      color: #ffffff; }
+    .popup__sum input::placeholder {
+      text-transform: uppercase;
+      color: #ffffff; }
+
+.popup__balance {
+  margin-bottom: 20px; }
+  .popup__balance select {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #e6a03b;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+
+.popup__name {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%; }
+  .popup__name input {
+    background: transparent;
+    width: 100%;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 162%;
+    color: #ffffff;
+    padding: 5px 0;
+    border-bottom: #ffffff 1px solid; }
+    .popup__name input::-webkit-input-placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+    .popup__name input:-ms-input-placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+    .popup__name input::-ms-input-placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+    .popup__name input::placeholder {
+      color: #ffffff;
+      text-transform: uppercase; }
+
+.popup__button {
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  background-color: #ffc60b; }
+  @media (max-width: 768px) {
+    .popup__button {
+      -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+      padding: 10px; } }
+
+.popup__buttons {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px; }
+  @media (max-width: 768px) {
+    .popup__buttons {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      margin-left: 0; } }
+
+.popup__label {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 144%;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 10px; }
+  @media (max-width: 1024px) {
+    .popup__label {
+      font-size: 12px; } }
+
+.popup__wrapper.popup_active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+body.popup_active {
+  overflow: hidden; }
+
+.popup-deposits > .card-details__transactions {
+  margin-bottom: 20px;
+  color: white; }
+
+.popup-deposits th {
+  color: white; }
+
+.popup-deposits td {
+  color: white; }
+
+.popup-deposits__button {
+  display: block;
+  margin-left: auto;
+  font-size: 14px; }
+
+.popup-deposits__close-deposit {
+  padding: 10px 20px;
+  font-size: 14px; }
+
+.popup-deposits__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  gap: 10px; }
+
+.popup-deposits__title {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff; }

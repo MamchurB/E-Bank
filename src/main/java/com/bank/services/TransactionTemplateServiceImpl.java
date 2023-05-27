@@ -5,6 +5,7 @@ import com.bank.dto.out.TransactionTemplateOut;
 import com.bank.mappers.TransactionTemplateMapper;
 import com.bank.models.TransactionTemplate;
 import com.bank.repositories.TransactionTemplateRepository;
+import com.bank.repositories.TransactionTypeRepository;
 import com.bank.repositories.UserRepository;
 import com.bank.services.interfaces.TransactionTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,30 @@ public class TransactionTemplateServiceImpl implements TransactionTemplateServic
     private final TransactionTemplateRepository transactionTemplateRepository;
 
     private final TransactionTemplateMapper transactionTemplateMapper;
+    private final TransactionTypeRepository transactionTypeRepository;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     public TransactionTemplateServiceImpl(TransactionTemplateMapper transactionTemplateMapper,
-                                          TransactionTemplateRepository transactionTemplateRepository) {
+                                          TransactionTemplateRepository transactionTemplateRepository,
+                                          TransactionTypeRepository transactionTypeRepository) {
         this.transactionTemplateMapper = transactionTemplateMapper;
         this.transactionTemplateRepository = transactionTemplateRepository;
+        this.transactionTypeRepository = transactionTypeRepository;
     }
 
     @Override
-    public TransactionTemplateOut create(TransactionTemplateIn transactionTemplateIn) {
+    public void create(TransactionTemplateIn transactionTemplateIn) {
         TransactionTemplate mapped = transactionTemplateMapper.DTOtoEntity(transactionTemplateIn);
         Instant currentTime = Instant.now();
         mapped.setCreateDate(currentTime);
         mapped.setModificationDate(currentTime);
+        mapped.setTransactionDirection(transactionTypeRepository.findById(Long.valueOf(transactionTemplateIn.getTransactionDirectionId())).orElseThrow(()-> new RuntimeException("Type not found")));
         mapped.setUser(userRepository.findByIdentifier(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(() -> new RuntimeException("Not found")));
-        return transactionTemplateMapper.entityToDTO(transactionTemplateRepository.save(mapped));
+        System.out.println(mapped.toString());
+        transactionTemplateRepository.save(mapped);
     }
 
     @Override
@@ -62,15 +68,15 @@ public class TransactionTemplateServiceImpl implements TransactionTemplateServic
             .orElseThrow(() -> new RuntimeException("not found"));
 
         fromDB.setModificationDate(Instant.now());
-        fromDB.setTemplateName(transactionTemplateIn.getTemplateName());
+        //fromDB.setTemplateName(transactionTemplateIn.getTemplateName());
         fromDB.setBalance(transactionTemplateIn.getBalance());
         fromDB.setDestinedAccountNumber(transactionTemplateIn.getDestinedAccountNumber());
         fromDB.setDestinedCurrency(transactionTemplateIn.getDestinedCurrency());
-        fromDB.setTitle(transactionTemplateIn.getTitle());
+        //fromDB.setTitle(transactionTemplateIn.getTitle());
         fromDB.setSourceCurrency(transactionTemplateIn.getSourceCurrency());
         fromDB.setSourceAccountNumber(transactionTemplateIn.getSourceAccountNumber());
-        fromDB.setMultiCurrency(transactionTemplateIn.getMultiCurrency());
-
+        //fromDB.setMultiCurrency(transactionTemplateIn.getMultiCurrency());
+        fromDB.setTransactionDirection(transactionTypeRepository.findById(Long.valueOf(transactionTemplateIn.getTransactionDirectionId())).orElseThrow(()-> new RuntimeException("Type not found")));
         return transactionTemplateMapper.entityToDTO(transactionTemplateRepository.save(fromDB));
     }
 

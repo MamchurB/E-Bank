@@ -1,5 +1,6 @@
 package com.bank.models;
 
+import com.bank.models.enums.TransactionDirection;
 import com.bank.models.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,9 +46,12 @@ public class TransactionTemplate {
     @Column(name = "modification_date")
     private Instant modificationDate;
 
-    @Column(name = "multi_currency")
-    private Boolean multiCurrency;
+//    @Column(name = "multi_currency")
+//    private Boolean multiCurrency;
 
+    @ManyToOne
+    @JoinColumn (name = "transaction_direction_id", nullable = false)
+    private TransactionDirection transactionDirection;
     @Column(name = "template_name")
     private String templateName;
 

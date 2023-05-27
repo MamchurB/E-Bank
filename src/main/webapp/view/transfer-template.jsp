@@ -3,13 +3,14 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <html lang="en">
 
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>E-Bank - Transfer</title>
+   <title>E-Bank - Transfer Template</title>
    <link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
@@ -32,7 +33,82 @@
             </div>
          </div>
       </header>
+      <div class="popup__wrapper">
+         <div class="popup popup__transfer">
+            <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+            <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+            <form:form method="POST" modelAttribute="templateForm">
+            <div class="popup__form">
+               <div class="popup__bank-account">
+                  <div class="data__label">Виберіть банківський рахунок
+                  </div>
+                  <form:select path = "sourceAccountNumber">
+                     <c:forEach items="${allAccount}" var="item">
+                        <option value="${item.number}">${item.number}</option>
+                     </c:forEach>
+                  </form:select>
+               </div>
+               <div class="popup__bank-account">
+                  <div class="data__label">Виберіть тип транзакції
+                  </div>
+                  <form:select path="transactionDirectionId">
+                     <c:forEach items="${allTypeTransaction}" var="item">
+                        <form:option value="${item.transactionType.value}">${item.transactionType.name()}</form:option>
+                     </c:forEach>
+                  </form:select>
+               </div>
+               <div class="popup__row">
+                  <div class="popup__out-currency">
+                     <div class="data__label">Вихідна валюта
+                     </div>
+                     <form:select path="sourceCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+                  <div class="popup__currency">
+                     <div class="data__label">Цільова Валюта
+                     </div>
+                     <form:select path="destinedCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+               </div>
+               <div class="popup__receiver">
+                  <div class="data__label">Одержувач
+                  </div>
+                  <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"/>
+
+               </div>
+               <div class="popup__row">
+                  <div class="popup__sum">
+                     <div class="data__label">Сума
+                     </div>
+                     <form:input path = "balance" type="number" placeholder="Сума"/>
+                  </div>
+                  <div class="popup__name">
+                     <div class="data__label">Назва
+                     </div>
+                     <form:input path = "title" type="text" placeholder="Назва"/>
+                  </div>
+               </div>
+               <div class="popup__buttons">
+                  <button class="form-button popup__button popup__close">
+                     Скасувати
+                  </button>
+                  <button class="form-button popup__button">
+                     Далі
+                  </button>
+               </div>
+            </div>
+            </form:form>
+         </div>
+      </div>
       <main class="page page_index">
+
          <div class="dashboard">
             <div class="dashboard__title">
                <img src="${path}/images/dashboard.svg" alt="dashboard">
@@ -100,79 +176,50 @@
                <span>Notifications</span>
             </div>
             <div class="dashboard__profile">
-               <img src="./images/profile.svg" alt="profile">
+               <img src="${path}/images/profile.svg" alt="profile">
                <span>Profile</span>
             </div>
          </div>
-         <div class="data">
-            <div class="data__title">
-               Валютний переказ
+         <div class="data message">
+            <div class="form-title message__title">
+               Transfer templates
             </div>
-            <ul class="data__progress progress-data progressbar">
-               <li class="progress-data__element active">
-                  <div class="progress-data__text">
-                     Форма
-                  </div>
-               </li>
-               <div class="progress-data__line active"></div>
-               <li class="progress-data__element">
-                  <div class="progress-data__text">
-                     Резюме
-                  </div>
-               </li>
-               <div class="progress-data__line"></div>
-               <li class="progress-data__element">
-                  <div class="progress-data__text">
-                     Завершення
-                  </div>
-               </li>
-            </ul>
-            <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-            <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="transferForm">
-            <div class="data__form">
-               <div class="data__bank-account">
-                  <div class="data__label">Виберіть банківський рахунок
-                  </div>
-                  <form:select path = "sourceAccountNumber">
-                     <c:forEach items="${allAccount}" var="item">
-                        <option value="${item.number}">${item.number}</option>
+            <div class="card-details__transactions transactions-card-details">
+               <div class="transactions-card-details__table_wrapper transfer-tempalte__table">
+                  <table class="transactions-card-details__table message__table">
+                     <tr>
+                        <th>Name</th>
+                        <th>Original account number</th>
+                        <th>Target account number</th>
+                        <th>Currency</th>
+                        <th>Sum</th>
+                     </tr>
+                     <c:forEach items="${allTemplates}" var="template">
+                     <tr>
+                        <td>${template.title}</td>
+                        <td>${template.sourceAccountNumber}</td>
+                        <td>${template.destinedAccountNumber}</td>
+                        <td>${template.destinedCurrency}</td>
+                        <td>${template.balance}</td>
+                        <td>
+                           <a href="${path}/transaction/template/${template.id}">
+                           <button class="form-button message__history-btn">
+                              Perform
+                           </button>
+                           </a>
+                        </td>
+                        <td>
+                           <a href="${path}/transaction/update/${template.id}">
+                           <button class="form-button message__history-btn">
+                              Edit
+                           </button>
+                           </a>
+                        </td>
+                     </tr>
                      </c:forEach>
-                  </form:select>
+                  </table>
                </div>
-               <div class="data__receiver">
-                  <div class="data__label">Одержувач
-                  </div>
-                  <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
-               </div>
-               <form:input path="destinedCurrency" value = "PLN" type="hidden" />
-               <form:input path="sourceCurrency" value = "PLN" type="hidden"/>
-               <div class="data__bank-account">
-                  <div class="data__label">Виберіть тип транзакції
-                  </div>
-                  <form:select path="transactionDirectionId">
-                     <c:forEach items="${allTypeTransaction}" var="item">
-                        <form:option value="${item.transactionType.value}">${item.transactionType.name()}</form:option>
-                     </c:forEach>
-                  </form:select>
-               </div>
-               <div class="data__row">
-                  <div class="data__sum">
-                     <div class="data__label">Сума
-                     </div>
-                     <form:input path = "balance" type="number" placeholder="Сума"></form:input>
-                  </div>
-                  <div class="data__name">
-                     <div class="data__label">Назва
-                     </div>
-                     <form:input path = "title" type="text" placeholder="Назва"></form:input>
-                  </div>
-               </div>
-               <button class="data__button form-button">
-                  Далі
-               </button>
             </div>
-            </form:form>
          </div>
       </main>
       <footer class="footer">
@@ -197,12 +244,7 @@
 
 
    <script src="${path}/js/burger.js"></script>
-
-   <!-- СЛАЙДЕР
-   <script src="./js/script.js"></script>
-   <script src="./js/slick.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   -->
+   <script src="${path}/js/popup-transfer.js"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>E-Bank - Transfer</title>
+   <title>E-Bank - My Credits</title>
    <link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
@@ -32,6 +32,43 @@
             </div>
          </div>
       </header>
+      <div class="popup__wrapper">
+         <div class="popup popup__deposit popup-deposits">
+            <div class="card-details__transactions transactions-card-details">
+               <div class="transactions-card-details__table_wrapper">
+                  <table class="transactions-card-details__table statistic__table">
+                     <tr>
+                        <th>ID</th>
+                        <td>5</td>
+                     </tr>
+                     <tr>
+                        <th>Сплачено</th>
+                        <td>0.00</td>
+                     </tr>
+                     <tr>
+                        <th>Сума Внеску</th>
+                        <td>166.67</td>
+                     </tr>
+                     <tr>
+                        <th>РОзмір позики</th>
+                        <td>1000</td>
+                     </tr>
+                     <tr>
+                        <th>Валюта</th>
+                        <td>Грн</td>
+                     </tr>
+                     <tr>
+                        <th>Статус</th>
+                        <td>В очікуванні</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <button class="form-button popup__button popup__close popup-deposits__button">
+               Ок
+            </button>
+         </div>
+      </div>
       <main class="page page_index">
          <div class="dashboard">
             <div class="dashboard__title">
@@ -100,79 +137,40 @@
                <span>Notifications</span>
             </div>
             <div class="dashboard__profile">
-               <img src="./images/profile.svg" alt="profile">
+               <img src="${path}/images/profile.svg" alt="profile">
                <span>Profile</span>
             </div>
          </div>
-         <div class="data">
-            <div class="data__title">
-               Валютний переказ
+         <div class="data message">
+            <div class="form-title">
+               Мої кредити
             </div>
-            <ul class="data__progress progress-data progressbar">
-               <li class="progress-data__element active">
-                  <div class="progress-data__text">
-                     Форма
-                  </div>
-               </li>
-               <div class="progress-data__line active"></div>
-               <li class="progress-data__element">
-                  <div class="progress-data__text">
-                     Резюме
-                  </div>
-               </li>
-               <div class="progress-data__line"></div>
-               <li class="progress-data__element">
-                  <div class="progress-data__text">
-                     Завершення
-                  </div>
-               </li>
-            </ul>
-            <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-            <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="transferForm">
-            <div class="data__form">
-               <div class="data__bank-account">
-                  <div class="data__label">Виберіть банківський рахунок
-                  </div>
-                  <form:select path = "sourceAccountNumber">
-                     <c:forEach items="${allAccount}" var="item">
-                        <option value="${item.number}">${item.number}</option>
+            <div class="card-details__transactions transactions-card-details">
+               <div class="transactions-card-details__table_wrapper">
+                  <table class="transactions-card-details__table message__table">
+                     <tr>
+                        <th>Сума переказу</th>
+                        <th>Кількість розстрочок</th>
+                        <th>Валюта</th>
+                        <th>Статус</th>
+                     </tr>
+
+                     <c:forEach items="${allUserCredits}" var="credit">
+                     <tr>
+                        <td>${credit.totalBalance}</td>
+                        <td>${credit.totalInstallmentCount}</td>
+                        <td>${credit.currency.toString()}</td>
+                        <td>${credit.creditStatus}</td>
+                        <td>
+                           <button class="form-button message__history-btn message__title">
+                              Детально
+                           </button>
+                        </td>
+                     </tr>
                      </c:forEach>
-                  </form:select>
+                  </table>
                </div>
-               <div class="data__receiver">
-                  <div class="data__label">Одержувач
-                  </div>
-                  <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
-               </div>
-               <form:input path="destinedCurrency" value = "PLN" type="hidden" />
-               <form:input path="sourceCurrency" value = "PLN" type="hidden"/>
-               <div class="data__bank-account">
-                  <div class="data__label">Виберіть тип транзакції
-                  </div>
-                  <form:select path="transactionDirectionId">
-                     <c:forEach items="${allTypeTransaction}" var="item">
-                        <form:option value="${item.transactionType.value}">${item.transactionType.name()}</form:option>
-                     </c:forEach>
-                  </form:select>
-               </div>
-               <div class="data__row">
-                  <div class="data__sum">
-                     <div class="data__label">Сума
-                     </div>
-                     <form:input path = "balance" type="number" placeholder="Сума"></form:input>
-                  </div>
-                  <div class="data__name">
-                     <div class="data__label">Назва
-                     </div>
-                     <form:input path = "title" type="text" placeholder="Назва"></form:input>
-                  </div>
-               </div>
-               <button class="data__button form-button">
-                  Далі
-               </button>
             </div>
-            </form:form>
          </div>
       </main>
       <footer class="footer">
@@ -197,12 +195,7 @@
 
 
    <script src="${path}/js/burger.js"></script>
-
-   <!-- СЛАЙДЕР
-   <script src="./js/script.js"></script>
-   <script src="./js/slick.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   -->
+   <script src="${path}/js/popup-deposits.js"></script>
 </body>
 
 </html>

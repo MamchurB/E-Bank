@@ -1,5 +1,6 @@
 package com.bank.dto.out;
 
+import com.bank.models.enums.TransactionDirection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,8 @@ public class TransactionTemplateOut
 
         private Instant modificationDate;
         
-        private Boolean multiCurrency;
+        //private Boolean multiCurrency;
 
-        private String templateName;
+//        private String templateName;
+        private TransactionDirection transactionDirection;
 }

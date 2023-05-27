@@ -37,7 +37,7 @@ public class ExchangeCurrencyController {
         model.addAttribute("exchangeForm", new ExchangeCurrencyIn());
         model.addAttribute("allAccount", bankAccountService.findByUser());
         model.addAttribute("allCurrencyType", currencyTypeService.findAll());
-        return "exchange-currency";
+        return "exchange";
     }
     @PostMapping
     @Secured("ROLE_USER")
