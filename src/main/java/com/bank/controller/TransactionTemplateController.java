@@ -1,7 +1,9 @@
 package com.bank.controller;
 
+import com.bank.dto.edit.TemplateEdit;
 import com.bank.dto.in.TransactionIn;
 import com.bank.dto.in.TransactionTemplateIn;
+import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.TransactionTemplateOut;
 import com.bank.repositories.TransactionTypeRepository;
 import com.bank.services.CurrencyTypeServiceImpl;
@@ -50,6 +52,7 @@ public class TransactionTemplateController {
         model.addAttribute("allCurrencyType", currencyTypeService.findAll());
         model.addAttribute("allTypeTransaction", transactionTypeRepository.findAll());
         model.addAttribute("allTemplates", transactionTemplateService.findAllByCurrentUser());
+        model.addAttribute("editTemplateForm", new TemplateEdit());
         return "transfer-template";
     }
 
@@ -74,6 +77,26 @@ public class TransactionTemplateController {
         transactionIn.setTransactionDirectionId(transactionTemplateOut.getTransactionDirection().getId().toString());
         transactionService.create(transactionIn);
         return "redirect:/transaction/template";
+    }
+    @PostMapping ("/template/update")
+    @Secured("ROLE_USER")
+    public String updateById(TemplateEdit templateEdit) {
+        TransactionTemplateIn transactionTemplateIn = new TransactionTemplateIn();
+        transactionTemplateIn.setSourceAccountNumber(templateEdit.getEditSourceAccountNumber());
+        transactionTemplateIn.setSourceCurrency(templateEdit.getEditSourceCurrency());
+        transactionTemplateIn.setDestinedAccountNumber(templateEdit.getEditDestinedAccountNumber());
+        transactionTemplateIn.setDestinedCurrency(templateEdit.getEditDestinedCurrency());
+        transactionTemplateIn.setTransactionDirectionId(templateEdit.getEditTransactionDirectionId());
+        transactionTemplateIn.setBalance(templateEdit.getEditBalance());
+        transactionTemplateIn.setTitle(templateEdit.getEditTitle());
+
+        transactionTemplateService.update(templateEdit.getId(), transactionTemplateIn);
+        return "redirect:/transaction/template";
+    }
+    @RequestMapping(value="/template/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public TransactionTemplateOut practicePagePost(@PathVariable("id") Long id){
+        return transactionTemplateService.findOneById(id);
     }
 //    @GetMapping
 //    @Secured("ROLE_USER")

@@ -2,6 +2,7 @@ package com.bank.controller;
 
 import com.bank.dto.in.CreditIn;
 import com.bank.dto.in.InvestmentIn;
+import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.InvestmentOut;
 import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.InvestmentService;
@@ -39,6 +40,25 @@ public class InvestmentController {
     public String create(InvestmentIn investmentIn) {
         investmentService.create(investmentIn);
         return "redirect:/investments";
+    }
+    @GetMapping("user-deposits")
+    @Secured("ROLE_USER")
+    public String userCredits(Model model) {
+        model.addAttribute("allUserDeposits", investmentService.findAllByUser());
+        model.addAttribute("depositDetail", investmentService.findAllByUser().get(0));
+        return "user-deposits";
+    }
+    @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public InvestmentOut practicePagePost(@PathVariable("id") Long id,
+                                      Model model){
+        return investmentService.findById(id);
+    }
+
+    @GetMapping("/byId/{id}")
+    @Secured({"ROLE_EMPLOYEE", "ROLE_USER"})
+    public void findById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("depositDetail", investmentService.findById(id));
     }
     @GetMapping("/byUser")
     @Secured("ROLE_USER")

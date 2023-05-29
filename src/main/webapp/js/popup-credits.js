@@ -5,10 +5,11 @@ const bodyContainer = document.body;
 const popupContainer = document.querySelector('.popup__wrapper');
 
 const idTableContainer = document.getElementById('id');
-const startBalanceTableContainer = document.getElementById('startBalance');
-const currentBalanceTableContainer = document.getElementById('currentBalance');
-const investmentTypeTableContainer = document.getElementById('investmentType');
-const creationDateTableContainer = document.getElementById('creationDate');
+const balancePaidTableContainer = document.getElementById('balancePaid');
+const installmentAmountTableContainer = document.getElementById('installmentAmount');
+const totalBalanceTableContainer = document.getElementById('totalBalance');
+const currencyTableContainer = document.getElementById('currency');
+const creditStatusTableContainer = document.getElementById('creditStatus');
 
 open.forEach(element => element.onclick = () => {
 
@@ -27,17 +28,17 @@ close.onclick = () => {
 function detailCredit(id) {
     $.ajax({
         type : "POST",
-        url :  "/investments" + "/byId/" + id,
+        url :  "/credits" + "/byId/" + id,
         success : function(data) {
-            //fetchList(type);
             toastr.success(data.message, "Notification", {
                 closeButton:true
             });
             idTableContainer.innerText =  data['id'];
-            startBalanceTableContainer.innerText =  data['startBalance'];
-            currentBalanceTableContainer.innerText =  data['currentBalance'];
-            investmentTypeTableContainer.innerText =  data['investmentType']['investmentStatus'];
-            creationDateTableContainer.innerText =  data['creationDate'];
+            balancePaidTableContainer.innerText =  data['balancePaid'];
+            installmentAmountTableContainer.innerText =  data['installmentAmount'];
+            totalBalanceTableContainer.innerText =  data['totalBalance'];
+            currencyTableContainer.innerText =  data['currency'];
+            creditStatusTableContainer.innerText =  data['creditStatus'];
 
         }
     });

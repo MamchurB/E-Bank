@@ -12,6 +12,11 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>E-Bank - Transfer Template</title>
    <link rel="stylesheet" href="${path}/css/style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+   <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
+           th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" type="text/javascript"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 </head>
 
 <body>
@@ -34,10 +39,10 @@
          </div>
       </header>
       <div class="popup__wrapper">
-         <div class="popup popup__transfer">
-            <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-            <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="templateForm">
+      <div class="popup popup__transfer">
+         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+         <form:form method="POST"  modelAttribute="templateForm">
             <div class="popup__form">
                <div class="popup__bank-account">
                   <div class="data__label">Виберіть банківський рахунок
@@ -104,6 +109,79 @@
                   </button>
                </div>
             </div>
+         </form:form>
+      </div>
+   </div>
+      <div class="popup__wrapper_edit">
+         <div class="popup popup__transfer">
+          <form:form method="POST" action="${path}/transaction/template/update"  modelAttribute="editTemplateForm">
+               <div class="popup__form">
+                  <div class="popup__bank-account">
+                     <form:input id = "id" type="hidden" path="id" />
+                     <div class="data__label">Виберіть банківський рахунок
+                     </div>
+                     <form:select id = "editSourceAccountNumber" path = "editSourceAccountNumber">
+                        <c:forEach items="${allAccount}" var="item">
+                           <option value="${item.number}">${item.number}</option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+                  <div class="popup__bank-account">
+                     <div class="data__label">Виберіть тип транзакції
+                     </div>
+                     <form:select id = "editTransactionDirectionId" path="editTransactionDirectionId">
+                        <c:forEach items="${allTypeTransaction}" var="item">
+                           <form:option value="${item.transactionType.value}">${item.transactionType.name()}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+                  <div class="popup__row">
+                     <div class="popup__out-currency">
+                        <div class="data__label">Вихідна валюта
+                        </div>
+                        <form:select id = "editSourceCurrency" path="editSourceCurrency">
+                           <c:forEach items="${allCurrencyType}" var="item">
+                              <form:option value="${item.name}">${item.name}</form:option>
+                           </c:forEach>
+                        </form:select>
+                     </div>
+                     <div class="popup__currency">
+                        <div class="data__label">Цільова Валюта
+                        </div>
+                        <form:select id = "editDestinedCurrency" path="editDestinedCurrency">
+                           <c:forEach items="${allCurrencyType}" var="item">
+                              <form:option value="${item.name}">${item.name}</form:option>
+                           </c:forEach>
+                        </form:select>
+                     </div>
+                  </div>
+                  <div class="popup__receiver">
+                     <div class="data__label">Одержувач
+                     </div>
+                     <form:input id = "editDestinedAccountNumber" path="editDestinedAccountNumber" type="text" placeholder="Одержувач"/>
+
+                  </div>
+                  <div class="popup__row">
+                     <div class="popup__sum">
+                        <div class="data__label">Сума
+                        </div>
+                        <form:input id = "editBalance" path = "editBalance" type="number" placeholder="Сума"/>
+                     </div>
+                     <div class="popup__name">
+                        <div class="data__label">Назва
+                        </div>
+                        <form:input path = "editTitle" type="text" placeholder="Назва"/>
+                     </div>
+                  </div>
+                  <div class="popup__buttons">
+                     <button class="form-button popup__button popup__close">
+                        Скасувати
+                     </button>
+                     <button class="form-button popup__button">
+                        Далі
+                     </button>
+                  </div>
+               </div>
             </form:form>
          </div>
       </div>
@@ -209,11 +287,9 @@
                            </a>
                         </td>
                         <td>
-                           <a href="${path}/transaction/update/${template.id}">
-                           <button class="form-button message__history-btn">
+                           <button value="${template.id}" class="form-button message__history-btn message__title_edit">
                               Edit
                            </button>
-                           </a>
                         </td>
                      </tr>
                      </c:forEach>
@@ -244,7 +320,8 @@
 
 
    <script src="${path}/js/burger.js"></script>
-   <script src="${path}/js/popup-transfer.js"></script>
+<%--   <script src="${path}/js/popup-transfer.js"></script>--%>
+   <script src="${path}/js/popup-edit.js"></script>
 </body>
 
 </html>
