@@ -72,7 +72,7 @@ public class TransactionTemplateServiceImpl implements TransactionTemplateServic
         fromDB.setBalance(transactionTemplateIn.getBalance());
         fromDB.setDestinedAccountNumber(transactionTemplateIn.getDestinedAccountNumber());
         fromDB.setDestinedCurrency(transactionTemplateIn.getDestinedCurrency());
-        //fromDB.setTitle(transactionTemplateIn.getTitle());
+        fromDB.setTitle(transactionTemplateIn.getTitle());
         fromDB.setSourceCurrency(transactionTemplateIn.getSourceCurrency());
         fromDB.setSourceAccountNumber(transactionTemplateIn.getSourceAccountNumber());
         //fromDB.setMultiCurrency(transactionTemplateIn.getMultiCurrency());

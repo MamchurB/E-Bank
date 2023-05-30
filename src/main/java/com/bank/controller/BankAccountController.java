@@ -2,11 +2,14 @@ package com.bank.controller;
 
 import com.bank.dto.edit.BankAccountEdit;
 import com.bank.dto.edit.SaldoEdit;
+import com.bank.dto.in.BankAccountIn;
+import com.bank.dto.in.InvestmentIn;
 import com.bank.dto.out.BankAccountOut;
 import com.bank.dto.out.SaldoOut;
 import com.bank.dto.out.UserOut;
 import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.UserServiceImpl;
+import com.bank.services.interfaces.BankAccTypeService;
 import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +31,17 @@ public class BankAccountController {
     private final UserServiceImpl userService;
     private final TransactionService transactionService;
 
-    private final CurrencyTypeServiceImpl currencyTypeService;
+    private final BankAccTypeService bankAccTypeService;
 
     @Autowired
     public BankAccountController(BankAccountService bankAccountService,
                                  UserServiceImpl userService,
                                  TransactionService transactionService,
-                                 CurrencyTypeServiceImpl currencyTypeService) {
+                                 BankAccTypeService bankAccTypeService) {
         this.bankAccountService = bankAccountService;
         this.userService = userService;
         this.transactionService = transactionService;
-        this.currencyTypeService = currencyTypeService;
+        this.bankAccTypeService = bankAccTypeService;
     }
     @GetMapping
     @Secured("ROLE_USER")
@@ -47,6 +50,8 @@ public class BankAccountController {
         UserOut userOut = userService.findByIdentifier(user);
         model.addAttribute("name", userOut.getAddress().getName() + " " + userOut.getAddress().getSurname());
         model.addAttribute("allBankAccount", bankAccountService.findByUser());
+        model.addAttribute("allTypeAccount", bankAccTypeService.findAll());
+        model.addAttribute("bankAccForm", new BankAccountIn());
         return "index";
     }
     @GetMapping("/card-details/{id}")
@@ -64,6 +69,13 @@ public class BankAccountController {
     @Secured("ROLE_USER")
     public String cardClose(@PathVariable("id") Long id) {
         bankAccountService.deleteById(id);
+        return "redirect:/";
+    }
+
+    @PostMapping
+    @Secured("ROLE_USER")
+    public String create(BankAccountIn bankAccountIn) {
+        bankAccountService.create(bankAccountIn, SecurityContextHolder.getContext().getAuthentication().getName());
         return "redirect:/";
     }
 //    @GetMapping

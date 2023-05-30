@@ -141,7 +141,7 @@
             <div class="card-details__label">
                 Керувати картою
             </div>
-            <button onclick="window.location.href='/bankaccount/close-account/${bankAccountId}'" class="form-button  card-details__button">
+            <button onclick="window.location.href='/close-account/${bankAccountId}'" class="form-button  card-details__button">
                 Закрити рахунок
             </button>
         </div>

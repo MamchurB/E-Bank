@@ -247,10 +247,10 @@ public class RepositoryInitializer {
                     .exchangeRate(rateGBP)
                     .build();
 
+                currencyTypeRepository.save(uah);
                 currencyTypeRepository.save(pln);
                 currencyTypeRepository.save(usd);
                 currencyTypeRepository.save(eur);
-                currencyTypeRepository.save(uah);
                 currencyTypeRepository.save(gbp);
             }
 

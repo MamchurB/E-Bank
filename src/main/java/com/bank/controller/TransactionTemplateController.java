@@ -81,6 +81,7 @@ public class TransactionTemplateController {
     @PostMapping ("/template/update")
     @Secured("ROLE_USER")
     public String updateById(TemplateEdit templateEdit) {
+        System.out.println("POST" + templateEdit.getEditTitle());
         TransactionTemplateIn transactionTemplateIn = new TransactionTemplateIn();
         transactionTemplateIn.setSourceAccountNumber(templateEdit.getEditSourceAccountNumber());
         transactionTemplateIn.setSourceCurrency(templateEdit.getEditSourceCurrency());
@@ -90,12 +91,15 @@ public class TransactionTemplateController {
         transactionTemplateIn.setBalance(templateEdit.getEditBalance());
         transactionTemplateIn.setTitle(templateEdit.getEditTitle());
 
+        System.out.println("POST" + transactionTemplateIn.getTitle());
+
         transactionTemplateService.update(templateEdit.getId(), transactionTemplateIn);
         return "redirect:/transaction/template";
     }
     @RequestMapping(value="/template/byId/{id}", method = RequestMethod.POST)
     @ResponseBody
     public TransactionTemplateOut practicePagePost(@PathVariable("id") Long id){
+        System.out.println("ResponseBody" + transactionTemplateService.findOneById(id).getTitle());
         return transactionTemplateService.findOneById(id);
     }
 //    @GetMapping

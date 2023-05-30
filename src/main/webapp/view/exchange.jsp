@@ -11,6 +11,11 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>E-Bank - Exchange</title>
    <link rel="stylesheet" href="${path}/css/style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+   <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
+           th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" type="text/javascript"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 </head>
 
 <body>
@@ -32,6 +37,41 @@
             </div>
          </div>
       </header>
+      <div class="popup__wrapper">
+         <div class="popup popup__deposit popup-deposits">
+            <div class="card-details__transactions transactions-card-details">
+               <div class="transactions-card-details__table_wrapper">
+                  <table class="transactions-card-details__table statistic__table">
+                     <tr>
+                        <c:forEach items="${allCurrencyType}" var="currencyType">
+                           <th>${currencyType.name}</th>
+                        </c:forEach>
+                     </tr>
+                     <tr>
+                        <c:forEach items="${allCurrencyType}" var="currencyType">
+                           <td>${currencyType.exchangeRate}</td>
+                        </c:forEach>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+            <button class="form-button popup__button popup__close popup-deposits__button">
+               Ок
+            </button>
+         </div>
+      </div>
+      <div class="popup__wrapper_calculate">
+         <div class="popup popup__deposit popup-deposits">
+            <div class="card-details__transactions transactions-card-details">
+               <div class="transactions-card-details__table_wrapper">
+                  <div id = "valueCalculate"></div>
+               </div>
+            </div>
+            <button class="form-button popup__button popup__close_calculate popup-deposits__button">
+               Ок
+            </button>
+         </div>
+      </div>
       <main class="page page_index">
          <div class="dashboard">
             <div class="dashboard__title">
@@ -111,6 +151,7 @@
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
             <form:form method="POST" modelAttribute="exchangeForm">
+
             <div class="data__form">
                <div class="data__bank-account">
                   <div class="data__label">Select a bank account
@@ -125,7 +166,7 @@
                   <div class="data__out-currency">
                      <div class="data__label">Output currency
                      </div>
-                     <form:select path="sourceCurrency">
+                     <form:select id = "sourceCurrency" path="sourceCurrency">
                         <c:forEach items="${allCurrencyType}" var="item">
                            <form:option value="${item.name}">${item.name}</form:option>
                         </c:forEach>
@@ -134,7 +175,7 @@
                   <div class="data__currency">
                      <div class="data__label">Target Currency
                      </div>
-                     <form:select path="destCurrency">
+                     <form:select id = 'destCurrency' path="destCurrency">
                         <c:forEach items="${allCurrencyType}" var="item">
                            <form:option value="${item.name}">${item.name}</form:option>
                         </c:forEach>
@@ -144,21 +185,24 @@
                <div class="data__sum exchange__sum">
                   <div class="data__label">Sum
                   </div>
-                  <form:input path = "balance" type="number" placeholder="Сума"></form:input>
+                  <form:input id = "count" path = "balance" type="number" placeholder="Сума"/>
                </div>
                <div class="exchange__buttons">
-                  <button class="data__button form-button exchange__button">
+                  <button type="submit" class="data__button form-button exchange__button">
                      Convert
                   </button>
-                  <button class="data__button form-button exchange__button">
+               </div>
+            </div>
+               </form:form>
+
+               <div class="exchange__buttons">
+                  <button class="data__button form-button exchange__button message__title_calculate">
                      Calculate
                   </button>
-                  <button class="data__button form-button exchange__button">
+                  <button class="data__button form-button exchange__button message__title">
                      Table of currencies
                   </button>
                </div>
-               </form:form>
-            </div>
          </div>
       </main>
       <footer class="footer">
@@ -183,7 +227,7 @@
 
 
    <script src="${path}/js/burger.js"></script>
-
+   <script src="${path}/js/popup-exchange.js"></script>
    <!-- СЛАЙДЕР
    <script src="./js/script.js"></script>
    <script src="./js/slick.min.js"></script>

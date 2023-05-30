@@ -56,7 +56,6 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
 
     @Override
     public ExchangeCurrencyOut create(@NotNull ExchangeCurrencyIn exchangeCurrencyIn) {
-        //TODO dodac wyjatek
         BankAccount sourceBankAcc = bankAccountRepository.findByNumberAndRemovedFalse(exchangeCurrencyIn.getSourceBankAccNumber())
             .orElseThrow(() -> new RuntimeException("nie znaleziono"));
 
@@ -112,13 +111,19 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
 
     @Override
     public BigDecimal calculate(ExchangeCurrencyIn exchangeCurrencyIn) {
-        CurrencyType sourceCurrencyType = currencyTypeRepository.findByName(exchangeCurrencyIn.getSourceCurrency()).orElseThrow(() -> new RuntimeException("Nie znaleziono"));
-        CurrencyType destCurrencyType = currencyTypeRepository.findByName(exchangeCurrencyIn.getDestCurrency()).orElseThrow(() -> new RuntimeException("Nie znaleziono"));
+        CurrencyType sourceCurrencyType = currencyTypeRepository.findByName(exchangeCurrencyIn.getSourceCurrency()).orElseThrow(() -> new RuntimeException("Not found"));
+        CurrencyType destCurrencyType = currencyTypeRepository.findByName(exchangeCurrencyIn.getDestCurrency()).orElseThrow(() -> new RuntimeException("Not found"));
 
         return currencyConverter.convertCurrency(
             exchangeCurrencyIn.getBalance(),
             sourceCurrencyType,
             destCurrencyType
         );
+    }
+
+    @Override
+    public CurrencyType findByName(String name) {
+        return currencyTypeRepository.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 }

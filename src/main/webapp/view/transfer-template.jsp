@@ -101,15 +101,17 @@
                   </div>
                </div>
                <div class="popup__buttons">
-                  <button class="form-button popup__button popup__close">
-                     Скасувати
-                  </button>
                   <button class="form-button popup__button">
                      Далі
                   </button>
                </div>
             </div>
          </form:form>
+         <div class="popup__buttons">
+            <button class="form-button popup__button popup__close">
+               Скасувати
+            </button>
+         </div>
       </div>
    </div>
       <div class="popup__wrapper_edit">
@@ -159,7 +161,6 @@
                      <div class="data__label">Одержувач
                      </div>
                      <form:input id = "editDestinedAccountNumber" path="editDestinedAccountNumber" type="text" placeholder="Одержувач"/>
-
                   </div>
                   <div class="popup__row">
                      <div class="popup__sum">
@@ -170,19 +171,21 @@
                      <div class="popup__name">
                         <div class="data__label">Назва
                         </div>
-                        <form:input path = "editTitle" type="text" placeholder="Назва"/>
+                        <form:input id = "editTitle" path = "editTitle" type="text" placeholder="Назва"/>
                      </div>
                   </div>
                   <div class="popup__buttons">
-                     <button class="form-button popup__button popup__close">
-                        Скасувати
-                     </button>
                      <button class="form-button popup__button">
                         Далі
                      </button>
                   </div>
                </div>
             </form:form>
+            <div class="popup__buttons">
+               <button class="form-button popup__button popup__close_edit">
+                  Скасувати
+               </button>
+            </div>
          </div>
       </div>
       <main class="page page_index">
