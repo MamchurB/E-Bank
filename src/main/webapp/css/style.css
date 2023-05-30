@@ -1667,7 +1667,7 @@ body {
   color: #ffffff; }
 
 .message__title {
-  margin-bottom: 60px;
+
 }
   @media (max-width: 768px) {
     .message__title {
@@ -1677,14 +1677,15 @@ body {
   }
 
 .message__title_edit {
-  margin-bottom: 60px; }
+
+}
 @media (max-width: 768px) {
   .message__title_edit {
     margin-bottom: 30px;
     font-size: 26px; } }
 
 .message__title_calculate {
-  margin-bottom: 60px;
+
 }
 @media (max-width: 768px) {
   .message__title_calculate {

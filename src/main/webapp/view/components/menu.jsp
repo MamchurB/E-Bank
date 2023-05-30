@@ -2,7 +2,7 @@
     <div class="dashboard__title">
         <img src="${path}/images/dashboard.svg" alt="dashboard">
         <span>
-           <a href="${path}">Dashboard</a>
+           <a href="/">Dashboard</a>
         </span>
     </div>
 
@@ -119,7 +119,7 @@
     <div class="dashboard__notification">
         <img src="${path}/images/notification.svg" alt="notification">
         <span>
-          <a href="${path}/user/profile">Support</a>
+          <a href="${path}/conversations">Support</a>
         </span>
     </div>
     <div class="dashboard__profile">

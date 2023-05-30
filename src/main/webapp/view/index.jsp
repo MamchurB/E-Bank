@@ -15,10 +15,10 @@
 
 <body>
 <div class="wrapper">
-  <%@include file="header-menu.jsp" %>
+  <%@include file="components/header-menu.jsp" %>
   <main class="page page_index">
 
-    <%@include file="menu.jsp" %>
+    <%@include file="components/menu.jsp" %>
     <div class="popup__wrapper">
       <div class="popup popup__deposit popup-deposits">
         <div class="card-details__transactions transactions-card-details">
@@ -79,7 +79,7 @@
       </button>
     </div>
   </main>
-  <%@include file="footer.jsp" %>
+  <%@include file="components/footer.jsp" %>
 </div>
 
 <script src="${path}/js/burger.js"></script>

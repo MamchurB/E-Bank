@@ -16,14 +16,7 @@
 
 <body class="body_login">
    <div class="wrapper">
-      <header class="header">
-         <div class="container">
-            <div class="header__body">
-               <a href="" class="header__logo">E-bank</a>
-               </nav>
-            </div>
-         </div>
-      </header>
+      <%@include file="components/header-menu.jsp" %>
       <main class="page">
          <div class="pattern-1">
             <img src="${path}/images/pattern1.png" alt="pattern1">
@@ -98,24 +91,7 @@
             </div>
          </div>
       </main>
-      <footer class="footer">
-         <div class="container container_footer">
-            <div class="footer__inner">
-               <ul class="footer__social">
-                  <li>
-                     <a href="#"><img src="${path}/images/facebook.svg" alt="facebook"></a>
-                  </li>
-                  <li><a href="#"><img src="${path}/images/inst.svg" alt="inst"></a></li>
-                  <li><a href="#"><img src="${path}/images/youtube.svg" alt="youtube"></a></li>
-                  <li><a href="#"><img src="${path}/images/viber.svg" alt="viber"></a></li>
-                  <li><a href="#"><img src="${path}/images/telega.svg" alt="telega"></a></li>
-               </ul>
-               <div class="footer__rights">
-                  "E-Bank", 2023. All rights reserved. CrEATEd by Bohdan Mamchur
-               </div>
-            </div>
-         </div>
-      </footer>
+      <%@include file="components/footer.jsp" %>
    </div>
 </body>
 

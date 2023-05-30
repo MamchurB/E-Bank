@@ -6,8 +6,10 @@ import com.bank.dto.out.CreditStatusOut;
 import com.bank.models.enums.CreditStatus;
 import com.bank.repositories.BankAccountRepository;
 import com.bank.repositories.SaldoRepository;
+import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.CreditService;
+import com.bank.services.interfaces.CurrencyTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -21,15 +23,15 @@ import java.util.Optional;
 public class CreditController {
     private final CreditService creditService;
 
-    private final SaldoRepository saldoRepository;
+    private final CurrencyTypeServiceImpl currencyTypeService;
 
     private final BankAccountService bankAccountService;
     @Autowired
     public CreditController(CreditService creditService,
-                            SaldoRepository saldoRepository,
+                            CurrencyTypeServiceImpl currencyTypeService,
                             BankAccountService bankAccountService) {
         this.creditService = creditService;
-        this.saldoRepository = saldoRepository;
+        this.currencyTypeService = currencyTypeService;
         this.bankAccountService = bankAccountService;
     }
 
@@ -37,7 +39,7 @@ public class CreditController {
     @Secured("ROLE_USER")
     public String credits(Model model) {
         model.addAttribute("creditsForm", new CreditIn());
-        model.addAttribute("allSaldo", saldoRepository.findAll());
+        model.addAttribute("allCurrencyType", currencyTypeService.findAll());
         model.addAttribute("allAccount", bankAccountService.findByUser());
         System.out.println("credit");
 
@@ -54,14 +56,12 @@ public class CreditController {
     @Secured("ROLE_USER")
     public String userCredits(Model model) {
         model.addAttribute("allUserCredits", creditService.findByUser());
-        model.addAttribute("creditDetail",creditService.findByUser().get(0));
         return "user-credits";
     }
 
     @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CreditOut practicePagePost(@PathVariable("id") Long id,
-                                   Model model){
+    public CreditOut practicePagePost(@PathVariable("id") Long id){
         return creditService.findById(id);
     }
 

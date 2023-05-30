@@ -45,7 +45,6 @@ public class InvestmentController {
     @Secured("ROLE_USER")
     public String userCredits(Model model) {
         model.addAttribute("allUserDeposits", investmentService.findAllByUser());
-        model.addAttribute("depositDetail", investmentService.findAllByUser().get(0));
         return "user-deposits";
     }
     @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
