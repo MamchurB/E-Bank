@@ -38,7 +38,7 @@ function detailCredit(id) {
             currentBalanceTableContainer.innerText =  data['currentBalance'];
             investmentTypeTableContainer.innerText =  data['investmentType']['investmentStatus'];
             creationDateTableContainer.innerText =  data['creationDate'];
-
+            document.getElementById('close_deposit').action = "/investments/close-deposit/" + data['id'];
         }
     });
 }

@@ -59,32 +59,32 @@
             <c:forEach var="i" begin="1" end="${totalPages}">
                 <c:choose>
                     <c:when test="${currentPage != i}">
-                        <a href="/messages/conversation/${conversation.id}/${i}">[${i}]</a>
+                        <a class = 'message_slider_active' href="/messages/conversation/${conversation.id}/${i}">${i}</a>
                     </c:when>
                     <c:otherwise>
-                        <span>[${i}]</span>
+                        <span class = 'message_slider_disable'>${i}</span>
                     </c:otherwise>
                 </c:choose>
                 &nbsp;
             </c:forEach>
 
             <c:if test="${currentPage < totalPages}">
-                <a href="/messages/conversation/${conversation.id}/${currentPage + 1}">Next</a>
+                <a class = 'message_slider_active' href="/messages/conversation/${conversation.id}/${currentPage + 1}">Next</a>
             </c:if>
             <c:if test="${currentPage >= totalPages}">
-                <span>Next</span>
+                <span class = 'message_slider_disable'>Next</span>
             </c:if>
 
             <c:if test="${currentPage < totalPages}">
-                <a href="/messages/conversation/${conversation.id}/${totalPages}">Last</a>
+                <a class = 'message_slider_active' href="/messages/conversation/${conversation.id}/${totalPages}">Last</a>
             </c:if>
             <c:if test="${currentPage >= totalPages}">
-                <span>Last</span>
+                <span class = 'message_slider_disable'>Last</span>
             </c:if>
 
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-            <form:form method="POST" modelAttribute="messageForm">
+            <form:form cssClass="message_form" method="POST" modelAttribute="messageForm">
             <div class="data__receiver">
                 <div class="data__label">Відповідь
                 </div>

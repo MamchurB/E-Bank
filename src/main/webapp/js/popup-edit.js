@@ -1,4 +1,4 @@
-let open = document.querySelector('.message__title');
+let open = document.querySelector('.popup_click');
 let close = document.querySelector('.popup__close');
 let openEdit = document.querySelectorAll('.message__title_edit');
 let closeEdit = document.querySelector('.popup__close_edit');

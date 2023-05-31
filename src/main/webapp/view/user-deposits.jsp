@@ -48,9 +48,17 @@
                     </table>
                 </div>
             </div>
-            <button class="form-button popup__button popup__close popup-deposits__button">
-                Ок
-            </button>
+            <div class="popup__buttons">
+                <form id = "close_deposit" action="${path}/close-deposit/" method="post">
+                    <button class="form-button popup__button">
+                        Close deposit
+                    </button>
+                </form>
+                <button class="form-button popup__button popup__close popup-deposits__button">
+                    Ок
+                </button>
+
+            </div>
         </div>
     </div>
     <main class="page page_index">

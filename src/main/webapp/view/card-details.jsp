@@ -24,10 +24,16 @@
             <div class="card-details__number">
                 Номер рахунку : ${bankAccount.number}
             </div>
+            <div class="card-details__number">
+                Баланс :
+                <c:forEach items="${bankAccount.saldos}" var="saldo">
+                    ${saldo.currencyType.name} ${saldo.balance}
+                </c:forEach>
+            </div>
                 <div>
                     <input type="hidden" id="bcLabels" value="${chartData.get("label")}"/>
                     <input type="hidden" id="bcPercents" value="${chartData.get("value")}"/>
-                    <canvas style="max-width: 100%; padding-bottom: 10px;" id="myPieChart" width="60%" height="60%"></canvas>
+                    <canvas style="margin: 10px auto 10px auto; max-width: 500px; padding-bottom: 10px;" id="myPieChart" width="60%" height="60%"></canvas>
                 </div>
             <div class="card-details__transactions transactions-card-details">
                 <div class="transactions-card-details__title">

@@ -47,6 +47,14 @@ public class InvestmentController {
         model.addAttribute("allUserDeposits", investmentService.findAllByUser());
         return "user-deposits";
     }
+    @PostMapping("close-deposit/{id}")
+    @Secured("ROLE_USER")
+    public String close(@PathVariable("id") Long id) {
+        //investmentService.deleteDepositById(id);
+        if(investmentService.findById(id).getInvestmentType().getInvestmentStatus().name().equals("ACTIVE"))
+            investmentService.updateStatus(id);
+        return "redirect:/investments/user-deposits";
+    }
     @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
     @ResponseBody
     public InvestmentOut practicePagePost(@PathVariable("id") Long id,

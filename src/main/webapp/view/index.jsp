@@ -37,6 +37,9 @@
                   </form:select>
                 </div>
                 <div class="popup__buttons">
+                  <div class="form-button popup__button popup__close">
+                    Скасувати
+                  </div>
                   <button class="form-button popup__button ">
                     Далі
                   </button>
@@ -44,11 +47,6 @@
               </div>
             </form:form>
 
-            <div class="popup__buttons">
-              <button class="form-button popup__button popup__close">
-                Скасувати
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -67,9 +65,13 @@
               ${item.number.substring(0, 4)} **** **** **** **** ** ${item.number.substring(22, 26)}
             </div>
             <div class="card-home__money">
-              <c:forEach items="${item.saldos}" var="saldo">
-                ${saldo.currencyType.name} ${saldo.balance}
-              </c:forEach>
+                ${item.saldos.stream().findFirst().get().currencyType.name} ${item.saldos.stream().findFirst().get().balance}
+                  <c:if test="${item.saldos.size() > 1}">
+                    ......
+                  </c:if>
+<%--              <c:forEach items="${item.saldos}" var="saldo">--%>
+<%--                ${saldo.currencyType.name} ${saldo.balance}--%>
+<%--              </c:forEach>--%>
             </div>
           </a>
           </c:forEach>

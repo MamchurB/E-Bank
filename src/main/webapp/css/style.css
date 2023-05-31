@@ -235,7 +235,9 @@ body {
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
-  color: #e6a03b; }
+  color: #e6a03b;
+  margin-bottom: 20px;
+}
 
 .form-input {
   overflow: hidden;
@@ -815,10 +817,13 @@ body {
       background: #ffc60b41;
       -webkit-transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
       -o-transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-      transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1); }
+      transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
     @media (max-width: 768px) {
       .dashboard__title, .dashboard__notification, .dashboard__profile {
-        padding: 10px 10px; } }
+        padding: 10px 10px;
+      }
+    }
   .dashboard .tabs {
     border-radius: 8px;
     overflow: hidden; }
@@ -895,7 +900,15 @@ body {
     border-radius: 50%; }
   .transfers__radio input:checked ~ .radio-button {
     background: #ffc60b; }
-
+  .dashboard__notification a{
+    color:#ffffff;
+  }
+  .dashboard__title a{
+    color:#ffffff;
+  }
+  .dashboard__profile a{
+    color:#ffffff;
+  }
 /*----------------------------------DATA----------------------------------*/
 .data {
   -webkit-box-flex: 1;
@@ -1793,7 +1806,7 @@ body {
   position: absolute;
   z-index: 99999;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba(111, 111, 111, 0.7);
   display: none;
   -webkit-box-pack: center;
@@ -2104,8 +2117,8 @@ body {
   display: -ms-flexbox;
   display: flex; }
 
-body.popup_active {
-  overflow: hidden; }
+/*body.popup_active {*/
+/*  overflow: hidden; }*/
 
 .popup-deposits > .card-details__transactions {
   margin-bottom: 20px;
@@ -2146,3 +2159,21 @@ body.popup_active {
   text-align: center;
   text-transform: uppercase;
   color: #ffffff; }
+
+.message_slider_active{
+  padding: 5px;
+  background-color: #e6a03b;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 24px;
+}
+.message_slider_disable{
+  padding: 5px;
+  background-color: #686464;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 24px;
+}
+.message_form{
+  margin-top:20px;
+}

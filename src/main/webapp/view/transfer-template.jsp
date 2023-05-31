@@ -85,17 +85,16 @@
                   </div>
                </div>
                <div class="popup__buttons">
+                  <div class="form-button popup__button popup__close">
+                     Скасувати
+                  </div>
                   <button class="form-button popup__button">
                      Далі
                   </button>
                </div>
             </div>
          </form:form>
-         <div class="popup__buttons">
-            <button class="form-button popup__button popup__close">
-               Скасувати
-            </button>
-         </div>
+
       </div>
    </div>
       <div class="popup__wrapper_edit">
@@ -159,17 +158,15 @@
                      </div>
                   </div>
                   <div class="popup__buttons">
+                     <div class="form-button popup__button popup__close_edit">
+                        Скасувати
+                     </div>
                      <button class="form-button popup__button">
                         Далі
                      </button>
                   </div>
                </div>
             </form:form>
-            <div class="popup__buttons">
-               <button class="form-button popup__button popup__close_edit">
-                  Скасувати
-               </button>
-            </div>
          </div>
       </div>
       <main class="page page_index">
@@ -213,7 +210,11 @@
                   </table>
                </div>
             </div>
+            <button class="home__add-btn popup_click" >
+               Add transfer template
+            </button>
          </div>
+
       </main>
       <%@include file="components/footer.jsp" %>
    </div>

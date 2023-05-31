@@ -48,7 +48,7 @@
          <div class="popup popup__deposit popup-deposits">
             <div class="card-details__transactions transactions-card-details">
                <div class="transactions-card-details__table_wrapper">
-                  <div id = "valueCalculate"></div>
+                  <div style = "font-size:24px; text-align: center" id = "valueCalculate"></div>
                </div>
             </div>
             <button class="form-button popup__button popup__close_calculate popup-deposits__button">
@@ -99,24 +99,21 @@
                <div class="data__sum exchange__sum">
                   <div class="data__label">Sum
                   </div>
-                  <form:input id = "count" path = "balance" type="number" placeholder="Сума"/>
+                  <form:input min = "0" id = "count" path = "balance" type="number" placeholder="Сума"/>
                </div>
                <div class="exchange__buttons">
                   <button type="submit" class="data__button form-button exchange__button">
                      Convert
                   </button>
+                  <div class="data__button form-button exchange__button message__title_calculate">
+                     Calculate
+                  </div>
+                  <div class="data__button form-button exchange__button message__title">
+                     Table of currencies
+                  </div>
                </div>
             </div>
                </form:form>
-
-               <div class="exchange__buttons">
-                  <button class="data__button form-button exchange__button message__title_calculate">
-                     Calculate
-                  </button>
-                  <button class="data__button form-button exchange__button message__title">
-                     Table of currencies
-                  </button>
-               </div>
          </div>
       </main>
       <%@include file="components/footer.jsp" %>

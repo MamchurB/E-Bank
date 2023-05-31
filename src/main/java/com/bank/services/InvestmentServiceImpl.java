@@ -113,6 +113,11 @@ public class InvestmentServiceImpl implements InvestmentService {
             .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteDepositById(Long id){
+        investmentRepository.deleteById(id);
+    }
+
     private InvestmentOut calculateProfit(Investment investment) {
         if (investment == null)
             return null;

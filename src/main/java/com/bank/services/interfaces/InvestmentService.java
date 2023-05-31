@@ -20,4 +20,5 @@ public interface InvestmentService {
 
     List<InvestmentOut> findActiveByBankAccountId(Long bankAccountId);
 
+    void deleteDepositById(Long id);
 }

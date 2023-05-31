@@ -89,8 +89,8 @@
                 </div>
             </div>
             <div class="tab">
-                <input type="checkbox" id="rd5" name="rd">
-                <label class="tab-label  dashboard__credit" for="rd3">
+                <input type="checkbox" id="rd4" name="rd">
+                <label class="tab-label  dashboard__credit" for="rd4">
                     <img src="${path}/images/deposit.svg" alt="credit">
                     <span>Deposit</span>
                 </label>
