@@ -20,14 +20,15 @@
         <%@include file="components/menu.jsp" %>
         <div class="data">
             <div class="data__title">
-                Новий кредит
+                New credit
             </div>
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
             <form:form method="POST" modelAttribute="creditsForm">
             <div class="data__form">
                 <div class="data__bank-account">
-                    <div class="data__label">Виберіть банківський рахунок
+                    <div class="data__label">
+                        Select a bank account
                     </div>
                     <select>
                         <c:forEach items="${allAccount}" var="item">
@@ -36,7 +37,7 @@
                     </select>
                 </div>
                 <div class="data__balance">
-                    <div class="data__label">Цільовий Баланс
+                    <div class="data__label">Target Balance
                     </div>
                     <form:select path ="destinedSaldoId">
                         <c:forEach items="${allCurrencyType}" var="item">
@@ -45,12 +46,12 @@
                     </form:select>
                 </div>
                 <div class="data__sum data__credit-sum">
-                    <div class="data__label">Сума
+                    <div class="data__label">Sum
                     </div>
                     <form:input path = "totalBalance" type="number" min="0" max="100000" placeholder="Сума"></form:input>
                 </div>
                 <div class="data__pay-range sum-range">
-                    <div class="data__label">Кількість платежів
+                    <div class="data__label">Number of payments
                     </div>
                     <div class="sum-range__info">
                         <div class="pay-range__current">
@@ -63,7 +64,7 @@
                     <form:input path = "totalInstallmentCount" type="range" class="pay-range__input" min="5" max="96" value="12"></form:input>
                 </div>
                 <button class="data__button form-button">
-                    Оформити
+                    Apply
                 </button>
             </div>
             </form:form>

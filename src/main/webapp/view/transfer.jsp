@@ -20,24 +20,24 @@
          <%@include file="components/menu.jsp" %>
          <div class="data">
             <div class="data__title">
-               Валютний переказ
+                Currency transfer
             </div>
             <ul class="data__progress progress-data progressbar">
                <li class="progress-data__element active">
                   <div class="progress-data__text">
-                     Форма
+                      Form
                   </div>
                </li>
                <div class="progress-data__line active"></div>
                <li class="progress-data__element">
                   <div class="progress-data__text">
-                     Резюме
+                      Resume
                   </div>
                </li>
                <div class="progress-data__line"></div>
                <li class="progress-data__element">
                   <div class="progress-data__text">
-                     Завершення
+                      Completion
                   </div>
                </li>
             </ul>
@@ -46,7 +46,7 @@
             <form:form method="POST" modelAttribute="transferForm">
             <div class="data__form">
                <div class="data__bank-account">
-                  <div class="data__label">Виберіть банківський рахунок
+                  <div class="data__label">Select a bank account
                   </div>
                   <form:select path = "sourceAccountNumber">
                      <c:forEach items="${allAccount}" var="item">
@@ -55,14 +55,14 @@
                   </form:select>
                </div>
                <div class="data__receiver">
-                  <div class="data__label">Одержувач
+                  <div class="data__label">Recipient
                   </div>
                   <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
                </div>
                <form:input path="destinedCurrency" value = "PLN" type="hidden" />
                <form:input path="sourceCurrency" value = "PLN" type="hidden"/>
                <div class="data__bank-account">
-                  <div class="data__label">Виберіть тип транзакції
+                  <div class="data__label">Select the type of transaction
                   </div>
                   <form:select path="transactionDirectionId">
                      <c:forEach items="${allTypeTransaction}" var="item">
@@ -72,18 +72,18 @@
                </div>
                <div class="data__row">
                   <div class="data__sum">
-                     <div class="data__label">Сума
+                     <div class="data__label">Sum
                      </div>
                      <form:input path = "balance" type="number" placeholder="Сума"></form:input>
                   </div>
                   <div class="data__name">
-                     <div class="data__label">Назва
+                     <div class="data__label">Title
                      </div>
                      <form:input path = "title" type="text" placeholder="Назва"></form:input>
                   </div>
                </div>
                <button class="data__button form-button">
-                  Далі
+                  Next
                </button>
             </div>
             </form:form>

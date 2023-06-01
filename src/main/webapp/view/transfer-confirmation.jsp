@@ -20,36 +20,36 @@
          <%@include file="components/menu.jsp" %>
          <div class="data">
             <div class="data__title">
-               Валютний переказ
+               Currency transfer
             </div>
             <ul class="data__progress progress-data progressbar">
                <li class="progress-data__element active">
                   <div class="progress-data__text">
-                     Форма
+                     Form
                   </div>
                </li>
                <div class="progress-data__line active"></div>
                <li class="progress-data__element active">
                   <div class="progress-data__text">
-                     Резюме
+                     Resume
                   </div>
                </li>
                <div class="progress-data__line"></div>
                <li class="progress-data__element">
                   <div class="progress-data__text">
-                     Завершення
+                     Completion
                   </div>
                </li>
             </ul>
             <div class="data user">
                <div class="form-title user__title">
-                  Дані користувача
+                  User data
                </div>
                <div class="user__table">
                   <table>
                      <tr>
                         <th>
-                           Банківський рахунок
+                           Bank account
                         </th>
                         <td>
                            ${transferConfirmation.sourceAccountNumber}
@@ -57,7 +57,7 @@
                      </tr>
                      <tr>
                         <th>
-                           Цільовий рахунок
+                           Target account
                         </th>
                         <td>
                            ${transferConfirmation.destinedAccountNumber}
@@ -65,7 +65,7 @@
                      </tr>
                      <tr>
                         <th>
-                           Сума
+                           Sum
                         </th>
                         <td>
                            ${transferConfirmation.balance}
@@ -73,7 +73,7 @@
                      </tr>
                      <tr>
                         <th>
-                           Тип
+                           Type
                         </th>
                         <td>
                            ${transferConfirmation.title}
@@ -94,13 +94,13 @@
                      <form:input type="hidden" path="sourceCurrency" value="${transferConfirmation.sourceCurrency}" />
                      <form:input type="hidden" path="title" value="${transferConfirmation.title}" />
                      <button class="form-button">
-                        Далі
+                        Next
                      </button>
                   </form>
                   </form:form>
 
                   <button onclick="window.location.href='/transaction/delete/'" class="form-button data__reject">
-                     Скасувати
+                     Cancel
                   </button>
                </div>
             </div>

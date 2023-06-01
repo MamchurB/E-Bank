@@ -20,24 +20,24 @@
         <%@include file="components/menu.jsp" %>
         <div class="data">
             <div class="data__title">
-                Валютний переказ
+                Currency transfer
             </div>
             <ul class="data__progress progress-data progressbar">
                 <li class="progress-data__element active">
                     <div class="progress-data__text">
-                        Форма
+                        Form
                     </div>
                 </li>
                 <div class="progress-data__line active"></div>
                 <li class="progress-data__element active">
                     <div class="progress-data__text">
-                        Резюме
+                        Resume
                     </div>
                 </li>
                 <div class="progress-data__line active"></div>
                 <li class="progress-data__element active">
                     <div class="progress-data__text">
-                        Завершення
+                        Completion
                     </div>
                 </li>
             </ul>

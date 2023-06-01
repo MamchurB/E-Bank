@@ -30,19 +30,19 @@
                             <td id = 'id'> </td>
                         </tr>
                         <tr>
-                            <th>Початкова сума</th>
+                            <th>Initial amount</th>
                             <td id = 'startBalance' ></td>
                         </tr>
                         <tr>
-                            <th>Поточна сума</th>
+                            <th>Current amount</th>
                             <td id = 'currentBalance'></td>
                         </tr>
                         <tr>
-                            <th>Статус</th>
+                            <th>Status</th>
                             <td id = 'investmentType'></td>
                         </tr>
                         <tr>
-                            <th>Дата створення</th>
+                            <th>Date of creation</th>
                             <td id = 'creationDate'></td>
                         </tr>
                     </table>
@@ -65,15 +65,15 @@
         <%@include file="components/menu.jsp" %>
         <div class="data message">
             <div class="form-title">
-                Мої депозити
+                My deposits
             </div>
             <div class="card-details__transactions transactions-card-details">
                 <div class="transactions-card-details__table_wrapper">
                     <table class="transactions-card-details__table message__table">
                         <tr>
-                            <th>Дата створення</th>
-                            <th>Сума</th>
-                            <th>Статус</th>
+                            <th>Date of creation</th>
+                            <th>Sum</th>
+                            <th>Status</th>
                         </tr>
 
                         <c:forEach items="${allUserDeposits}" var="deposit">
@@ -83,7 +83,7 @@
                                 <td>${deposit.investmentType.investmentStatus.name()}</td>
                                 <td>
                                     <button value="${deposit.id}" class="form-button message__history-btn message__title">
-                                        Детально
+                                        In detail
                                     </button>
                                 </td>
                             </tr>

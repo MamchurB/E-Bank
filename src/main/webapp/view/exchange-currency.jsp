@@ -20,14 +20,15 @@
         <%@include file="components/menu.jsp" %>
         <div class="data">
             <div class="data__title">
-                Обмін валют
+                Currency exchange
             </div>
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
             <form:form method="POST" modelAttribute="exchangeForm">
                 <div class="data__form">
                     <div class="data__bank-account">
-                        <div class="data__label">Виберіть банківський рахунок
+                        <div class="data__label">
+                            Select a bank account
                         </div>
                         <form:select path = "sourceBankAccNumber">
                             <c:forEach items="${allAccount}" var="item">

@@ -30,23 +30,23 @@
                         <td id = 'id'> </td>
                      </tr>
                      <tr>
-                        <th>Сплачено</th>
+                        <th>Paid</th>
                         <td id = 'balancePaid' ></td>
                      </tr>
                      <tr>
-                        <th>Сума Внеску</th>
+                        <th>Contribution amount</th>
                         <td id = 'installmentAmount'></td>
                      </tr>
                      <tr>
-                        <th>РОзмір позики</th>
+                        <th>Loan amount</th>
                         <td id = 'totalBalance'></td>
                      </tr>
                      <tr>
-                        <th>Валюта</th>
+                        <th>Currency</th>
                         <td id = 'currency'> </td>
                      </tr>
                      <tr>
-                        <th>Статус</th>
+                        <th>Status</th>
                         <td id = 'creditStatus'> </td>
                      </tr>
                   </table>
@@ -61,16 +61,16 @@
          <%@include file="components/menu.jsp" %>
          <div class="data message">
             <div class="form-title">
-               Мої кредити
+               My credits
             </div>
             <div class="card-details__transactions transactions-card-details">
                <div class="transactions-card-details__table_wrapper">
                   <table class="transactions-card-details__table message__table">
                      <tr>
-                        <th>Сума переказу</th>
-                        <th>Кількість розстрочок</th>
-                        <th>Валюта</th>
-                        <th>Статус</th>
+                        <th>Transfer amount</th>
+                        <th>Number of installments</th>
+                        <th>Currency</th>
+                        <th>Status</th>
                      </tr>
 
                      <c:forEach items="${allUserCredits}" var="credit">
@@ -81,7 +81,7 @@
                         <td>${credit.creditStatus.creditType.toString()}</td>
                         <td>
                            <button value="${credit.id}" class="form-button message__history-btn message__title">
-                              Детально
+                              In detail
                            </button>
                         </td>
                      </tr>

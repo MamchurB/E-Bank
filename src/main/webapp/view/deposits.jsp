@@ -1,4 +1,8 @@
+<%@ page language="java" contentType="text/html;"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 
 <head>
@@ -6,37 +10,21 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>E-Bank - Deposits</title>
-   <link rel="stylesheet" href="../../../../../../../../Desktop/Bodya/project/css/style.css">
+   <link rel="stylesheet" href="${path}/css/style.css">
 </head>
 
 <body>
    <div class="wrapper">
-      <header class="header">
-         <div class="container">
-            <div class="header__body">
-               <a href="" class="header__logo">E-bank</a>
-               <div class="header__burger">
-                  <span></span>
-               </div>
-               <nav class="header__menu">
-                  <ul class="header__list">
-                     <li><a href="" class="header__link">HOME</a></li>
-                     <li><a href="" class="header__link">ABOUT US</a></li>
-                     <li><a href="" class="header__link">CONTACTS</a></li>
-                  </ul>
-               </nav>
-            </div>
-         </div>
-      </header>
+      <%@include file="components/header-menu.jsp" %>
       <div class="popup__wrapper">
          <div class="popup popup__deposit popup-deposits">
             <div class="card-details__transactions transactions-card-details">
                <div class="popup-deposits__row">
                   <div class="popup-deposits__title">
-                     Види банківський рахунків
+                      Types of bank accounts
                   </div>
                   <button class="form-button popup__button popup-deposits__close-deposit">
-                     Закінчити депозит
+                      Complete the deposit
                   </button>
                </div>
                <div class="transactions-card-details__table_wrapper">
@@ -46,23 +34,23 @@
                         <td>5</td> 
                      </tr> 
                      <tr>
-                        <th>Сплачено</th>
+                        <th>Liquidate</th>
                         <td>0.00</td> 
                      </tr>
                      <tr>
-                        <th>Сума Внеску</th>
+                        <th>Contribution amount</th>
                         <td>166.67</td> 
                      </tr>
                      <tr>
-                        <th>РОзмір позики</th>
+                        <th>Loan amount</th>
                         <td>1000</td> 
                      </tr>
                      <tr>
-                        <th>Валюта</th>
+                        <th>Currency</th>
                         <td>Грн</td> 
                      </tr> 
                      <tr>
-                        <th>Статус</th>
+                        <th>Status</th>
                         <td>В очікуванні</td> 
                      </tr> 
                   </table>
@@ -152,217 +140,102 @@
             <div class="transactions-card-details__title">
                Add a new deposit
             </div>
+            <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+            <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+            <form:form method="POST" modelAttribute="depositForm">
             <div class="data__form">
                <div class="data__bank-account">
                   <div class="data__label">Select a bank account
                   </div>
-                  <select>
-                     <option value="">Account 1</option>
-                     <option value="">Account 2</option>
-                     <option value="">Account 3</option>
-                  </select>
+                  <form:select path = "destinedBankAccountNumber">
+                     <c:forEach items="${allAccount}" var="item">
+                        <option value="${item.number}">${item.number}</option>
+                     </c:forEach>
+                  </form:select>
                </div>
                <div class="data__out-currency deposit__out-currency">
                   <div class="data__label">Currency
                   </div>
-                  <select>
-                     <option value="">Currency 1</option>
-                     <option value="">Currency 2</option>
-                     <option value="">Currency 3</option>
-                  </select>
+                  <form:select path="sourceCurrencyType">
+                     <c:forEach items="${allCurrencyType}" var="item">
+                        <form:option value="${item.name}">${item.name}</form:option>
+                     </c:forEach>
+                  </form:select>
                </div>
                <div class="data__sum exchange__sum">
                   <div class="data__label">Sum
                   </div>
-                  <input type="number" placeholder="Сума">
+                  <form:input path="balance" min = "0" type="number" placeholder="Сума"/>
                </div>
                <button class="data__button form-button deposit__button">
                   Apply
                </button>
             </div>
+            </form:form>
             <div class="transactions-card-details__title">
-               Депозити
+                Deposits
             </div>
             <div class="card-details__transactions transactions-card-details">
                <div class="transactions-card-details__table_wrapper transfer-tempalte__table">
                   <table class="transactions-card-details__table message__table">
                      <tr>
-                        <th>Сума</th>
-                        <th>Дата</th>
-                        <th>Номер рахунку</th>
+                        <th>Sum</th>
+                        <th>Date</th>
+                        <th>Account number</th>
                      </tr>
+                     <c:forEach items="${allDeposits}" var="item">
                      <tr>
-                        <td>123</td>
-                        <td>16.05.2023</td>
-                        <td>1234 5678 9012 2312</td>
+                        <td>${item.balance}</td>
+                        <td>${item.date}</td>
+                        <td>${item.destinedBankAccount.number}</td>
                         <td>
                            <button class="form-button message__history-btn">
-                              Детально
+                               In detail
                            </button>
                         </td>
                      </tr>
-                     <tr>
-                        <td>123</td>
-                        <td>16.05.2023</td>
-                        <td>1234 5678 9012 2312</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>123</td>
-                        <td>16.05.2023</td>
-                        <td>1234 5678 9012 2312</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>123</td>
-                        <td>16.05.2023</td>
-                        <td>1234 5678 9012 2312</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>123</td>
-                        <td>16.05.2023</td>
-                        <td>1234 5678 9012 2312</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>123</td>
-                        <td>16.05.2023</td>
-                        <td>1234 5678 9012 2312</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
+                     </c:forEach>
                   </table>
                </div>
             </div>
             <div class="transactions-card-details__title">
-               Банківські рахунки
+                Bank accounts
             </div>
             <div class="card-details__transactions transactions-card-details">
                <div class="transactions-card-details__table_wrapper transfer-tempalte__table">
                   <table class="transactions-card-details__table message__table">
                      <tr>
-                        <th>Номер рахунку</th>
-                        <th>Тип</th>
-                        <th>Рахунки</th>
+                        <th>Account number</th>
+                        <th>Type</th>
+                        <th>Accounts</th>
                      </tr>
+                     <c:forEach items="${allAccount}" var="item">
                      <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
+                        <td>${item.number}</td>
+                        <td>${item.bankAccType.bankAccountType.name()}</td>
+                        <td>
+                           <c:forEach items="${item.saldos}" var="saldo">
+                           ${saldo.currencyType.name} ${saldo.balance}
+                        </c:forEach>
+                        </td>
                         <td>
                            <button class="form-button message__history-btn">
-                              Детально
+                               In detail
                            </button>
                         </td>
                      </tr>
-                     <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>1234 5678 9012 2312</td>
-                        <td>Student</td>
-                        <td>50 ГРН</td>
-                        <td>
-                           <button class="form-button message__history-btn">
-                              Детально
-                           </button>
-                        </td>
-                     </tr>
+                     </c:forEach>
                   </table>
                </div>
             </div>
          </div>
       </main>
-      <footer class="footer">
-         <div class="container container_footer">
-            <div class="footer__inner">
-               <ul class="footer__social">
-                  <li>
-                     <a href="#"><img src="../../../../../../../../Desktop/Bodya/project/images/facebook.svg" alt="facebook"></a>
-                  </li>
-                  <li><a href="#"><img src="../../../../../../../../Desktop/Bodya/project/images/inst.svg" alt="inst"></a></li>
-                  <li><a href="#"><img src="../../../../../../../../Desktop/Bodya/project/images/youtube.svg" alt="youtube"></a></li>
-                  <li><a href="#"><img src="../../../../../../../../Desktop/Bodya/project/images/viber.svg" alt="viber"></a></li>
-                  <li><a href="#"><img src="../../../../../../../../Desktop/Bodya/project/images/telega.svg" alt="telega"></a></li>
-               </ul>
-               <div class="footer__rights">
-                  "E-Bank", 2023. All rights reserved. CrEATEd by Bohdan Mamchur
-               </div>
-            </div>
-         </div>
-      </footer>
+      <%@include file="components/footer.jsp" %>
    </div>
 
 
-   <script src="../../../../../../../../Desktop/Bodya/project/js/burger.js"></script>
-   <script src="../../../../../../../../Desktop/Bodya/project/js/popup-deposits.js"></script>
+   <script src="${path}/js/burger.js"></script>
+   <script src="${path}/js/popup-deposits.js"></script>
 </body>
 
 </html>

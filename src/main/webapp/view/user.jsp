@@ -20,13 +20,13 @@
     <%@include file="components/menu.jsp" %>
     <div class="data user">
       <div class="form-title user__title">
-        Дані користувача
+        User data
       </div>
       <div class="user__table">
         <table>
           <tr>
             <th>
-              Ідентифікатор
+              Identifier
             </th>
             <td>
               ${userAccount.identifier}
@@ -34,7 +34,7 @@
           </tr>
           <tr>
             <th>
-              Ім’я
+              Name
             </th>
             <td>
               ${userAccount.address.name}
@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <th>
-              Прізвище
+              Surname
             </th>
             <td>
               ${userAccount.address.surname}
@@ -50,7 +50,7 @@
           </tr>
           <tr>
             <th>
-              Місто
+              City
             </th>
             <td>
               ${userAccount.address.city}
@@ -58,7 +58,7 @@
           </tr>
           <tr>
             <th>
-              Пошта
+              E-Mail
             </th>
             <td>
               ${userAccount.email}
@@ -66,7 +66,7 @@
           </tr>
           <tr>
             <th>
-              Телефон
+              Phone
             </th>
             <td>
               ${userAccount.address.phoneNumber}
@@ -75,7 +75,7 @@
         </table>
       </div>
       <div class="user__label">
-        Редагувати пароль
+        Edit password
       </div>
       <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
       <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -91,7 +91,7 @@
             <span></span>
           </div>
         </div>
-        <button class="login-block__button form-button">Змінити</button>
+        <button class="login-block__button form-button">Change</button>
 
       </form>
       </form:form>

@@ -28,7 +28,7 @@
             <form:form method="POST" modelAttribute="bankAccForm">
               <div class="popup__form">
                 <div class="popup__bank-account">
-                  <div class="data__label">Виберіть тип банківського рахуноку
+                  <div class="data__label">Select the type of bank account
                   </div>
                   <form:select id = "editSourceAccountNumber" path = "bankAccountType">
                     <c:forEach items="${allTypeAccount}" var="item">
@@ -38,10 +38,10 @@
                 </div>
                 <div class="popup__buttons">
                   <div class="form-button popup__button popup__close">
-                    Скасувати
+                    Cancel
                   </div>
                   <button class="form-button popup__button ">
-                    Далі
+                    Next
                   </button>
                 </div>
               </div>
@@ -77,7 +77,7 @@
           </c:forEach>
       </div>
       <button class="home__add-btn message__title" >
-        Додати нову карту
+        Add a new card
       </button>
     </div>
   </main>

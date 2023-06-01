@@ -20,42 +20,42 @@
          <%@include file="components/menu.jsp" %>
          <div class="data message">
             <div class="form-title message__title">
-               Мої повідомлення
+               My messages
             </div>
             <div class="message__label">
-               Створіть повідомлення
+               Create a message
             </div>
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
             <form:form method="POST" modelAttribute="convertationForm">
             <form class="data__form">
                <div class="data__receiver message__topic">
-                  <div class="data__label">Тема
+                  <div class="data__label">Topic
                   </div>
                   <form:input path = "topic" type="text" placeholder="Тема"></form:input>
                </div>
                <div class="data__receiver message__description">
-                  <div class="data__label">Опис
+                  <div class="data__label">Title
                   </div>
                   <form:input path = "description" type="text" placeholder="Опис"></form:input>
                </div>
                <button class="form-button message__button">
-                  Надіслати
+                  Send
                </button>
             </form>
             </form:form>
 
             <div class="card-details__transactions transactions-card-details">
                <div class="transactions-card-details__title">
-                  Надіслані повідомлення
+                  Sent messages
                </div>
                <div class="transactions-card-details__table_wrapper">
                   <table class="transactions-card-details__table message__table">
                      <tr>
-                        <th>Тема</th>
-                        <th>Дата</th>
-                        <th>Статус</th>
-                        <th>Перегляд</th>
+                        <th>Topic</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Revision</th>
                      </tr>
                      <c:forEach items="${allConversation}" var="message">
                         <tr>
@@ -65,7 +65,7 @@
                            <td>
                               <a href="${path}/messages/conversation/${message.id}/1">
                               <button class="form-button message__history-btn">
-                                 Переглянути
+                                 Revision
                               </button>
                               </a>
                            </td>

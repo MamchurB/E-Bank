@@ -2,9 +2,12 @@ package com.bank.controller;
 
 import com.bank.dto.in.CreditIn;
 import com.bank.dto.in.InvestmentIn;
+import com.bank.dto.in.PaymentIn;
 import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.InvestmentOut;
+import com.bank.services.PaymentServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
+import com.bank.services.interfaces.CurrencyTypeService;
 import com.bank.services.interfaces.InvestmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -22,11 +25,19 @@ public class InvestmentController {
 
     private final InvestmentService investmentService;
     private final BankAccountService bankAccountService;
+
+    private final CurrencyTypeService currencyTypeService;
+
+    private final PaymentServiceImpl paymentService;
     @Autowired
     public InvestmentController(InvestmentService investmentService,
-                                BankAccountService bankAccountService) {
+                                BankAccountService bankAccountService,
+                                CurrencyTypeService currencyTypeService,
+                                PaymentServiceImpl paymentService) {
         this.investmentService = investmentService;
         this.bankAccountService = bankAccountService;
+        this.currencyTypeService = currencyTypeService;
+        this.paymentService = paymentService;
     }
     @GetMapping
     @Secured("ROLE_USER")
@@ -67,23 +78,35 @@ public class InvestmentController {
     public void findById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("depositDetail", investmentService.findById(id));
     }
-    @GetMapping("/byUser")
-    @Secured("ROLE_USER")
-    public List<InvestmentOut> findAllByUser() {
-        return investmentService.findAllByUser();
-    }
 
-    @PatchMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public InvestmentOut updateStatus(@PathVariable("id") Long id) {
-        return investmentService.updateStatus(id);
-    }
-
-
-
+    @GetMapping
     @Secured("ROLE_EMPLOYEE")
-    @GetMapping("/byBankAccount/{id}")
-    public List<InvestmentOut> findAllActiveByBankAccountId(@PathVariable("id") Long id){
-        return investmentService.findActiveByBankAccountId(id);
+    public String deposits(Model model) {
+        model.addAttribute("depositForm", new PaymentIn());
+        model.addAttribute("allAccount", bankAccountService.findAll());
+        model.addAttribute("allCurrencyType", currencyTypeService.findAll());
+        model.addAttribute("allDeposits", paymentService.findAll());
+
+        return "deposits";
     }
+
+//    @GetMapping("/byUser")
+//    @Secured("ROLE_USER")
+//    public List<InvestmentOut> findAllByUser() {
+//        return investmentService.findAllByUser();
+//    }
+//
+//    @PatchMapping("/{id}")
+//    @PreAuthorize("isAuthenticated()")
+//    public InvestmentOut updateStatus(@PathVariable("id") Long id) {
+//        return investmentService.updateStatus(id);
+//    }
+//
+//
+//
+//    @Secured("ROLE_EMPLOYEE")
+//    @GetMapping("/byBankAccount/{id}")
+//    public List<InvestmentOut> findAllActiveByBankAccountId(@PathVariable("id") Long id){
+//        return investmentService.findActiveByBankAccountId(id);
+//    }
 }

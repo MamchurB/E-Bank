@@ -24,14 +24,14 @@
         <%@include file="components/menu.jsp" %>
         <div class="data message">
             <div class="form-title message__title">
-                Мої повідомлення
+                My messages
             </div>
             <div class="message__details">
-                <div>Тема:</div>
+                <div>Topic:</div>
                 <div>${conversation.topic}</div>
-                <div>Автор:</div>
+                <div>Author:</div>
                 <div>${conversation.user.address.name}&nbsp;${conversation.user.address.surname.toString()}</div>
-                <div>Дата:</div>
+                <div>Date:</div>
                 <div>${conversation.creationDate}</div>
             </div>
             <div class="message__message-container message-container">
@@ -86,7 +86,7 @@
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
             <form:form cssClass="message_form" method="POST" modelAttribute="messageForm">
             <div class="data__receiver">
-                <div class="data__label">Відповідь
+                <div class="data__label">Answer
                 </div>
                 <form:input path = "message" type="text" placeholder="Відповідь"></form:input>
             </div>

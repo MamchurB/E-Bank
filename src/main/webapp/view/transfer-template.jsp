@@ -29,7 +29,7 @@
          <form:form method="POST"  modelAttribute="templateForm">
             <div class="popup__form">
                <div class="popup__bank-account">
-                  <div class="data__label">Виберіть банківський рахунок
+                  <div class="data__label">Select a bank account
                   </div>
                   <form:select path = "sourceAccountNumber">
                      <c:forEach items="${allAccount}" var="item">
@@ -38,7 +38,8 @@
                   </form:select>
                </div>
                <div class="popup__bank-account">
-                  <div class="data__label">Виберіть тип транзакції
+                  <div class="data__label">
+                     Select the type of transaction
                   </div>
                   <form:select path="transactionDirectionId">
                      <c:forEach items="${allTypeTransaction}" var="item">
@@ -48,7 +49,7 @@
                </div>
                <div class="popup__row">
                   <div class="popup__out-currency">
-                     <div class="data__label">Вихідна валюта
+                     <div class="data__label">Output currency
                      </div>
                      <form:select path="sourceCurrency">
                         <c:forEach items="${allCurrencyType}" var="item">
@@ -57,7 +58,7 @@
                      </form:select>
                   </div>
                   <div class="popup__currency">
-                     <div class="data__label">Цільова Валюта
+                     <div class="data__label">Target Currency
                      </div>
                      <form:select path="destinedCurrency">
                         <c:forEach items="${allCurrencyType}" var="item">
@@ -67,29 +68,29 @@
                   </div>
                </div>
                <div class="popup__receiver">
-                  <div class="data__label">Одержувач
+                  <div class="data__label">Recipient
                   </div>
                   <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"/>
 
                </div>
                <div class="popup__row">
                   <div class="popup__sum">
-                     <div class="data__label">Сума
+                     <div class="data__label">Sum
                      </div>
                      <form:input path = "balance" type="number" placeholder="Сума"/>
                   </div>
                   <div class="popup__name">
-                     <div class="data__label">Назва
+                     <div class="data__label">Title
                      </div>
                      <form:input path = "title" type="text" placeholder="Назва"/>
                   </div>
                </div>
                <div class="popup__buttons">
                   <div class="form-button popup__button popup__close">
-                     Скасувати
+                     Cancel
                   </div>
                   <button class="form-button popup__button">
-                     Далі
+                     Next
                   </button>
                </div>
             </div>
@@ -103,7 +104,7 @@
                <div class="popup__form">
                   <div class="popup__bank-account">
                      <form:input id = "id" type="hidden" path="id" />
-                     <div class="data__label">Виберіть банківський рахунок
+                     <div class="data__label">Select a bank account
                      </div>
                      <form:select id = "editSourceAccountNumber" path = "editSourceAccountNumber">
                         <c:forEach items="${allAccount}" var="item">
@@ -112,7 +113,8 @@
                      </form:select>
                   </div>
                   <div class="popup__bank-account">
-                     <div class="data__label">Виберіть тип транзакції
+                     <div class="data__label">
+                        Select the type of transaction
                      </div>
                      <form:select id = "editTransactionDirectionId" path="editTransactionDirectionId">
                         <c:forEach items="${allTypeTransaction}" var="item">
@@ -122,7 +124,7 @@
                   </div>
                   <div class="popup__row">
                      <div class="popup__out-currency">
-                        <div class="data__label">Вихідна валюта
+                        <div class="data__label">Output currency
                         </div>
                         <form:select id = "editSourceCurrency" path="editSourceCurrency">
                            <c:forEach items="${allCurrencyType}" var="item">
@@ -131,7 +133,7 @@
                         </form:select>
                      </div>
                      <div class="popup__currency">
-                        <div class="data__label">Цільова Валюта
+                        <div class="data__label">Target Currency
                         </div>
                         <form:select id = "editDestinedCurrency" path="editDestinedCurrency">
                            <c:forEach items="${allCurrencyType}" var="item">
@@ -141,28 +143,28 @@
                      </div>
                   </div>
                   <div class="popup__receiver">
-                     <div class="data__label">Одержувач
+                     <div class="data__label">Recipient
                      </div>
                      <form:input id = "editDestinedAccountNumber" path="editDestinedAccountNumber" type="text" placeholder="Одержувач"/>
                   </div>
                   <div class="popup__row">
                      <div class="popup__sum">
-                        <div class="data__label">Сума
+                        <div class="data__label">Sum
                         </div>
                         <form:input id = "editBalance" path = "editBalance" type="number" placeholder="Сума"/>
                      </div>
                      <div class="popup__name">
-                        <div class="data__label">Назва
+                        <div class="data__label">Title
                         </div>
                         <form:input id = "editTitle" path = "editTitle" type="text" placeholder="Назва"/>
                      </div>
                   </div>
                   <div class="popup__buttons">
                      <div class="form-button popup__button popup__close_edit">
-                        Скасувати
+                        Cancel
                      </div>
                      <button class="form-button popup__button">
-                        Далі
+                        Next
                      </button>
                   </div>
                </div>

@@ -22,10 +22,10 @@
         <div class="data card-details">
             <div class="form-title card-details__title">Детально про карту</div>
             <div class="card-details__number">
-                Номер рахунку : ${bankAccount.number}
+                Bank number : ${bankAccount.number}
             </div>
             <div class="card-details__number">
-                Баланс :
+                Balance :
                 <c:forEach items="${bankAccount.saldos}" var="saldo">
                     ${saldo.currencyType.name} ${saldo.balance}
                 </c:forEach>
@@ -37,15 +37,15 @@
                 </div>
             <div class="card-details__transactions transactions-card-details">
                 <div class="transactions-card-details__title">
-                    Історія Транзакцій
+                    History of Transactions
                 </div>
                 <div class="transactions-card-details__table_wrapper">
                     <table class="transactions-card-details__table">
                         <tr>
-                            <th>Тип</th>
-                            <th>Дата</th>
-                            <th>Облікові записи призначення</th>
-                            <th>Сума</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Title</th>
+                            <th>Sum</th>
                         </tr>
                         <c:forEach items="${transactionsById}" var="transaction">
                             <tr>
@@ -62,7 +62,7 @@
                 Керувати картою
             </div>
             <button onclick="window.location.href='/close-account/${bankAccountId}'" class="form-button  card-details__button">
-                Закрити рахунок
+                Close Bank Account
             </button>
         </div>
     </main>
@@ -74,11 +74,7 @@
 <script src="${path}/js/chart.js/Chart.min.js"></script>
 <script src="${path}/js/sb-admin-charts.js"></script>
 
-<!-- СЛАЙДЕР
-<script src="./js/script.js"></script>
-<script src="./js/slick.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
--->
+
 </body>
 
 </html>

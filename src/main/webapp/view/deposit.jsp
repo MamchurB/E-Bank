@@ -27,7 +27,8 @@
             <form:form method="POST" modelAttribute="depositForm">
                 <div class="data__form">
                     <div class="data__bank-account">
-                        <div class="data__label">Виберіть банківський рахунок
+                        <div class="data__label">
+                            Select a bank account
                         </div>
                         <select>
                             <c:forEach items="${allAccount}" var="item">
@@ -36,7 +37,8 @@
                         </select>
                     </div>
                     <div class="data__balance">
-                        <div class="data__label">Цільовий рахунок
+                        <div class="data__label">
+                            Target account
                         </div>
                         <form:select path ="destinedSaldoId">
                             <c:forEach items="${allAccount}" var="item">
@@ -45,12 +47,12 @@
                         </form:select>
                     </div>
                     <div class="data__sum data__credit-sum">
-                        <div class="data__label">Сума
+                        <div class="data__label">Sum
                         </div>
                         <form:input path = "startBalance" type="number" min="0" max="100000" placeholder="Сума"></form:input>
                     </div>
                     <button class="data__button form-button">
-                        Оформити
+                        Apply
                     </button>
                 </div>
             </form:form>
