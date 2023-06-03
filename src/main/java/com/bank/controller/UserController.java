@@ -3,6 +3,7 @@ package com.bank.controller;
 import com.bank.dto.edit.PasswordEdit;
 import com.bank.dto.edit.UserEdit;
 import com.bank.dto.in.UserIn;
+import com.bank.dto.out.TransactionTemplateOut;
 import com.bank.dto.out.UserOut;
 import com.bank.models.user.User;
 import com.bank.models.user.UserRole;
@@ -88,7 +89,7 @@ public class UserController {
             System.out.println("Has Error");
             return "register";
         }
-        userService.createEmployee(userForm);
+        userService.create(userForm);
         model.addAttribute("email", userForm.getEmail());
 
         return "login";
@@ -124,6 +125,26 @@ public class UserController {
         }
         return "redirect:/user/login";
     }
+    @GetMapping("/employee/users")
+    public String users(Model model){
+        model.addAttribute("allUsers", userService.findAllByUserTypeAndNotEnabled(UserRole.UserType.ROLE_USER));
+        model.addAttribute("editUser", new UserEdit());
+        return "users";
+    }
+
+    @GetMapping("/employee/{id}/activate")
+    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
+    public String changeStatus(@PathVariable("id") Long id){
+         userService.changeEnableStatus(id);
+         return "redirect:/user/employee/users";
+    }
+
+    @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public UserOut practicePagePost(@PathVariable("id") Long id){
+        return userService.findById(id);
+    }
+
     @PostMapping("/create/employee")
     @Secured("ROLE_ADMIN")
     public UserOut createEmployee(@RequestBody @Valid UserIn userIn) {

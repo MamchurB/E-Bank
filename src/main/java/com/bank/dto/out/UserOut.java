@@ -17,4 +17,6 @@ public class UserOut {
     private AddressOut address;
 
     private boolean locked;
+
+
 }

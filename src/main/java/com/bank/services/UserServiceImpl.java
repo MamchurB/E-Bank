@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         User mapped = userMapper.userInToUser(userIn);
         mapped.setLocked(false);
         mapped.setCredentials(false);
-        mapped.setEnabled(true);
+        mapped.setEnabled(false);
 
         String identifier = generateIdentifier();
         mapped.setIdentifier(identifier);
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
         User mapped = userMapper.userInToUser(userIn);
         mapped.setLocked(false);
         mapped.setCredentials(false);
-        mapped.setEnabled(true);
+        mapped.setEnabled(false);
         String identifier = generateIdentifier();
         mapped.setIdentifier(identifier);
         mapped.setUserRoles(Collections.singleton(

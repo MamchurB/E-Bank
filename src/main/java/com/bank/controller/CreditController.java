@@ -59,6 +59,7 @@ public class CreditController {
         return "user-credits";
     }
 
+
     @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CreditOut practicePagePost(@PathVariable("id") Long id){
@@ -71,15 +72,26 @@ public class CreditController {
         model.addAttribute("creditDetail",creditService.findById(id));
     }
 
-    @PatchMapping("/{id}/status")
+    @GetMapping("/employee/credits")
     @Secured("ROLE_EMPLOYEE")
-    public CreditOut changeStatus(@PathVariable Long id,
-                                  @RequestParam("status") Optional<CreditStatus.CreditType> status) {
-        if (status.isPresent()) {
-            return creditService.changeStatus(id, status.get());
-        } else {
-            return creditService.changeStatus(id);
-        }
+    public String creditsEmployee(Model model) {
+        model.addAttribute("allCredits", creditService.findByCreditType(CreditStatus.CreditType.AWAITING));
+        model.addAttribute("allStatuses", creditService.findAllCreditStatuses());
+
+        return "credits";
+    }
+
+    @GetMapping("/employee/credits/{id}/active")
+    @Secured("ROLE_EMPLOYEE")
+    public String changeStatusActive(@PathVariable Long id) {
+        creditService.changeStatus(id, CreditStatus.CreditType.ACTIVE);
+        return "redirect:/credits/employee/credits";
+    }
+    @GetMapping("/employee/credits/{id}/cancel")
+    @Secured("ROLE_EMPLOYEE")
+    public String changeStatusCancel(@PathVariable Long id) {
+        creditService.changeStatus(id, CreditStatus.CreditType.CANCELED);
+        return "redirect:/credits/employee/credits";
     }
 
     @Secured("ROLE_ADMIN")

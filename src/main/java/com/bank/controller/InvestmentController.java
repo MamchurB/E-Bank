@@ -3,8 +3,10 @@ package com.bank.controller;
 import com.bank.dto.in.CreditIn;
 import com.bank.dto.in.InvestmentIn;
 import com.bank.dto.in.PaymentIn;
+import com.bank.dto.out.BankAccountOut;
 import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.InvestmentOut;
+import com.bank.dto.out.PaymentOut;
 import com.bank.services.PaymentServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.CurrencyTypeService;
@@ -79,7 +81,7 @@ public class InvestmentController {
         model.addAttribute("depositDetail", investmentService.findById(id));
     }
 
-    @GetMapping
+    @GetMapping("employee/deposits")
     @Secured("ROLE_EMPLOYEE")
     public String deposits(Model model) {
         model.addAttribute("depositForm", new PaymentIn());
@@ -88,6 +90,22 @@ public class InvestmentController {
         model.addAttribute("allDeposits", paymentService.findAll());
 
         return "deposits";
+    }
+    @PostMapping("employee/deposits")
+    @Secured("ROLE_EMPLOYEE")
+    public String createPayment(PaymentIn paymentIn) {
+        paymentService.create(paymentIn);
+        return "redirect:/investments/employee/deposits";
+    }
+    @RequestMapping(value="/employee/deposit/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public PaymentOut findDepositById(@PathVariable("id") Long id){
+        return paymentService.findAll().stream().filter(o->o.getId().equals(id)).findFirst().get();
+    }
+    @RequestMapping(value="/employee/account/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public BankAccountOut findAccountById(@PathVariable("id") Long id){
+        return bankAccountService.findById(id);
     }
 
 //    @GetMapping("/byUser")
