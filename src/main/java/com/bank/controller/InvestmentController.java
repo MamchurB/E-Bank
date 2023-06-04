@@ -109,7 +109,7 @@ public class InvestmentController {
     }
 
 //    @GetMapping("/byUser")
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public List<InvestmentOut> findAllByUser() {
 //        return investmentService.findAllByUser();
 //    }
@@ -122,7 +122,7 @@ public class InvestmentController {
 //
 //
 //
-//    @Secured("ROLE_EMPLOYEE")
+//    @Secured("EMPLOYEE")
 //    @GetMapping("/byBankAccount/{id}")
 //    public List<InvestmentOut> findAllActiveByBankAccountId(@PathVariable("id") Long id){
 //        return investmentService.findActiveByBankAccountId(id);

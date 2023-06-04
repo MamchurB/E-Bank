@@ -52,7 +52,7 @@ public class BankAccountController {
         model.addAttribute("allBankAccount", bankAccountService.findByUser());
         model.addAttribute("allTypeAccount", bankAccTypeService.findAll());
         model.addAttribute("bankAccForm", new BankAccountIn());
-        return "index";
+       return "index";
     }
     @GetMapping("/card-details/{id}")
     @Secured("ROLE_USER")
@@ -79,7 +79,7 @@ public class BankAccountController {
         return "redirect:/";
     }
 //    @GetMapping
-//    @Secured("ROLE_EMPLOYEE")
+//    @Secured("EMPLOYEE")
 //    public List<BankAccountOut> findAll() {
 //        return bankAccountService.findAll();
 //    }
@@ -87,7 +87,7 @@ public class BankAccountController {
 //
 //
 //    @PostMapping
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public BankAccountOut create(@RequestBody BankAccountIn bankAccountIn,
 //                                 @AuthenticationPrincipal String username) {
 //        return bankAccountService.create(bankAccountIn, username);

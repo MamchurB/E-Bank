@@ -88,10 +88,10 @@
             <div class="data__receiver">
                 <div class="data__label">Answer
                 </div>
-                <form:input path = "message" type="text" placeholder="Відповідь"></form:input>
+                <form:input path = "message" type="text" placeholder="Answer"></form:input>
             </div>
             <button class="message-container__button form-button">
-                Надіслати
+                Send
             </button>
             </form:form>
         </div>

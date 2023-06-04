@@ -16,21 +16,25 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomAuthenticationProviderService authenticationProviderService;
+//    @Autowired
+//    private CustomAuthenticationProviderService authenticationProviderService;
 
     @Autowired
     private CustomAuthenticationProviderService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProviderService);
+        auth.authenticationProvider(userDetailsService);
 
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/webjars/**").permitAll()
+
+                .antMatchers("/investments/employee/deposits", "/credits/employee/credits", "/user/employee/users")
+                .hasAuthority("ROLE_EMPLOYEE").and().authorizeRequests()
+
                 .antMatchers("/user/confirm-account").permitAll()
                 .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/user/registration").permitAll()
@@ -39,12 +43,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/view/**").permitAll()
 
+
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/user/login").permitAll().and()
                 .logout().deleteCookies("remember-me").permitAll().and()
                 .rememberMe().tokenValiditySeconds(180);
     }
-
 
     @Bean
     @Override

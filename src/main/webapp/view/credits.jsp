@@ -17,77 +17,7 @@
    <div class="wrapper">
       <%@include file="components/header-menu.jsp" %>
       <main class="page page_index">
-         <div class="dashboard">
-            <div class="dashboard__title">
-               <img src="./images/dashboard.svg" alt="dashboard">
-               <span>Dashboard</span>
-            </div>
-
-            <div class="dashboard__accordion">
-               <div class="tabs">
-                  <div class="tab">
-                     <input type="checkbox" id="rd1">
-                     <label class="tab-label dashboard__transfers transfers" for="rd1">
-                        <img src="./images/transfers.svg" alt="transfers">
-                        <span>Transfers</span>
-                     </label>
-                     <div class="tab-content">
-                        <fieldset>
-                           <div class="transfers__radio">
-                              <input type="radio" id="rb1" name="transfers__radio">
-                              <div class="radio-button"></div>
-                              <label class="transfers-label" for="rb1">
-                                 Стандартний
-                              </label>
-                           </div>
-                           <div class="transfers__radio">
-                              <input type="radio" id="rb2" name="transfers__radio">
-                              <div class="radio-button"></div>
-                              <label class="transfers-label" for="rb2">
-                                 Валютний
-                              </label>
-                           </div>
-                           <div class="transfers__radio">
-                              <input type="radio" id="rb3" name="transfers__radio">
-                              <div class="radio-button"></div>
-                              <label class="transfers-label" for="rb3">
-                                 Визначені трансфери
-                              </label>
-                           </div>
-                        </fieldset>
-                     </div>
-                  </div>
-                  <div class="tab">
-                     <input type="checkbox" id="rd2" name="rd">
-                     <label class="tab-label  dashboard__exchange" for="rd2">
-                        <img src="./images/exchange.svg" alt="exchange">
-                        <span>Exchange</span>
-                     </label>
-                     <div class="tab-content">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil, aut.
-                     </div>
-                  </div>
-                  <div class="tab">
-                     <input type="checkbox" id="rd3" name="rd">
-                     <label class="tab-label  dashboard__credit" for="rd3">
-                        <img src="./images/credit.svg" alt="credit">
-                        <span>Credit</span>
-                     </label>
-                     <div class="tab-content">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil, aut.
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="dashboard__notification">
-               <img src="./images/notification.svg" alt="notification">
-               <span>Notifications</span>
-            </div>
-            <div class="dashboard__profile">
-               <img src="./images/profile.svg" alt="profile">
-               <span>Profile</span>
-            </div>
-         </div>
+         <%@include file="components/menuEmployee.jsp"%>
          <div class="data message">
             <div class="form-title message__title">
                Credit applications

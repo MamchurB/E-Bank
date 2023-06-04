@@ -80,13 +80,13 @@ public class TransactionController {
         return "redirect:/transaction";
     }
 //    @GetMapping("/finish")
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public String finish() {
 //        return "finish";
 //    }
 
 //    @GetMapping("/delete/{id}")
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public String cancel(@PathVariable("id") Long id) {
 //        transactionService.deleteById(id);
 //        return "redirect:/transaction";

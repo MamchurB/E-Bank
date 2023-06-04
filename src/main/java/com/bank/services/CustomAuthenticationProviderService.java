@@ -66,7 +66,12 @@ public class CustomAuthenticationProviderService implements AuthenticationProvid
 		if(userRepository.findUserTypeByIdentifier(user.getIdentifier()).equals(UserRole.UserType.ROLE_ADMIN)) {
 			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		}
-		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		if(userRepository.findUserTypeByIdentifier(user.getIdentifier()).equals(UserRole.UserType.ROLE_EMPLOYEE)) {
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
+		}
+		if(userRepository.findUserTypeByIdentifier(user.getIdentifier()).equals(UserRole.UserType.ROLE_USER)) {
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		}
 		return grantedAuthorities;
 	}
 	

@@ -131,6 +131,11 @@ public class UserController {
         model.addAttribute("editUser", new UserEdit());
         return "users";
     }
+    @PostMapping("/employee/users")
+    public String users(UserEdit userEdit){
+       userService.update(userEdit.getId(), userEdit);
+        return "redirect:/user/employee/users";
+    }
 
     @GetMapping("/employee/{id}/activate")
     @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})

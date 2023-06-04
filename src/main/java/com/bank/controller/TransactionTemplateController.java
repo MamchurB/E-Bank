@@ -103,7 +103,7 @@ public class TransactionTemplateController {
         return transactionTemplateService.findOneById(id);
     }
 //    @GetMapping
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public List<TransactionTemplateOut> findAll() {
 //        return transactionTemplateService.findAll();
 //    }
@@ -111,21 +111,21 @@ public class TransactionTemplateController {
 
 //
 //    @PutMapping("/{id}")
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public TransactionTemplateOut updateById(@PathVariable("id") Long id,
 //                                             @RequestBody @Valid TransactionTemplateIn transactionTemplateIn) {
 //        return transactionTemplateService.update(id, transactionTemplateIn);
 //    }
 //
 //    @GetMapping("/users/all")
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public List<TransactionTemplateOut> findAllByCurrentUser() {
 //        return transactionTemplateService.findAllByCurrentUser();
 //    }
 //
 //
 //    @DeleteMapping("/{id}")
-//    @Secured("ROLE_USER")
+//    @Secured("USER")
 //    public void deleteById(@PathVariable("id") Long id) {
 //        transactionTemplateService.deleteById(id);
 //    }

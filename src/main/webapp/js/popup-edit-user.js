@@ -11,8 +11,15 @@ const editId = document.getElementById('id');
 const editIdentifier = document.getElementById('identifier');
 const editEmail = document.getElementById('email');
 const editName = document.getElementById('name');
+const editSurname = document.getElementById('surname');
+const editPhone = document.getElementById('phone');
 const editCity = document.getElementById('city');
+const editAddressId = document.getElementById('addressId');
 
+const detailIdentifier = document.getElementById('detailIdentifier');
+const detailEmail = document.getElementById('detailEmail');
+const detailName = document.getElementById('detailName');
+const detailCity = document.getElementById('detailCity');
 
 open.forEach(element => element.onclick = () => {
         template(element.getAttribute("value"));
@@ -46,6 +53,7 @@ function editTemplate(id) {
                 closeButton:true
             });
             console.log(data);
+            editAddressId.setAttribute('value', data['address']['id']);
             editId.setAttribute('value', data['id']);
             editIdentifier.setAttribute('value', data['identifier']);
             editEmail.setAttribute('value', data['email']);
@@ -67,10 +75,10 @@ function template(id) {
                 closeButton:true
             });
             console.log(data);
-            editIdentifier.innerText = data['identifier'];
-            editEmail.innerText = data['email'];
-            editName.innerText = data['address']['name'] + " " +  data['address']['surname'];
-            editCity.innerText = data['address']['city'];
+            detailIdentifier.innerText = data['identifier'];
+            detailEmail.innerText = data['email'];
+            detailName.innerText = data['address']['name'] + " " +  data['address']['surname'];
+            detailCity.innerText = data['address']['city'];
 
 
         }

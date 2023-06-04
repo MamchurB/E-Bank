@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 
 <head>
@@ -17,7 +18,12 @@
    <div class="wrapper">
       <%@include file="components/header-menu.jsp" %>
       <main class="page page_index">
-         <%@include file="components/menu.jsp" %>
+         <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+            <%@include file="components/menuEmployee.jsp" %>
+         </sec:authorize>
+         <sec:authorize access="hasRole('ROLE_USER')">
+            <%@include file="components/menu.jsp" %>
+         </sec:authorize>
          <div class="data message">
             <div class="form-title message__title">
                My messages
@@ -32,12 +38,12 @@
                <div class="data__receiver message__topic">
                   <div class="data__label">Topic
                   </div>
-                  <form:input path = "topic" type="text" placeholder="Тема"></form:input>
+                  <form:input path = "topic" type="text" placeholder="Theme"></form:input>
                </div>
                <div class="data__receiver message__description">
                   <div class="data__label">Title
                   </div>
-                  <form:input path = "description" type="text" placeholder="Опис"></form:input>
+                  <form:input path = "description" type="text" placeholder="Title"></form:input>
                </div>
                <button class="form-button message__button">
                   Send

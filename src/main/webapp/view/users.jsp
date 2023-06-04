@@ -28,19 +28,19 @@
                   <table class="transactions-card-details__table statistic__table">
                      <tr>
                         <th>Identifier</th>
-                        <td id = 'identifier'></td>
+                        <td id = 'detailIdentifier'></td>
                      </tr>
                      <tr>
                         <th>Email</th>
-                        <td id = 'email'></td>
+                        <td id = 'detailEmail'></td>
                      </tr>
                      <tr>
                         <th>First and last name</th>
-                        <td id = 'name'></td>
+                        <td id = 'detailName'></td>
                      </tr>
                      <tr>
                         <th>Address</th>
-                        <td id = 'city'></td>
+                        <td id = 'detailCity'></td>
                      </tr>
                   </table>
                </div>
@@ -56,7 +56,8 @@
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
             <form:form method="POST"  modelAttribute="editUser">
                <div class="popup__form">
-                  <form:input id = "id" type="hidden" path="id" />
+                  <form:input id = "id" type="hidden" path="id"/>
+                  <form:input id = "addressId" type="hidden" path="address.id"/>
                   <div class="popup__row">
                      <div class="popup__sum">
                         <div class="data__label">Identifier
@@ -88,7 +89,7 @@
                         <form:input id = "city" path="address.city" type="text" placeholder="city"/>
                      </div>
                      <div class="popup__name">
-                        <div class="data__label">Email
+                        <div class="data__label">Mobile Phone
                         </div>
                         <form:input id = "phone" path = "address.phoneNumber" type="text" placeholder="Phone Number"/>
                      </div>
@@ -106,78 +107,9 @@
          </div>
       </div>
       <main class="page page_index">
-         <div class="dashboard">
-            <div class="dashboard__title">
-               <img src="./images/dashboard.svg" alt="dashboard">
-               <span>Dashboard</span>
-            </div>
-
-            <div class="dashboard__accordion">
-               <div class="tabs">
-                  <div class="tab">
-                     <input type="checkbox" id="rd1">
-                     <label class="tab-label dashboard__transfers transfers" for="rd1">
-                        <img src="./images/transfers.svg" alt="transfers">
-                        <span>Transfers</span>
-                     </label>
-                     <div class="tab-content">
-                        <fieldset>
-                           <div class="transfers__radio">
-                              <input type="radio" id="rb1" name="transfers__radio">
-                              <div class="radio-button"></div>
-                              <label class="transfers-label" for="rb1">
-                                 Стандартний
-                              </label>
-                           </div>
-                           <div class="transfers__radio">
-                              <input type="radio" id="rb2" name="transfers__radio">
-                              <div class="radio-button"></div>
-                              <label class="transfers-label" for="rb2">
-                                 Валютний
-                              </label>
-                           </div>
-                           <div class="transfers__radio">
-                              <input type="radio" id="rb3" name="transfers__radio">
-                              <div class="radio-button"></div>
-                              <label class="transfers-label" for="rb3">
-                                 Визначені трансфери
-                              </label>
-                           </div>
-                        </fieldset>
-                     </div>
-                  </div>
-                  <div class="tab">
-                     <input type="checkbox" id="rd2" name="rd">
-                     <label class="tab-label  dashboard__exchange" for="rd2">
-                        <img src="./images/exchange.svg" alt="exchange">
-                        <span>Exchange</span>
-                     </label>
-                     <div class="tab-content">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil, aut.
-                     </div>
-                  </div>
-                  <div class="tab">
-                     <input type="checkbox" id="rd3" name="rd">
-                     <label class="tab-label  dashboard__credit" for="rd3">
-                        <img src="./images/credit.svg" alt="credit">
-                        <span>Credit</span>
-                     </label>
-                     <div class="tab-content">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil, aut.
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="dashboard__notification">
-               <img src="./images/notification.svg" alt="notification">
-               <span>Notifications</span>
-            </div>
-            <div class="dashboard__profile">
-               <img src="./images/profile.svg" alt="profile">
-               <span>Profile</span>
-            </div>
-         </div>
+         <%@include file="components/menuEmployee.jsp" %>
          <div class="data message">
+
             <div class="form-title message__title">
                New users
             </div>
@@ -194,17 +126,17 @@
                         <td>${item.email}</td>
                         <td>
                            <button value="${item.ID}" class="form-button message__history-btn popup_click">
-                              Перегляд
+                              Revision
                            </button>
                         </td>
                         <td>
                            <button value="${item.ID}" class="form-button message__history-btn message__title_edit">
-                              Редагувати
+                              Edit
                            </button>
                         </td>
                         <td>
                            <button  onclick="location.href='${item.ID}/activate'" class="form-button message__history-btn">
-                              Активувати
+                              Activate
                            </button>
                         </td>
                      </tr>

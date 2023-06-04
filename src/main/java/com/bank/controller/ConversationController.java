@@ -35,12 +35,29 @@ public class ConversationController {
     @PostMapping
     @Secured("ROLE_USER")
     public String createConversation(ConversationIn conversationIn) {
+        conversationIn.setConversationDirectionType(ConversationDirection.ConversationDirectionType.USER_TO_EMPLOYEE);
+        conversationService.create(conversationIn);
+        return "redirect:/conversations";
+    }
+
+    @GetMapping("/userToEmployee")
+    @Secured("ROLE_EMPLOYEE")
+    public String findAllUserToEmployee(Model model) {
+       model.addAttribute("allConversation", conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.USER_TO_EMPLOYEE));
+       model.addAttribute("convertationForm", new ConversationIn());
+        return "message";
+    }
+
+    @PostMapping("/userToEmployee")
+    @Secured("ROLE_EMPLOYEE")
+    public String createConversationToAdmin(ConversationIn conversationIn) {
+        conversationIn.setConversationDirectionType(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN);
         conversationService.create(conversationIn);
         return "redirect:/conversations";
     }
 
 //    @GetMapping
-//    @Secured("ROLE_ADMIN")
+//    @Secured("ADMIN")
 //    public List<ConversationOut> findAll() {
 //        return conversationService.findAll();
 //    }
@@ -51,11 +68,11 @@ public class ConversationController {
         return conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN);
     }
 
-    @GetMapping("/userToEmployee")
-    @Secured({"ROLE_USER", "ROLE_EMPLOYEE"})
-    public List<ConversationOut> findAllUserToEmployeeDirection() {
-        return conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.USER_TO_EMPLOYEE);
-    }
+//    @GetMapping("/userToEmployee")
+//    @Secured({"USER", "EMPLOYEE"})
+//    public List<ConversationOut> findAllUserToEmployeeDirection() {
+//        return conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.USER_TO_EMPLOYEE);
+//    }
 
     @GetMapping("/my")
     @PreAuthorize("isAuthenticated()")
