@@ -47,9 +47,7 @@ public class TransactionController {
     @PostMapping("/currency")
     @Secured("ROLE_USER")
     public String createCurrency(@Valid TransactionIn transactionIn, Model model) {
-        System.out.println("create transaction");
         model.addAttribute("transferConfirmation", transactionIn);
-        System.out.println("finish transaction");
         return "transfer-confirmation";
     }
     @GetMapping

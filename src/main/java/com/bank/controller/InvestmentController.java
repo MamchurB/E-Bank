@@ -70,8 +70,7 @@ public class InvestmentController {
     }
     @RequestMapping(value="/byId/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public InvestmentOut practicePagePost(@PathVariable("id") Long id,
-                                      Model model){
+    public InvestmentOut practicePagePost(@PathVariable("id") Long id){
         return investmentService.findById(id);
     }
 

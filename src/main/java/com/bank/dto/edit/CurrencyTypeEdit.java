@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CurrencyTypeEdit {
-    private Long id;
+    private Long idCurrency;
     private String name;
     private float exchangeRate;
 }

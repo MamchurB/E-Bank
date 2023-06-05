@@ -2,6 +2,7 @@ package com.bank.services;
 
 import com.bank.dto.edit.PasswordEdit;
 import com.bank.dto.edit.UserEdit;
+import com.bank.dto.in.EmployeeIn;
 import com.bank.dto.in.UserIn;
 import com.bank.dto.out.UserOut;
 import com.bank.mappers.UserMapper;
@@ -128,7 +129,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserOut createEmployee(UserIn userIn) {
+    public UserOut createEmployee(EmployeeIn employeeIn) {
+        UserIn userIn = new UserIn();
+        userIn.setEmail(employeeIn.getEmailEmployee());
+        userIn.setPassword(employeeIn.getPassword());
+        userIn.setAddress(employeeIn.getAddressEmployee());
+        userIn.setConfirmPassword(employeeIn.getConfirmPassword());
+        userIn.setPasswordConfirm(employeeIn.getPasswordConfirm());
         User mapped = userMapper.userInToUser(userIn);
         mapped.setLocked(false);
         mapped.setCredentials(false);

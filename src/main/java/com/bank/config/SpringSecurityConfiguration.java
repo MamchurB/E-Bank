@@ -9,7 +9,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -35,6 +44,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/investments/employee/deposits", "/credits/employee/credits", "/user/employee/users")
                 .hasAuthority("ROLE_EMPLOYEE").and().authorizeRequests()
 
+                .antMatchers("/admin/**")
+                .hasAuthority("ROLE_ADMIN").and().authorizeRequests()
+
                 .antMatchers("/user/confirm-account").permitAll()
                 .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/user/registration").permitAll()
@@ -45,11 +57,26 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/user/login").permitAll().and()
+                .formLogin().loginPage("/user/login").permitAll().successHandler(loginSuccessHandler()).and()
                 .logout().deleteCookies("remember-me").permitAll().and()
                 .rememberMe().tokenValiditySeconds(180);
     }
+    public AuthenticationSuccessHandler loginSuccessHandler() {
+        return new AuthenticationSuccessHandler() {
 
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+                if (roles.contains("ROLE_EMPLOYEE")) {
+                    httpServletResponse.sendRedirect("/investments/employee/deposits");
+                } else  if (roles.contains("ROLE_ADMIN")) {
+                    httpServletResponse.sendRedirect("/admin/statistic");
+                }else{
+                    httpServletResponse.sendRedirect("/");
+                }
+            }
+        };
+    }
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {

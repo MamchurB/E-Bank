@@ -98,7 +98,7 @@
 
 
 <script src="${path}/js/burger.js"></script>
-<script src="${path}/js/popup-deposits.js"></script>
+<script src="${path}/js/popup-user-deposits.js"></script>
 <script src="${path}/js/jquery.boot.js"></script>
 </body>
 

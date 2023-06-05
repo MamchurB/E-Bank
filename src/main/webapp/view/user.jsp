@@ -24,6 +24,9 @@
     <sec:authorize access="hasRole('ROLE_USER')">
       <%@include file="components/menu.jsp" %>
     </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+      <%@include file="components/menuAdmin.jsp" %>
+    </sec:authorize>
     <div class="data user">
       <div class="form-title user__title">
         User data

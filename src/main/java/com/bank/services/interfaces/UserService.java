@@ -2,6 +2,7 @@ package com.bank.services.interfaces;
 
 import com.bank.dto.edit.PasswordEdit;
 import com.bank.dto.edit.UserEdit;
+import com.bank.dto.in.EmployeeIn;
 import com.bank.dto.in.UserIn;
 import com.bank.dto.out.UserOut;
 import com.bank.models.user.UserRole;
@@ -20,7 +21,7 @@ public interface UserService extends UserDetailsService {
 
     UserOut update(Long id, UserEdit userEdit);
 
-    UserOut createEmployee(UserIn userIn);
+    UserOut createEmployee(EmployeeIn employeeIn);
 
     UserOut changeStatus(Long id);
 

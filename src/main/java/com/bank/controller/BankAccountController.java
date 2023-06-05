@@ -1,12 +1,13 @@
 package com.bank.controller;
 
-import com.bank.dto.edit.BankAccountEdit;
-import com.bank.dto.edit.SaldoEdit;
+import com.bank.dto.edit.*;
 import com.bank.dto.in.BankAccountIn;
-import com.bank.dto.in.InvestmentIn;
-import com.bank.dto.out.BankAccountOut;
-import com.bank.dto.out.SaldoOut;
-import com.bank.dto.out.UserOut;
+import com.bank.dto.in.EmployeeIn;
+import com.bank.dto.in.UserIn;
+import com.bank.dto.out.*;
+import com.bank.models.enums.BankAccountType;
+import com.bank.models.user.UserRole;
+import com.bank.services.CreditServiceImpl;
 import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.UserServiceImpl;
 import com.bank.services.interfaces.BankAccTypeService;
@@ -33,15 +34,23 @@ public class BankAccountController {
 
     private final BankAccTypeService bankAccTypeService;
 
+    private final CurrencyTypeServiceImpl currencyTypeService;
+
+    private final CreditServiceImpl creditService;
+
     @Autowired
     public BankAccountController(BankAccountService bankAccountService,
                                  UserServiceImpl userService,
                                  TransactionService transactionService,
-                                 BankAccTypeService bankAccTypeService) {
+                                 BankAccTypeService bankAccTypeService,
+                                 CurrencyTypeServiceImpl currencyTypeService,
+                                 CreditServiceImpl creditService) {
         this.bankAccountService = bankAccountService;
         this.userService = userService;
         this.transactionService = transactionService;
         this.bankAccTypeService = bankAccTypeService;
+        this.currencyTypeService = currencyTypeService;
+        this.creditService = creditService;
     }
     @GetMapping
     @Secured("ROLE_USER")
@@ -78,6 +87,68 @@ public class BankAccountController {
         bankAccountService.create(bankAccountIn, SecurityContextHolder.getContext().getAuthentication().getName());
         return "redirect:/";
     }
+    @GetMapping("/admin/statistic")
+    @Secured("ROLE_ADMIN")
+    public String statistic(Model model){
+        model.addAttribute("allCurrencyType", currencyTypeService.findAll());
+        model.addAttribute("allBankTypeAccount", bankAccTypeService.findAll());
+        model.addAttribute("chartData", creditService.groupCreditByStatus());
+        model.addAttribute("bankAccTypeEdit", new BankAccTypeEdit());
+        model.addAttribute("currencyTypeEdit", new CurrencyTypeEdit());
+
+        return "statistic";
+    }
+    @GetMapping("/admin/employee")
+    @Secured("ROLE_ADMIN")
+    public String employee(Model model){
+        model.addAttribute("allEmployee", userService.findAllByUserType(UserRole.UserType.ROLE_EMPLOYEE));
+        model.addAttribute("editUser", new UserEdit());
+        model.addAttribute("employeeForm", new EmployeeIn());
+        return "employees";
+    }
+    @PostMapping("/admin/employee")
+    public String users(UserEdit userEdit){
+        userService.update(userEdit.getId(), userEdit);
+        return "redirect:/admin/employee";
+    }
+    @PostMapping("/admin/createEmployee")
+    public String createEmployee(EmployeeIn employeeIn){
+        userService.createEmployee(employeeIn);
+        return "redirect:/admin/employee";
+    }
+
+
+
+
+    @RequestMapping(value="/accountEdit/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public BankAccTypeOut findAccountById(@PathVariable("id") Long id){
+        return bankAccTypeService.findById(id);
+    }
+    @RequestMapping(value="/currentEdit/byId/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CurrencyTypeOut findCurrentById(@PathVariable("id") Long id){
+        return currencyTypeService.findById(id);
+    }
+    @PostMapping("/update/account")
+    @Secured("ROLE_ADMIN")
+    public String updateAccount(BankAccTypeEdit bankAccTypeEdit) {
+       bankAccTypeService.update(bankAccTypeEdit.getId(), bankAccTypeEdit);
+        return "redirect:/admin/statistic";
+    }
+
+    @PostMapping("/update/current")
+    @Secured("ROLE_ADMIN")
+    public String updateAccount(CurrencyTypeEdit currencyTypeEdit) {
+        currencyTypeService.update(currencyTypeEdit.getIdCurrency(),currencyTypeEdit);
+        return "redirect:/admin/statistic";
+    }
+    @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public BankAccTypeOut update(@PathVariable Long id,
+                                 @RequestBody @Valid BankAccTypeEdit bankAccTypeEdit) {
+        return bankAccTypeService.update(id, bankAccTypeEdit);
+    }
 //    @GetMapping
 //    @Secured("EMPLOYEE")
 //    public List<BankAccountOut> findAll() {
@@ -93,37 +164,37 @@ public class BankAccountController {
 //        return bankAccountService.create(bankAccountIn, username);
 //    }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public BankAccountOut findById(@PathVariable("id") Long id) {
-        return bankAccountService.findById(id);
-    }
-
-    @GetMapping("/{id}/accountCount")
-    @Secured("ROLE_ADMIN")
-    public Long getBankAccountCountByType(@PathVariable("id") Long id) {
-        return bankAccountService.findBankAccountCountByType(id);
-    }
-
-    @Secured({"ROLE_USER", "ROLE_EMPLOYEE"})
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable("id") Long id) {
-        bankAccountService.deleteById(id);
-    }
-
-    @Secured("ROLE_EMPLOYEE")
-    @PutMapping("/{id}")
-    public BankAccountOut update(@PathVariable("id") Long id,
-                                 @RequestBody @Valid BankAccountEdit bankAccountEdit) {
-        return bankAccountService.update(id, bankAccountEdit);
-    }
-
-    @Secured("ROLE_EMPLOYEE")
-    @PutMapping("/saldo/{id}")
-    public SaldoOut update(@PathVariable("id") Long id,
-                           @RequestBody @Valid SaldoEdit saldoEdit) {
-        return bankAccountService.updateSaldo(id, saldoEdit);
-    }
+//    @GetMapping("/{id}")
+//    @PreAuthorize("isAuthenticated()")
+//    public BankAccountOut findById(@PathVariable("id") Long id) {
+//        return bankAccountService.findById(id);
+//    }
+//
+//    @GetMapping("/{id}/accountCount")
+//    @Secured("ROLE_ADMIN")
+//    public Long getBankAccountCountByType(@PathVariable("id") Long id) {
+//        return bankAccountService.findBankAccountCountByType(id);
+//    }
+//
+//    @Secured({"ROLE_USER", "ROLE_EMPLOYEE"})
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deleteById(@PathVariable("id") Long id) {
+//        bankAccountService.deleteById(id);
+//    }
+//
+//    @Secured("ROLE_EMPLOYEE")
+//    @PutMapping("/{id}")
+//    public BankAccountOut update(@PathVariable("id") Long id,
+//                                 @RequestBody @Valid BankAccountEdit bankAccountEdit) {
+//        return bankAccountService.update(id, bankAccountEdit);
+//    }
+//
+//    @Secured("ROLE_EMPLOYEE")
+//    @PutMapping("/saldo/{id}")
+//    public SaldoOut update(@PathVariable("id") Long id,
+//                           @RequestBody @Valid SaldoEdit saldoEdit) {
+//        return bankAccountService.updateSaldo(id, saldoEdit);
+//    }
 
 }

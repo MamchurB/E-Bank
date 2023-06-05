@@ -53,7 +53,22 @@ public class ConversationController {
     public String createConversationToAdmin(ConversationIn conversationIn) {
         conversationIn.setConversationDirectionType(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN);
         conversationService.create(conversationIn);
-        return "redirect:/conversations";
+        return "redirect:/conversations/userToEmployee";
+    }
+
+    @GetMapping("/admin/employeeToAdmin")
+    @Secured("ROLE_ADMIN")
+    public String findAllEmployeeToAdmin(Model model) {
+        model.addAttribute("allConversation", conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN));
+        model.addAttribute("convertationForm", new ConversationIn());
+        return "message";
+    }
+    @PostMapping("/admin/employeeToAdmin")
+    @Secured("ROLE_EMPLOYEE")
+    public String createConversationEmployeeToAdmin(ConversationIn conversationIn) {
+        conversationIn.setConversationDirectionType(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN);
+        conversationService.create(conversationIn);
+        return "redirect:/conversations/employeeToAdmin";
     }
 
 //    @GetMapping
@@ -62,11 +77,11 @@ public class ConversationController {
 //        return conversationService.findAll();
 //    }
 
-    @GetMapping("/employeeToAdmin")
-    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
-    public List<ConversationOut> findAllEmployeeAdminDirection() {
-        return conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN);
-    }
+//    @GetMapping("/employeeToAdmin")
+//    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
+//    public List<ConversationOut> findAllEmployeeAdminDirection() {
+//        return conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.EMPLOYEE_TO_ADMIN);
+//    }
 
 //    @GetMapping("/userToEmployee")
 //    @Secured({"USER", "EMPLOYEE"})
@@ -74,11 +89,11 @@ public class ConversationController {
 //        return conversationService.findByConversationDirection(ConversationDirection.ConversationDirectionType.USER_TO_EMPLOYEE);
 //    }
 
-    @GetMapping("/my")
-    @PreAuthorize("isAuthenticated()")
-    public List<ConversationOut> findByCurrentUser() {
-        return conversationService.findByCurrentUser();
-    }
+//    @GetMapping("/my")
+//    @PreAuthorize("isAuthenticated()")
+//    public List<ConversationOut> findByCurrentUser() {
+//        return conversationService.findByCurrentUser();
+//    }
 
 //    @PostMapping
 //    @PreAuthorize("isAuthenticated()")
@@ -86,15 +101,15 @@ public class ConversationController {
 //        return conversationService.create(conversationIn);
 //    }
 
-    @GetMapping("/id/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public ConversationOut findById(@PathVariable("id") Long id) {
-        return conversationService.findById(id);
-    }
-
-    @PatchMapping("/{id}")
-    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
-    public ConversationOut changeStatus(@PathVariable("id") Long id) {
-        return conversationService.changeStatus(id);
-    }
+//    @GetMapping("/id/{id}")
+//    @PreAuthorize("isAuthenticated()")
+//    public ConversationOut findById(@PathVariable("id") Long id) {
+//        return conversationService.findById(id);
+//    }
+//
+//    @PatchMapping("/{id}")
+//    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
+//    public ConversationOut changeStatus(@PathVariable("id") Long id) {
+//        return conversationService.changeStatus(id);
+//    }
 }

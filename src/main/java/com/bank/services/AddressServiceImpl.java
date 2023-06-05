@@ -32,18 +32,18 @@ public class AddressServiceImpl implements AddressService {
             address.setCity(addressEdit.getCity().trim());
         if (StringUtils.isNotBlank(address.getPhoneNumber()))
             address.setPhoneNumber(addressEdit.getPhoneNumber().trim());
-        if (StringUtils.isNotBlank(address.getHouseNumber()))
-            address.setHouseNumber(addressEdit.getHouseNumber().trim());
-        if (StringUtils.isNotBlank(address.getPostCode()))
-            address.setPostCode(addressEdit.getPostCode().trim());
-        if (StringUtils.isNotBlank(address.getStreet()))
-            address.setStreet(addressEdit.getStreet().trim());
+//        if (StringUtils.isNotBlank(address.getHouseNumber()))
+//            address.setHouseNumber(addressEdit.getHouseNumber().trim());
+//        if (StringUtils.isNotBlank(address.getPostCode()))
+//            address.setPostCode(addressEdit.getPostCode().trim());
+//        if (StringUtils.isNotBlank(address.getStreet()))
+//            address.setStreet(addressEdit.getStreet().trim());
         if (StringUtils.isNotBlank(address.getName()))
             address.setName(addressEdit.getName().trim());
         if (StringUtils.isNotBlank(address.getSurname()))
             address.setSurname(addressEdit.getSurname().trim());
-        if (Objects.nonNull(addressEdit.getDateOfBirth()))
-            address.setDateOfBirth(addressEdit.getDateOfBirth());
+//        if (Objects.nonNull(addressEdit.getDateOfBirth()))
+//            address.setDateOfBirth(addressEdit.getDateOfBirth());
 
         return addressMapper.entityToDTO(addressRepository.save(address));
     }
