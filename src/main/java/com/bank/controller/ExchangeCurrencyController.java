@@ -1,8 +1,6 @@
 package com.bank.controller;
 
 import com.bank.dto.in.ExchangeCurrencyIn;
-import com.bank.dto.in.TransactionIn;
-import com.bank.dto.out.ExchangeCurrencyOut;
 import com.bank.models.CurrencyType;
 import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
@@ -16,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/exchangecurrency")
@@ -43,7 +40,7 @@ public class ExchangeCurrencyController {
         model.addAttribute("exchangeForm", new ExchangeCurrencyIn());
         model.addAttribute("allAccount", bankAccountService.findByUser());
         model.addAttribute("allCurrencyType", currencyTypeService.findAll());
-        return "exchange";
+        return "user/exchange";
     }
     @PostMapping
     @Secured("ROLE_USER")
@@ -51,12 +48,6 @@ public class ExchangeCurrencyController {
         exchangeCurrencyService.create(exchangeCurrencyIn);
         return "redirect:/exchangecurrency";
     }
-//    @PostMapping
-//    @PreAuthorize("isAuthenticated()")
-//    public ExchangeCurrencyOut create(@RequestBody ExchangeCurrencyIn exchangeCurrencyIn) {
-//        return exchangeCurrencyService.create(exchangeCurrencyIn);
-//    }
-//
     @GetMapping("/calculate")
     @PreAuthorize("isAuthenticated()")
     @ResponseBody

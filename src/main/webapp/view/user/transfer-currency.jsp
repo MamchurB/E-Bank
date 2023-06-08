@@ -15,29 +15,29 @@
 
 <body>
    <div class="wrapper">
-      <%@include file="components/header-menu.jsp" %>
+      <%@include file="../components/header-menu.jsp" %>
       <main class="page page_index">
-         <%@include file="components/menu.jsp" %>
+         <%@include file="../components/menu.jsp" %>
          <div class="data">
             <div class="data__title">
-                Currency transfer
+               Currency transfer
             </div>
             <ul class="data__progress progress-data progressbar">
                <li class="progress-data__element active">
                   <div class="progress-data__text">
-                      Form
+                     Form
                   </div>
                </li>
                <div class="progress-data__line active"></div>
                <li class="progress-data__element">
                   <div class="progress-data__text">
-                      Resume
+                     Resume
                   </div>
                </li>
                <div class="progress-data__line"></div>
                <li class="progress-data__element">
                   <div class="progress-data__text">
-                      Completion
+                     Completion
                   </div>
                </li>
             </ul>
@@ -54,13 +54,33 @@
                      </c:forEach>
                   </form:select>
                </div>
+               <div class="data__row">
+                  <div class="data__out-currency">
+                     <div class="data__label">
+                        Output currency
+                     </div>
+                     <form:select path="sourceCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+                  <div class="data__currency">
+                     <div class="data__label">Target Currency
+                     </div>
+                     <form:select path="destinedCurrency">
+                        <c:forEach items="${allCurrencyType}" var="item">
+                           <form:option value="${item.name}">${item.name}</form:option>
+                        </c:forEach>
+                     </form:select>
+                  </div>
+               </div>
                <div class="data__receiver">
                   <div class="data__label">Recipient
                   </div>
                   <form:input path="destinedAccountNumber" type="text" placeholder="Одержувач"></form:input>
                </div>
-               <form:input path="destinedCurrency" value = "PLN" type="hidden" />
-               <form:input path="sourceCurrency" value = "PLN" type="hidden"/>
+
                <div class="data__bank-account">
                   <div class="data__label">Select the type of transaction
                   </div>
@@ -89,7 +109,7 @@
             </form:form>
          </div>
       </main>
-      <%@include file="components/footer.jsp" %>
+      <%@include file="../components/footer.jsp" %>
    </div>
 
 

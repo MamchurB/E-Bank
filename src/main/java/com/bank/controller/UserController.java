@@ -3,18 +3,15 @@ package com.bank.controller;
 import com.bank.dto.edit.PasswordEdit;
 import com.bank.dto.edit.UserEdit;
 import com.bank.dto.in.UserIn;
-import com.bank.dto.out.TransactionTemplateOut;
 import com.bank.dto.out.UserOut;
 import com.bank.models.user.User;
 import com.bank.models.user.UserRole;
 import com.bank.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -129,7 +126,7 @@ public class UserController {
     public String users(Model model){
         model.addAttribute("allUsers", userService.findAllByUserTypeAndNotEnabled(UserRole.UserType.ROLE_USER));
         model.addAttribute("editUser", new UserEdit());
-        return "users";
+        return "employee/users";
     }
     @PostMapping("/employee/users")
     public String users(UserEdit userEdit){
@@ -150,11 +147,6 @@ public class UserController {
         return userService.findById(id);
     }
 
-//    @PostMapping("/create/employee")
-//    @Secured("ROLE_ADMIN")
-//    public UserOut createEmployee(@RequestBody @Valid UserIn userIn) {
-//        return userService.createEmployee(userIn);
-//    }
 
     @GetMapping("/type/{type}")
     public List<UserOut> findByUserType(@PathVariable("type") UserRole.UserType userType,
@@ -164,47 +156,5 @@ public class UserController {
       }else{
           return userService.findAllByUserType(userType);
       }
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public UserOut findById(@PathVariable("id") Long id) {
-        return userService.findById(id);
-    }
-
-    @PutMapping("/{id}")
-    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
-    public UserOut update(@PathVariable("id") Long id,
-                          @RequestBody @Valid UserEdit userEdit) {
-        return userService.update(id, userEdit);
-    }
-
-    @GetMapping("/byIdentifier/{identifier}")
-    public UserOut findByIdentifier(@PathVariable("identifier") String identifier) {
-        return userService.findByIdentifier(identifier);
-    }
-
-    @PatchMapping("/{id}/status")
-    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
-    public UserOut changeLockStatus(@PathVariable("id") Long id) {
-        return userService.changeStatus(id);
-    }
-
-    @PatchMapping("/{id}/activate")
-    @Secured({"ROLE_ADMIN", "ROLE_EMPLOYEE"})
-    public UserOut changeEnableStatus(@PathVariable("id") Long id){
-        return userService.changeEnableStatus(id);
-    }
-
-    @GetMapping("/auth/current")
-    @PreAuthorize("isAuthenticated()")
-    public UserOut findCurrentUser(){
-        return userService.findCurrentUser();
-    }
-
-
-    @PatchMapping("/password/edit")
-    public UserOut updatePassword(@Valid @RequestBody PasswordEdit passwordEdit){
-        return userService.updatePassword(passwordEdit);
     }
 }

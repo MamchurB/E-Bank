@@ -1822,7 +1822,7 @@ body {
   position: absolute;
   z-index: 99999;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba(111, 111, 111, 0.7);
   display: none;
   -webkit-box-pack: center;
@@ -1838,7 +1838,7 @@ body {
   position: absolute;
   z-index: 99999;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba(111, 111, 111, 0.7);
   display: none;
   -webkit-box-pack: center;
@@ -1854,7 +1854,7 @@ body {
   position: absolute;
   z-index: 99999;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: rgba(111, 111, 111, 0.7);
   display: none;
   -webkit-box-pack: center;
@@ -1870,7 +1870,7 @@ body {
   position: absolute;
   z-index: 99999;
   width: 100vw;
-  height: 100vh;
+  height: 232%;
   background: rgba(111, 111, 111, 0.7);
   display: none;
   -webkit-box-pack: center;

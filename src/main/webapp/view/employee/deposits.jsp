@@ -20,7 +20,7 @@
 
 <body>
    <div class="wrapper">
-      <%@include file="components/header-menu.jsp" %>
+      <%@include file="../components/header-menu.jsp" %>
       <div class="popup__wrapper_account">
          <div class="popup popup__deposit popup-deposits">
             <div class="card-details__transactions transactions-card-details">
@@ -61,7 +61,7 @@
          </div>
       </div>
       <main class="page page_index">
-         <%@include file="components/menuEmployee.jsp" %>
+         <%@include file="../components/menuEmployee.jsp" %>
          <div class="data message">
             <div class="form-title">
                Deposit
@@ -154,7 +154,7 @@
             </div>
          </div>
       </main>
-      <%@include file="components/footer.jsp" %>
+      <%@include file="../components/footer.jsp" %>
    </div>
 
 

@@ -3,7 +3,6 @@ package com.bank.controller;
 import com.bank.dto.edit.TemplateEdit;
 import com.bank.dto.in.TransactionIn;
 import com.bank.dto.in.TransactionTemplateIn;
-import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.TransactionTemplateOut;
 import com.bank.repositories.TransactionTypeRepository;
 import com.bank.services.CurrencyTypeServiceImpl;
@@ -15,10 +14,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.math.BigDecimal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/transaction")
@@ -53,7 +48,7 @@ public class TransactionTemplateController {
         model.addAttribute("allTypeTransaction", transactionTypeRepository.findAll());
         model.addAttribute("allTemplates", transactionTemplateService.findAllByCurrentUser());
         model.addAttribute("editTemplateForm", new TemplateEdit());
-        return "transfer-template";
+        return "user/transfer-template";
     }
 
     @PostMapping("/template")
@@ -102,31 +97,4 @@ public class TransactionTemplateController {
         System.out.println("ResponseBody" + transactionTemplateService.findOneById(id).getTitle());
         return transactionTemplateService.findOneById(id);
     }
-//    @GetMapping
-//    @Secured("USER")
-//    public List<TransactionTemplateOut> findAll() {
-//        return transactionTemplateService.findAll();
-//    }
-//
-
-//
-//    @PutMapping("/{id}")
-//    @Secured("USER")
-//    public TransactionTemplateOut updateById(@PathVariable("id") Long id,
-//                                             @RequestBody @Valid TransactionTemplateIn transactionTemplateIn) {
-//        return transactionTemplateService.update(id, transactionTemplateIn);
-//    }
-//
-//    @GetMapping("/users/all")
-//    @Secured("USER")
-//    public List<TransactionTemplateOut> findAllByCurrentUser() {
-//        return transactionTemplateService.findAllByCurrentUser();
-//    }
-//
-//
-//    @DeleteMapping("/{id}")
-//    @Secured("USER")
-//    public void deleteById(@PathVariable("id") Long id) {
-//        transactionTemplateService.deleteById(id);
-//    }
 }

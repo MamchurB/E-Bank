@@ -4,12 +4,9 @@ import com.bank.dto.in.CreditIn;
 import com.bank.dto.out.CreditOut;
 import com.bank.dto.out.CreditStatusOut;
 import com.bank.models.enums.CreditStatus;
-import com.bank.repositories.BankAccountRepository;
-import com.bank.repositories.SaldoRepository;
 import com.bank.services.CurrencyTypeServiceImpl;
 import com.bank.services.interfaces.BankAccountService;
 import com.bank.services.interfaces.CreditService;
-import com.bank.services.interfaces.CurrencyTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -17,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 @Controller
 @RequestMapping("/credits")
 public class CreditController {
@@ -43,7 +40,7 @@ public class CreditController {
         model.addAttribute("allAccount", bankAccountService.findByUser());
         System.out.println("credit");
 
-        return "credit";
+        return "user/credit";
     }
     @PostMapping
     @Secured("ROLE_USER")
@@ -56,7 +53,7 @@ public class CreditController {
     @Secured("ROLE_USER")
     public String userCredits(Model model) {
         model.addAttribute("allUserCredits", creditService.findByUser());
-        return "user-credits";
+        return "user/user-credits";
     }
 
 
@@ -78,7 +75,7 @@ public class CreditController {
         model.addAttribute("allCredits", creditService.findByCreditType(CreditStatus.CreditType.AWAITING));
         model.addAttribute("allStatuses", creditService.findAllCreditStatuses());
 
-        return "credits";
+        return "employee/credits";
     }
 
     @GetMapping("/employee/credits/{id}/active")
@@ -92,24 +89,6 @@ public class CreditController {
     public String changeStatusCancel(@PathVariable Long id) {
         creditService.changeStatus(id, CreditStatus.CreditType.CANCELED);
         return "redirect:/credits/employee/credits";
-    }
-
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/statuses")
-    public List<CreditStatusOut> findAllCreditStatuses() {
-        return creditService.findAllCreditStatuses();
-    }
-
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/count")
-    public Long countByCreditType(@RequestParam("type") CreditStatus.CreditType creditType) {
-        return creditService.countAllByCreditType(creditType);
-    }
-
-    @Secured("ROLE_EMPLOYEE")
-    @GetMapping("/byBankAccount/{id}")
-    public List<CreditOut> findAllActiveByBankAccountId(@PathVariable("id") Long id) {
-        return creditService.findActiveByBankAccountId(id);
     }
 
 }

@@ -15,9 +15,9 @@
 
 <body>
 <div class="wrapper">
-    <%@include file="components/header-menu.jsp" %>
+    <%@include file="../components/header-menu.jsp" %>
     <main class="page page_index">
-        <%@include file="components/menu.jsp" %>
+        <%@include file="../components/menu.jsp" %>
         <div class="data">
             <div class="data__title">
                 Currency transfer
@@ -46,7 +46,7 @@
             </a>
         </div>
     </main>
-    <%@include file="components/footer.jsp" %>
+    <%@include file="../components/footer.jsp" %>
 </div>
 
 

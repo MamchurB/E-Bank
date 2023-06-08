@@ -29,7 +29,7 @@
          </sec:authorize>
          <div class="data message">
             <div class="form-title message__title">
-               My messages
+               Support
             </div>
             <div class="message__label">
                Create a message

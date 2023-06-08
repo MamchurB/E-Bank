@@ -41,14 +41,14 @@ public class TransactionController {
         model.addAttribute("allAccount", bankAccountService.findByUser());
         model.addAttribute("allCurrencyType", currencyTypeService.findAll());
         model.addAttribute("allTypeTransaction", transactionTypeRepository.findAll());
-        return "transfer-currency";
+        return "user/transfer-currency";
     }
 
     @PostMapping("/currency")
     @Secured("ROLE_USER")
     public String createCurrency(@Valid TransactionIn transactionIn, Model model) {
         model.addAttribute("transferConfirmation", transactionIn);
-        return "transfer-confirmation";
+        return "user/transfer-confirmation";
     }
     @GetMapping
     @Secured("ROLE_USER")
@@ -56,46 +56,27 @@ public class TransactionController {
         model.addAttribute("transferForm", new TransactionIn());
         model.addAttribute("allAccount", bankAccountService.findByUser());
         model.addAttribute("allTypeTransaction", transactionTypeRepository.findAll());
-        return "transfer";
+        return "user/transfer";
     }
 
     @PostMapping
     @Secured("ROLE_USER")
     public String create(@Valid TransactionIn transactionIn, Model model) {
         model.addAttribute("transferConfirmation", transactionIn);
-        return "transfer-confirmation";
+        return "user/transfer-confirmation";
     }
 
     @PostMapping("/confirmation")
     @Secured("ROLE_USER")
     public String confirmation(@Valid TransactionIn transactionIn) {
         transactionService.create(transactionIn);
-        return "finish";
+        return "user/finish";
     }
     @GetMapping("/cancel")
     @Secured("ROLE_USER")
     public String transaction() {
         return "redirect:/transaction";
     }
-//    @GetMapping("/finish")
-//    @Secured("USER")
-//    public String finish() {
-//        return "finish";
-//    }
 
-//    @GetMapping("/delete/{id}")
-//    @Secured("USER")
-//    public String cancel(@PathVariable("id") Long id) {
-//        transactionService.deleteById(id);
-//        return "redirect:/transaction";
-//    }
-//    @GetMapping
-//    public List<TransactionOut> findAll() {
-//        return transactionService.findAll();
-//    }
 
-    @GetMapping("/byAccount/{id}")
-    public List<TransactionOut> findAllByBankAccountId(@PathVariable("id") Long id) {
-        return transactionService.findAllByBankAccountId(id);
-    }
 }

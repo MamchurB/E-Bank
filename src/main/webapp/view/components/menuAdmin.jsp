@@ -16,7 +16,7 @@
     <div class="dashboard__notification">
         <img src="${path}/images/notification.svg" alt="notification">
         <span>
-          <a href="${path}/admin/employeeToAdmin">Support</a>
+          <a href="${path}/conversations/admin/employeeToAdmin">Support</a>
         </span>
     </div>
     <div class="dashboard__profile">

@@ -44,7 +44,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/investments/employee/deposits", "/credits/employee/credits", "/user/employee/users")
                 .hasAuthority("ROLE_EMPLOYEE").and().authorizeRequests()
 
-                .antMatchers("/admin/**")
+                .antMatchers("/admin/**", "/conversations//admin/**")
                 .hasAuthority("ROLE_ADMIN").and().authorizeRequests()
 
                 .antMatchers("/user/confirm-account").permitAll()
@@ -82,19 +82,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         return userDetailsService;
     }
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//    @Bean
-//    public AuthenticationProvider daoAuthenticationProvider() {
-//        DaoAuthenticationProvider provider =
-//                new DaoAuthenticationProvider();
-//        provider.setPasswordEncoder(passwordEncoder());
-//        provider.setUserDetailsService(userDetailsService);
-//        return provider;
-//    }
-
 
 
 }

@@ -15,9 +15,9 @@
 
 <body>
    <div class="wrapper">
-      <%@include file="components/header-menu.jsp" %>
+      <%@include file="../components/header-menu.jsp" %>
       <main class="page page_index">
-         <%@include file="components/menu.jsp" %>
+         <%@include file="../components/menu.jsp" %>
          <div class="data">
             <div class="data__title">
                Currency transfer
@@ -99,14 +99,14 @@
                   </form>
                   </form:form>
 
-                  <button onclick="window.location.href='/transaction/delete/'" class="form-button data__reject">
+                  <button onclick="window.location.href='../..'" class="form-button data__reject">
                      Cancel
                   </button>
                </div>
             </div>
          </div>
       </main>
-      <%@include file="components/footer.jsp" %>
+      <%@include file="../components/footer.jsp" %>
    </div>
 
    <script src="${path}/js/burger.js"></script>

@@ -20,7 +20,7 @@
 
 <body>
    <div class="wrapper">
-      <%@include file="components/header-menu.jsp" %>
+      <%@include file="../components/header-menu.jsp" %>
       <div class="popup__wrapper">
          <div class="popup popup__transfer">
          <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -79,7 +79,7 @@
       </div>
 
       <main class="page page_index">
-          <%@include file="components/menuAdmin.jsp" %>
+          <%@include file="../components/menuAdmin.jsp" %>
          <div class="data card-details">
             <div class="form-title card-details__title">Statistic</div>
             <div class="card-details__transactions transactions-card-details">
@@ -142,7 +142,7 @@
                </div>
          </div>
       </main>
-      <%@include file="components/footer.jsp" %>
+      <%@include file="../components/footer.jsp" %>
    </div>
 
    <script src="${path}/js/burger.js"></script>
